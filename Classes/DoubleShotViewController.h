@@ -16,11 +16,14 @@
     
     BOOL fastStitch;
     NSInteger memoryWarningCount;
+    
+    
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *textView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) Stitcher *stitcher;
+@property (nonatomic, retain) UIImage* joined_uiimage;
 
 
 @property (nonatomic, retain) IBOutlet UILabel *secondsLabel;
@@ -41,12 +44,13 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *stitchButton;
 @property (nonatomic, retain) IBOutlet UIButton *fastStitchButton;
+@property (nonatomic, retain) IBOutlet UIButton *saveButton;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityView;
 
 - (IBAction)sliderChanged:(id)sender;
 - (IBAction)stitchButtonPressed:(id)sender;
 - (IBAction)fastStitchButtonPressed:(id)sender;
 - (IBAction)resetOptionsButtonPressed:(id)sender;
-
+- (IBAction)saveImage:(id)sender;
 - (void)saveOptions;
 @end

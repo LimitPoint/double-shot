@@ -191,6 +191,13 @@ bool done = false;
     [self sliderChanged:self];
 }
 
+- (IBAction)saveImage:(id)sender
+{
+    [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
+    
+    UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
+}
+
 - (void)stitch
 {
 	NSLog(@"Started!");
@@ -240,21 +247,16 @@ bool done = false;
             
             [self displayImage:[UIImage imageWithIPLImage:joined_image]];
             
-            UIImage* joined_uiimage = [UIImage imageWithIPLImage:joined_image];
+            self.joined_uiimage = [UIImage imageWithIPLImage:joined_image];
             
             [self stitcher:self.stitcher didUpdate:@"Releasing result."];
             [Stitcher releaseImage:&joined_image];
             
-            if (joined_uiimage) {
+            if (self.joined_uiimage) {
                 
-                [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
+                self.saveButton.enabled = YES;
                 
-                UIImageWriteToSavedPhotosAlbum(joined_uiimage, nil, nil, nil);
-                
-                NSData* imageData =  UIImagePNGRepresentation(joined_uiimage);
-                UIImage* pngImage = [UIImage imageWithData:imageData];
-                
-                UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:pngImage] applicationActivities:nil];
+                UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:self.joined_uiimage] applicationActivities:nil];
                 
                 /*
                  
@@ -313,9 +315,8 @@ bool done = false;
                             alert = [[UIAlertView alloc] initWithTitle:@"Cancelled?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                         }
                         
-                        
-                        
                         [alert show];
+                
                     });
                 }];
                 
@@ -326,6 +327,9 @@ bool done = false;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{[self presentViewController:activityViewController animated:YES completion:nil]; });
                 
+            }
+            else {
+                self.saveButton.enabled = NO;
             }
         }
         

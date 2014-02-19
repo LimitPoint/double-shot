@@ -19,6 +19,7 @@
                 <outlet property="inputImageScalingSlider" destination="EpV-3E-Kyk" id="mCY-rZ-RGc"/>
                 <outlet property="matchingMarginSizeLabel" destination="c8l-DY-s41" id="w8f-gT-wpo"/>
                 <outlet property="matchingMarginSizeSlider" destination="WPQ-Tc-O35" id="WpQ-an-1lL"/>
+                <outlet property="saveButton" destination="gCZ-Gx-OuX" id="W1k-HW-jNp"/>
                 <outlet property="secondsLabel" destination="Slf-BM-wmx" id="3KF-BD-19N"/>
                 <outlet property="stitchButton" destination="uXv-hY-ZMY" id="DvM-pQ-RJz"/>
                 <outlet property="textView" destination="30" id="31"/>
@@ -46,102 +47,102 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="sAy-ou-b55">
-                            <rect key="frame" x="-2" y="0.0" width="325" height="255"/>
+                            <rect key="frame" x="-3" y="0.0" width="325" height="286"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="25" maxValue="100" id="EpV-3E-Kyk">
-                                    <rect key="frame" x="108" y="30" width="171" height="29"/>
+                                    <rect key="frame" x="108" y="50" width="171" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="p6p-Xl-eSs"/>
                                     </connections>
                                 </slider>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Input Image Scaling" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="HWj-Hd-hHh">
-                                    <rect key="frame" x="32" y="33" width="70" height="26"/>
+                                    <rect key="frame" x="32" y="53" width="70" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="MRf-pL-0mI">
-                                    <rect key="frame" x="276" y="33" width="29" height="21"/>
+                                    <rect key="frame" x="276" y="53" width="29" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="Slf-BM-wmx">
-                                    <rect key="frame" x="215" y="3" width="73" height="21"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="Slf-BM-wmx">
+                                    <rect key="frame" x="48" y="25" width="159" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="33" minValue="0.0" maxValue="100" id="OLs-Pw-pMo">
-                                    <rect key="frame" x="108" y="66" width="171" height="29"/>
+                                    <rect key="frame" x="108" y="86" width="171" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="OvC-g3-8IP"/>
                                     </connections>
                                 </slider>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Blend Width Scaling" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="qFf-yI-BSx">
-                                    <rect key="frame" x="32" y="69" width="70" height="26"/>
+                                    <rect key="frame" x="32" y="89" width="70" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Crop" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="6kY-AL-Wc7">
-                                    <rect key="frame" x="78" y="183" width="24" height="13"/>
+                                    <rect key="frame" x="78" y="203" width="24" height="13"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="33" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="PZm-mZ-6iD">
-                                    <rect key="frame" x="276" y="69" width="29" height="21"/>
+                                    <rect key="frame" x="276" y="89" width="29" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="33" minValue="20" maxValue="100" id="WPQ-Tc-O35">
-                                    <rect key="frame" x="108" y="102" width="171" height="29"/>
+                                    <rect key="frame" x="108" y="122" width="171" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="mwd-EA-mvp"/>
                                     </connections>
                                 </slider>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Matching Margin Size" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="S2F-3q-4RW">
-                                    <rect key="frame" x="14" y="102" width="88" height="28"/>
+                                    <rect key="frame" x="14" y="122" width="88" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="33" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="c8l-DY-s41">
-                                    <rect key="frame" x="276" y="107" width="29" height="21"/>
+                                    <rect key="frame" x="276" y="127" width="29" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="20" maxValue="100" id="KOr-QK-3Yj">
-                                    <rect key="frame" x="108" y="138" width="168" height="29"/>
+                                    <rect key="frame" x="108" y="158" width="168" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="woY-Ft-Hd6"/>
                                     </connections>
                                 </slider>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Homography Scaling" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="dbm-Ea-XE8">
-                                    <rect key="frame" x="17" y="138" width="85" height="28"/>
+                                    <rect key="frame" x="17" y="158" width="85" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="cT1-21-348">
-                                    <rect key="frame" x="276" y="141" width="29" height="21"/>
+                                    <rect key="frame" x="276" y="161" width="29" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,6 +170,17 @@
                                         <action selector="fastStitchButtonPressed:" destination="-1" eventType="touchUpInside" id="jlC-SZ-Aw9"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gCZ-Gx-OuX">
+                                    <rect key="frame" x="224" y="0.0" width="30" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal" title="Save">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="saveImage:" destination="-1" eventType="touchUpInside" id="sUo-l7-XTq"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0oP-GO-Jy8">
                                     <rect key="frame" x="121" y="0.0" width="86" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -180,26 +192,26 @@
                                         <action selector="resetOptionsButtonPressed:" destination="-1" eventType="touchUpInside" id="Zdi-F0-YEp"/>
                                     </connections>
                                 </button>
-                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" id="pOU-EO-S72">
-                                    <rect key="frame" x="296" y="4" width="20" height="20"/>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" id="pOU-EO-S72">
+                                    <rect key="frame" x="20" y="25" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="VwT-9a-UBV">
-                                    <rect key="frame" x="110" y="174" width="51" height="31"/>
+                                    <rect key="frame" x="110" y="194" width="51" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="nny-cY-j5T"/>
                                     </connections>
                                 </switch>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Better Interpolation" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="odi-C6-Eam">
-                                    <rect key="frame" x="26" y="211" width="76" height="35"/>
+                                    <rect key="frame" x="26" y="231" width="76" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="sFQ-4N-68z">
-                                    <rect key="frame" x="112" y="213" width="51" height="31"/>
+                                    <rect key="frame" x="112" y="233" width="51" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="81s-u0-cOR"/>
@@ -211,7 +223,7 @@
                     </subviews>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="contentSize">
-                            <size key="value" width="320" height="255"/>
+                            <size key="value" width="320" height="286"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </scrollView>
