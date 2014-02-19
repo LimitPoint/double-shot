@@ -1,0 +1,17 @@
+//  Double Shot-Prefix.pch
+//  Double Shot
+//
+//  Created by Joe Pagliaro.
+//  Copyright 2014 Limit Point LLC. All rights reserved.
+//
+
+#ifdef __cplusplus
+// For SURF
+#import <opencv2/legacy/compat.hpp>
+// For UiImage to/from IplImage (cv::Mat)
+#import <opencv2/highgui/ios.h>
+#import <opencv2/opencv.hpp>
+#endif
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>

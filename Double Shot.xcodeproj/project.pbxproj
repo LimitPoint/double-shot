@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0013FA2514111D0E004DC957 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2414111D0E004DC957 /* UIKit.framework */; };
+		0013FA2714111D0E004DC957 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2614111D0E004DC957 /* Foundation.framework */; };
+		0013FA2914111D0E004DC957 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2814111D0E004DC957 /* CoreGraphics.framework */; };
+		0013FA2F14111D0F004DC957 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0013FA2D14111D0F004DC957 /* InfoPlist.strings */; };
+		0013FA3114111D0F004DC957 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA3014111D0F004DC957 /* main.m */; };
+		0013FA3514111D0F004DC957 /* DoubleShotAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */; };
+		0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0013FA3614111D0F004DC957 /* MainWindow.xib */; };
+		0013FA3B14111D0F004DC957 /* DoubleShotViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA3A14111D0F004DC957 /* DoubleShotViewController.mm */; };
+		0013FA4814111D6A004DC957 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */; };
+		005C845A141697EF00B1ADDB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 005C8459141697EF00B1ADDB /* CoreVideo.framework */; };
+		CD0CE9E618AADAFF00D40BA2 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0CE9E418AADAFF00D40BA2 /* AssetsLibrary.framework */; };
+		CD1B85251495EF5000AF3962 /* NSString+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */; };
+		CD36874118AFED6B00386142 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD36874018AFED6B00386142 /* CoreMedia.framework */; };
+		CD36874318AFED8E00386142 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD36874218AFED8E00386142 /* AVFoundation.framework */; };
+		CD36874518AFEDB900386142 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD36874418AFEDB900386142 /* QuartzCore.framework */; };
+		CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875318B2AF3C00386142 /* Default-568h@2x.png */; };
+		CD36875C18B2AF3C00386142 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875418B2AF3C00386142 /* Default.png */; };
+		CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875518B2AF3C00386142 /* Default@2x.png */; };
+		CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875618B2AF3C00386142 /* Icon-120.png */; };
+		CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875718B2AF3C00386142 /* Icon-120@2x.png */; };
+		CD36876018B2AF3C00386142 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875818B2AF3C00386142 /* Icon.png */; };
+		CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875918B2AF3C00386142 /* Icon@2x.png */; };
+		CD36876218B2AF3C00386142 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD36875A18B2AF3C00386142 /* Images.xcassets */; };
+		CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876418B2AF5D00386142 /* left_amsterdam.jpg */; };
+		CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876518B2AF5D00386142 /* left_pizza.jpg */; };
+		CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876618B2AF5D00386142 /* right_amsterdam.jpg */; };
+		CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876718B2AF5D00386142 /* right_pizza.jpg */; };
+		CD36876E18B40E3500386142 /* left_screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876C18B40E3500386142 /* left_screen.jpg */; };
+		CD36876F18B40E3500386142 /* right_screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876D18B40E3500386142 /* right_screen.jpg */; };
+		CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4979491468BF9B00E3E813 /* Stitcher.mm */; };
+		CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */; };
+		CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7B520518AC682200E3BB44 /* opencv2.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0013FA2014111D0E004DC957 /* Double Shot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Double Shot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0013FA2414111D0E004DC957 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0013FA2614111D0E004DC957 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0013FA2814111D0E004DC957 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0013FA2C14111D0F004DC957 /* Double Shot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Double Shot-Info.plist"; sourceTree = "<group>"; };
+		0013FA2E14111D0F004DC957 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0013FA3014111D0F004DC957 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0013FA3214111D0F004DC957 /* Double Shot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Double Shot-Prefix.pch"; sourceTree = "<group>"; };
+		0013FA3314111D0F004DC957 /* DoubleShotAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleShotAppDelegate.h; sourceTree = "<group>"; };
+		0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DoubleShotAppDelegate.mm; sourceTree = "<group>"; };
+		0013FA3714111D0F004DC957 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		0013FA3914111D0F004DC957 /* DoubleShotViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleShotViewController.h; sourceTree = "<group>"; };
+		0013FA3A14111D0F004DC957 /* DoubleShotViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DoubleShotViewController.mm; sourceTree = "<group>"; };
+		0013FA4614111D6A004DC957 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		005C8459141697EF00B1ADDB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		CD0CE9E418AADAFF00D40BA2 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		CD1B85231495EF5000AF3962 /* NSString+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OpenCV.h"; sourceTree = "<group>"; };
+		CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+OpenCV.mm"; sourceTree = "<group>"; };
+		CD36874018AFED6B00386142 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		CD36874218AFED8E00386142 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CD36874418AFEDB900386142 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CD36875318B2AF3C00386142 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CD36875418B2AF3C00386142 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CD36875518B2AF3C00386142 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CD36875618B2AF3C00386142 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
+		CD36875718B2AF3C00386142 /* Icon-120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120@2x.png"; sourceTree = "<group>"; };
+		CD36875818B2AF3C00386142 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		CD36875918B2AF3C00386142 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		CD36875A18B2AF3C00386142 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CD36876418B2AF5D00386142 /* left_amsterdam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_amsterdam.jpg; sourceTree = "<group>"; };
+		CD36876518B2AF5D00386142 /* left_pizza.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_pizza.jpg; sourceTree = "<group>"; };
+		CD36876618B2AF5D00386142 /* right_amsterdam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_amsterdam.jpg; sourceTree = "<group>"; };
+		CD36876718B2AF5D00386142 /* right_pizza.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_pizza.jpg; sourceTree = "<group>"; };
+		CD36876C18B40E3500386142 /* left_screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_screen.jpg; sourceTree = "<group>"; };
+		CD36876D18B40E3500386142 /* right_screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_screen.jpg; sourceTree = "<group>"; };
+		CD4979481468BF9B00E3E813 /* Stitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stitcher.h; sourceTree = "<group>"; };
+		CD4979491468BF9B00E3E813 /* Stitcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Stitcher.mm; sourceTree = "<group>"; };
+		CD6960F018AFD93F00FC7150 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoubleShotViewController.xib; sourceTree = "<group>"; };
+		CD7B520518AC682200E3BB44 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0013FA1D14111D0E004DC957 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				005C845A141697EF00B1ADDB /* CoreVideo.framework in Frameworks */,
+				CD36874318AFED8E00386142 /* AVFoundation.framework in Frameworks */,
+				CD36874118AFED6B00386142 /* CoreMedia.framework in Frameworks */,
+				0013FA2514111D0E004DC957 /* UIKit.framework in Frameworks */,
+				0013FA2714111D0E004DC957 /* Foundation.framework in Frameworks */,
+				0013FA2914111D0E004DC957 /* CoreGraphics.framework in Frameworks */,
+				CD0CE9E618AADAFF00D40BA2 /* AssetsLibrary.framework in Frameworks */,
+				CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */,
+				CD36874518AFEDB900386142 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0013FA1514111D0E004DC957 = {
+			isa = PBXGroup;
+			children = (
+				CD36876318B2AF5D00386142 /* Photos */,
+				CD36875218B2AF3C00386142 /* Resources */,
+				0013FA2A14111D0F004DC957 /* Classes */,
+				0013FA2314111D0E004DC957 /* Frameworks */,
+				0013FA2114111D0E004DC957 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0013FA2114111D0E004DC957 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0013FA2014111D0E004DC957 /* Double Shot.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0013FA2314111D0E004DC957 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD7B520518AC682200E3BB44 /* opencv2.framework */,
+				CD0CE9E418AADAFF00D40BA2 /* AssetsLibrary.framework */,
+				CD36874018AFED6B00386142 /* CoreMedia.framework */,
+				005C8459141697EF00B1ADDB /* CoreVideo.framework */,
+				CD36874218AFED8E00386142 /* AVFoundation.framework */,
+				CD36874418AFEDB900386142 /* QuartzCore.framework */,
+				0013FA2414111D0E004DC957 /* UIKit.framework */,
+				0013FA2614111D0E004DC957 /* Foundation.framework */,
+				0013FA2814111D0E004DC957 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0013FA2A14111D0F004DC957 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0013FA3314111D0F004DC957 /* DoubleShotAppDelegate.h */,
+				0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */,
+				0013FA3614111D0F004DC957 /* MainWindow.xib */,
+				0013FA3914111D0F004DC957 /* DoubleShotViewController.h */,
+				0013FA3A14111D0F004DC957 /* DoubleShotViewController.mm */,
+				CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */,
+				0013FA2B14111D0F004DC957 /* Supporting Files */,
+				0013FA4614111D6A004DC957 /* UIImage+OpenCV.h */,
+				0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */,
+				CD1B85231495EF5000AF3962 /* NSString+OpenCV.h */,
+				CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */,
+				CD4979481468BF9B00E3E813 /* Stitcher.h */,
+				CD4979491468BF9B00E3E813 /* Stitcher.mm */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0013FA2B14111D0F004DC957 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0013FA2C14111D0F004DC957 /* Double Shot-Info.plist */,
+				0013FA2D14111D0F004DC957 /* InfoPlist.strings */,
+				0013FA3014111D0F004DC957 /* main.m */,
+				0013FA3214111D0F004DC957 /* Double Shot-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CD36875218B2AF3C00386142 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CD36875318B2AF3C00386142 /* Default-568h@2x.png */,
+				CD36875418B2AF3C00386142 /* Default.png */,
+				CD36875518B2AF3C00386142 /* Default@2x.png */,
+				CD36875618B2AF3C00386142 /* Icon-120.png */,
+				CD36875718B2AF3C00386142 /* Icon-120@2x.png */,
+				CD36875818B2AF3C00386142 /* Icon.png */,
+				CD36875918B2AF3C00386142 /* Icon@2x.png */,
+				CD36875A18B2AF3C00386142 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CD36876318B2AF5D00386142 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				CD36876418B2AF5D00386142 /* left_amsterdam.jpg */,
+				CD36876618B2AF5D00386142 /* right_amsterdam.jpg */,
+				CD36876518B2AF5D00386142 /* left_pizza.jpg */,
+				CD36876718B2AF5D00386142 /* right_pizza.jpg */,
+				CD36876C18B40E3500386142 /* left_screen.jpg */,
+				CD36876D18B40E3500386142 /* right_screen.jpg */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0013FA1F14111D0E004DC957 /* Double Shot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0013FA4114111D0F004DC957 /* Build configuration list for PBXNativeTarget "Double Shot" */;
+			buildPhases = (
+				0013FA1C14111D0E004DC957 /* Sources */,
+				0013FA1D14111D0E004DC957 /* Frameworks */,
+				0013FA1E14111D0E004DC957 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Double Shot";
+			productName = OpenCVClient;
+			productReference = 0013FA2014111D0E004DC957 /* Double Shot.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0013FA1714111D0E004DC957 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Limit Point LLC";
+				TargetAttributes = {
+					0013FA1F14111D0E004DC957 = {
+						DevelopmentTeam = GZABHNF58X;
+					};
+				};
+			};
+			buildConfigurationList = 0013FA1A14111D0E004DC957 /* Build configuration list for PBXProject "Double Shot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0013FA1514111D0E004DC957;
+			productRefGroup = 0013FA2114111D0E004DC957 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0013FA1F14111D0E004DC957 /* Double Shot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0013FA1E14111D0E004DC957 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD36876018B2AF3C00386142 /* Icon.png in Resources */,
+				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
+				CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */,
+				0013FA2F14111D0F004DC957 /* InfoPlist.strings in Resources */,
+				CD36876218B2AF3C00386142 /* Images.xcassets in Resources */,
+				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
+				CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */,
+				CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */,
+				CD36876E18B40E3500386142 /* left_screen.jpg in Resources */,
+				CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */,
+				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
+				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
+				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
+				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
+				0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */,
+				CD36875C18B2AF3C00386142 /* Default.png in Resources */,
+				CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0013FA1C14111D0E004DC957 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0013FA3114111D0F004DC957 /* main.m in Sources */,
+				0013FA3514111D0F004DC957 /* DoubleShotAppDelegate.mm in Sources */,
+				0013FA3B14111D0F004DC957 /* DoubleShotViewController.mm in Sources */,
+				0013FA4814111D6A004DC957 /* UIImage+OpenCV.mm in Sources */,
+				CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */,
+				CD1B85251495EF5000AF3962 /* NSString+OpenCV.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0013FA2D14111D0F004DC957 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0013FA2E14111D0F004DC957 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0013FA3614111D0F004DC957 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0013FA3714111D0F004DC957 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD6960F018AFD93F00FC7150 /* en */,
+			);
+			name = DoubleShotViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0013FA3F14111D0F004DC957 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "E4060689-BD91-49CB-ACDB-F0373927200A";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7;
+			};
+			name = Debug;
+		};
+		0013FA4014111D0F004DC957 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E4060689-BD91-49CB-ACDB-F0373927200A";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
+			};
+			name = Release;
+		};
+		0013FA4214111D0F004DC957 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"/Users/jpagliaro/Desktop/Double\\ Shot\\ Blog/Double\\ Shot\\ iOS\\ ƒ/Double\\ Shot\\ iOS",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Classes/Double Shot-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "Classes/Double Shot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Double Shot";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0013FA4314111D0F004DC957 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"/Users/jpagliaro/Desktop/Double\\ Shot\\ Blog/Double\\ Shot\\ iOS\\ ƒ/Double\\ Shot\\ iOS",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Classes/Double Shot-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "Classes/Double Shot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Double Shot";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0013FA1A14111D0E004DC957 /* Build configuration list for PBXProject "Double Shot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0013FA3F14111D0F004DC957 /* Debug */,
+				0013FA4014111D0F004DC957 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0013FA4114111D0F004DC957 /* Build configuration list for PBXNativeTarget "Double Shot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0013FA4214111D0F004DC957 /* Debug */,
+				0013FA4314111D0F004DC957 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0013FA1714111D0E004DC957 /* Project object */;
+}
