@@ -29,7 +29,6 @@
 		CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875718B2AF3C00386142 /* Icon-120@2x.png */; };
 		CD36876018B2AF3C00386142 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875818B2AF3C00386142 /* Icon.png */; };
 		CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD36875918B2AF3C00386142 /* Icon@2x.png */; };
-		CD36876218B2AF3C00386142 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD36875A18B2AF3C00386142 /* Images.xcassets */; };
 		CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876418B2AF5D00386142 /* left_amsterdam.jpg */; };
 		CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876518B2AF5D00386142 /* left_pizza.jpg */; };
 		CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876618B2AF5D00386142 /* right_amsterdam.jpg */; };
@@ -39,6 +38,11 @@
 		CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4979491468BF9B00E3E813 /* Stitcher.mm */; };
 		CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */; };
 		CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7B520518AC682200E3BB44 /* opencv2.framework */; };
+		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
+		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
+		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
+		CDD24B5818B6A70C00001470 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5618B6A70C00001470 /* Icon-76.png */; };
+		CDD24B5918B6A70C00001470 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5718B6A70C00001470 /* Icon-152.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +75,6 @@
 		CD36875718B2AF3C00386142 /* Icon-120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120@2x.png"; sourceTree = "<group>"; };
 		CD36875818B2AF3C00386142 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		CD36875918B2AF3C00386142 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		CD36875A18B2AF3C00386142 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CD36876418B2AF5D00386142 /* left_amsterdam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_amsterdam.jpg; sourceTree = "<group>"; };
 		CD36876518B2AF5D00386142 /* left_pizza.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_pizza.jpg; sourceTree = "<group>"; };
 		CD36876618B2AF5D00386142 /* right_amsterdam.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_amsterdam.jpg; sourceTree = "<group>"; };
@@ -82,6 +85,11 @@
 		CD4979491468BF9B00E3E813 /* Stitcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Stitcher.mm; sourceTree = "<group>"; };
 		CD6960F018AFD93F00FC7150 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoubleShotViewController.xib; sourceTree = "<group>"; };
 		CD7B520518AC682200E3BB44 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
+		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
+		CDD24B5618B6A70C00001470 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		CDD24B5718B6A70C00001470 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-152.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +153,7 @@
 				0013FA3314111D0F004DC957 /* DoubleShotAppDelegate.h */,
 				0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */,
 				0013FA3614111D0F004DC957 /* MainWindow.xib */,
+				CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */,
 				0013FA3914111D0F004DC957 /* DoubleShotViewController.h */,
 				0013FA3A14111D0F004DC957 /* DoubleShotViewController.mm */,
 				CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */,
@@ -176,11 +185,14 @@
 				CD36875318B2AF3C00386142 /* Default-568h@2x.png */,
 				CD36875418B2AF3C00386142 /* Default.png */,
 				CD36875518B2AF3C00386142 /* Default@2x.png */,
+				CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */,
+				CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */,
+				CDD24B5618B6A70C00001470 /* Icon-76.png */,
+				CDD24B5718B6A70C00001470 /* Icon-152.png */,
 				CD36875618B2AF3C00386142 /* Icon-120.png */,
 				CD36875718B2AF3C00386142 /* Icon-120@2x.png */,
 				CD36875818B2AF3C00386142 /* Icon.png */,
 				CD36875918B2AF3C00386142 /* Icon@2x.png */,
-				CD36875A18B2AF3C00386142 /* Images.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -257,18 +269,22 @@
 				CD36876018B2AF3C00386142 /* Icon.png in Resources */,
 				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
 				CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */,
+				CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */,
 				0013FA2F14111D0F004DC957 /* InfoPlist.strings in Resources */,
-				CD36876218B2AF3C00386142 /* Images.xcassets in Resources */,
 				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
 				CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */,
+				CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */,
 				CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */,
 				CD36876E18B40E3500386142 /* left_screen.jpg in Resources */,
 				CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */,
+				CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */,
 				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
 				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
 				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
+				CDD24B5918B6A70C00001470 /* Icon-152.png in Resources */,
 				0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */,
+				CDD24B5818B6A70C00001470 /* Icon-76.png in Resources */,
 				CD36875C18B2AF3C00386142 /* Default.png in Resources */,
 				CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */,
 			);
@@ -315,6 +331,14 @@
 				CD6960F018AFD93F00FC7150 /* en */,
 			);
 			name = DoubleShotViewController.xib;
+			sourceTree = "<group>";
+		};
+		CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDD24B5018B69B5500001470 /* en */,
+			);
+			name = "MainWindow-iPad.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -371,6 +395,7 @@
 		0013FA4214111D0F004DC957 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -393,8 +418,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D4718E41-DAD9-4957-B49E-2B87ECD92024";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -403,10 +429,11 @@
 		0013FA4314111D0F004DC957 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Limit Point Software (GZABHNF58X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Limit Point Software (GZABHNF58X)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -425,8 +452,9 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "197E6D44-35BE-40E9-A048-86856CA4399B";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

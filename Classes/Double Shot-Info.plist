@@ -15,6 +15,8 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>Icon-120</string>
+				<string>Icon-76</string>
+				<string>Icon-152</string>
 			</array>
 		</dict>
 	</dict>
@@ -36,6 +38,8 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainWindow-iPad</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
