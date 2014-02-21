@@ -404,160 +404,6 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	cvGetPerspectiveTransform(from, to, T);
 }
 
-- (void)makeRightSidePerspectiveTransformFor2ImageStitch:(CvMat*)P from:(CvPoint2D32f*)warped_right
-{	
-	cvSetIdentity(P);
-	
-	CvPoint2D32f from[4];
-	CvPoint2D32f to[4];
-	
-	// fix this mapping so that {0,0} and {0, height} are fixed, and the right side of the right image
-	// matches the right size of the composite (blended) image.
-	from[0].x = 0;
-	from[0].y = 0;
-	
-	from[1].x = warped_right[1].x;
-	from[1].y = warped_right[1].y;
-	
-	from[2].x = warped_right[2].x;
-	from[2].y = warped_right[2].y;
-	
-	from[3].x = 0;
-	from[3].y = blended_height;
-	
-	if (self.warpStitchPerspective) {
-		
-		to[0].x = 0;
-		to[0].y = 0;
-		
-		to[1].x = blended_width;
-		to[1].y = 0;
-		
-		to[2].x = blended_width;
-		to[2].y = blended_height;
-		
-		to[3].x = 0;
-		to[3].y = blended_height;
-		
-	}
-	else {
-		to[0].x = 0;
-		to[0].y = 0;
-		
-		to[1].x = blended_width;
-		to[1].y = from[1].y;
-		
-		to[2].x = blended_width;
-		to[2].y = from[2].y;
-		
-		to[3].x = 0;
-		to[3].y = blended_height;
-	}
-	
-	cvGetPerspectiveTransform(from, to, P);
-}
-
-- (void)makePerspectiveTransform:(CvMat*)P withLeftCoordinates:(CvPoint2D32f*)warped_left andRightCoordinates:(CvPoint2D32f*)warped_right /* forWidth:(int)width forHeight:(int)height */
-{
-	cvSetIdentity(P);
-	
-	CvPoint2D32f from[4];
-	CvPoint2D32f to[4];
-	
-	from[0].x = warped_left[0].x;
-	from[0].y = warped_left[0].y;
-	
-	from[1].x = warped_right[1].x;
-	from[1].y = warped_right[1].y;
-	
-	from[2].x = warped_right[2].x;
-	from[2].y = warped_right[2].y;
-	
-	from[3].x = warped_left[3].x;
-	from[3].y = warped_left[3].y;
-	
-	if (self.warpStitchPerspective) {
-		// fix this mapping so that {0,0} and {0, height} are fixed, and the right side of the right image
-		// matches the right size of the composite (blended) image.
-		
-		to[0].x = 0;
-		to[0].y = 0;
-		
-		to[1].x = blended_width;
-		to[1].y = 0;
-		
-		to[2].x = blended_width;
-		to[2].y = blended_height;
-		
-		to[3].x = 0;
-		to[3].y = blended_height;
-		
-	}
-	else {
-				
-		to[0].x = 0;
-		to[0].y = from[0].y ;
-		
-		to[1].x = blended_width;
-		to[1].y = from[1].y;
-		
-		to[2].x = blended_width;
-		to[2].y = from[2].y;
-		
-		to[3].x = 0;
-		to[3].y = from[3].y;
-	}
-	
-	
-	cvGetPerspectiveTransform(from, to, P);
-	
-}
-
-- (bool)validateHomographyCoordinates:(CvPoint2D32f*)warpedCoordinates
-{
-	bool is_valid = false;
-	
-	int x1,x2,x3,x4;
-	int y1,y2,y3,y4;
-	
-	x1 = warpedCoordinates[0].x;
-	x2 = warpedCoordinates[1].x;
-	x3 = warpedCoordinates[2].x;
-	x4 = warpedCoordinates[3].x;
-	
-	y1 = warpedCoordinates[0].y;
-	y2 = warpedCoordinates[1].y;
-	y3 = warpedCoordinates[2].y;
-	y4 = warpedCoordinates[3].y;
-	
-	NSLog(@"Homograph coordinates =");
-	NSLog(@"x, y = %d, %d", x1, y1);
-	NSLog(@"x, y = %d, %d", x2, y2);
-	NSLog(@"x, y = %d, %d", x3, y3);
-	NSLog(@"x, y = %d, %d", x4, y4);
-	
-	[self.delegate stitcher:self didUpdate:@"Homography Coordinates"];
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x1, y1]];
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x2, y2]];
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x3, y3]];
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x4, y4]];
-	
-	if (x1 < marginSize) {
-		if (x4 < marginSize) {
-			
-			//if (x2 > x1) {
-			//if (x3 > x4) {
-			if ((x2 > x1) && ((fabs(x2-x1) < (2*marginSize))) && ((fabs(x2-x1) > (marginSize/3.0)))) {
-				if ((x3 > x4) && ((fabs(x3-x4) < (2*marginSize))) && ((fabs(x3-x4) > (marginSize/3.0)))) {
-					
-					is_valid = true;
-				}
-			}
-		}
-	}
-	
-	return is_valid;
-}
 
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
@@ -807,34 +653,11 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 								cvSetIdentity(&H_prime);
 							}
 							else {
-								
-								// Note ipl_left and ipl_right are the margins, not the actual images being matched
-								
-								CvPoint2D32f warpedCoordinates[4];
-								[self warpImageCoordinates:ipl_right into:warpedCoordinates withPerspectiveTransform:&H_prime];
-								
+                        
 								[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"width, height = %d, %d", ipl_right->width, ipl_right->height]];
 								NSLog(@"Right image width, height = %d, %d", ipl_right->width, ipl_right->height);
 								
-								bool is_valid = [self validateHomographyCoordinates:warpedCoordinates];
-								
-								if (is_valid == false) {
-									[self.delegate stitcher:self didUpdate:@"*** Setting homography to identity ***"];
-									NSLog(@"*** Setting homography to identity ***");
-									
-									// reset the translation to the desired amount for an invalid homography
-									if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useTranslation"]) {
-										[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-									}
-									else {
-										[self makeTranslationTransform:&T translation_x:in_left->width translation_y:0];
-									}
-									
-									cvSetIdentity(&H_prime);
-									is_valid = true;
-								}
-								
-							}
+                            }
 							
 							// apply the homographyScaling to the homograph
 							cvMatMul(&H_prime, &S_inverse, &S_prime);
@@ -858,274 +681,7 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	}
 }
 
-/*
-- (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
-{
-	// homography
-	double h_prime[9];
-	CvMat H_prime = cvMat(3, 3, CV_32F, h_prime);
-	cvSetIdentity(&H_prime);
-	
-	double t[9];
-	CvMat T = cvMat(3, 3, CV_32F, t);
-	cvSetIdentity(&T);
-	
-	[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-	
-	if ((self.makeHomography == false) || s_should_abort) {
-		// apply the translation to the homograph
-		cvMatMul(&T, &H_prime, H);
-		return;
-	}
-	
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Computing homography %f", progress/progressMax]];
-	NSLog(@"Computing homography %f", progress/progressMax);
-	
-	IplImage* right_margin;
-	IplImage* left_margin;
-	
-	int width = MIN(in_right->width, in_left->width);
-	int height = in_right->height;
-	
-	// homographyScaling
-	double s_prime[9];
-	CvMat S_prime = cvMat(3, 3, CV_32F, s_prime);
-	cvSetIdentity(&S_prime);
-	
-	double s_inverse[9];
-	CvMat S_inverse = cvMat(3, 3, CV_32F, s_inverse);
-	cvSetIdentity(&S_inverse);
-	
-	double s[9];
-	CvMat S = cvMat(3, 3, CV_32F, s);
-	cvSetIdentity(&S);
-	
-	// extract the image of width marginSize
-	CvSize size;
-	
-	if (marginSize == 0) {
-		marginSize = width;
-	}
-	
-	size.width = marginSize;
-	size.height = height;
-	
-	left_margin = [Stitcher createImageWithSize:size depth:depth channels:channels]; 
-	
-	if (left_margin) {
-		
-		right_margin = [Stitcher createImageWithSize:size depth:depth channels:channels]; 
-		
-		if (right_margin) {
-			
-			// copy left marginSize into left
-			CvRect left_roi = {in_left->width - size.width, 0, size.width, size.height};
-			cvSetImageROI(in_left, left_roi);
-			cvCopy(in_left, left_margin);
-			cvResetImageROI(in_left);
-			
-			// copy right marginSize into right
-			CvRect right_roi = {0, 0, size.width, size.height};
-			cvSetImageROI(in_right, right_roi);
-			cvCopy(in_right, right_margin);
-			cvResetImageROI(in_right);
-			
-			IplImage* ipl_right = nil;
-			IplImage* ipl_left = nil;
-			
-			if (self.homographyScaling != 0) {
-				
-				IplImage *scaled_right = [Stitcher createImageWithSize:cvSize(width*self.homographyScaling, height*self.homographyScaling) depth:depth channels:channels];
-				
-				if (scaled_right) {
-					
-					IplImage *scaled_left = [Stitcher createImageWithSize:cvSize(width*self.homographyScaling, height*self.homographyScaling) depth:depth channels:channels];
-					
-					if (scaled_left) {
-						
-						cvResize(right_margin, scaled_right, CV_INTER_CUBIC);
-						cvResize(left_margin, scaled_left, CV_INTER_CUBIC);
-						
-						ipl_right = [self prepareImage:scaled_right];
-						
-						if (ipl_right) {
-							
-							ipl_left = [self prepareImage:scaled_left];
-							
-							if (ipl_left) {
-								
-								CvPoint2D32f from[4];
-								CvPoint2D32f to[4];
-								
-								// from
-								// top-left
-								from[0].x = 0;
-								from[0].y = 0;
-								
-								// top-right
-								from[1].x = scaled_right->width;
-								from[1].y = 0;
-								
-								// bottom-right
-								from[2].x = scaled_right->width;
-								from[2].y = scaled_right->height;
-								
-								// bottom-left
-								from[3].x = 0;
-								from[3].y = scaled_right->height;
-								
-								// to
-								// top-left
-								to[0].x = 0;
-								to[0].y = 0;
-								
-								// top-right
-								to[1].x = right_margin->width;
-								to[1].y = 0;
-								
-								// bottom-right
-								to[2].x = right_margin->width;
-								to[2].y = right_margin->height;
-								
-								// bottom-left
-								to[3].x = 0;
-								to[3].y = right_margin->height;
-								
-								cvGetPerspectiveTransform(from, to, &S);
-								
-								cvInvert(&S, &S_inverse);
-								
-							}
-						}
-						
-						[Stitcher releaseImage:&scaled_left];
-					}
-					[Stitcher releaseImage:&scaled_right];
-				}
-			}
-			else {
-				ipl_right = [self prepareImage:right_margin];
-				
-				if (ipl_right) {
-					ipl_left = [self prepareImage:left_margin];
-				}
-				
-			}
-			
-			[Stitcher releaseImage:&right_margin];
-			[Stitcher releaseImage:&left_margin];
-			
-			// create the homograph
-			
-			if (ipl_right) {
-				if (ipl_left) {
-					
-					CvMemStorage* memoryBlock = cvCreateMemStorage();
-					
-					if (memoryBlock) {
-						
-						CvSeq* imageRightKeyPoints;
-						CvSeq* imageRightDescriptors;
-						CvSeq* imageLeftKeyPoints;
-						CvSeq* imageLeftDescriptors;
-						
-						if (!s_should_abort) {
-							
-							CvSURFParams params = cvSURFParams(500, 1);
-							
-							cvExtractSURF(ipl_right, 0, &imageRightKeyPoints, &imageRightDescriptors, memoryBlock, params);
-							
-							cvExtractSURF(ipl_left, 0, &imageLeftKeyPoints, &imageLeftDescriptors, memoryBlock, params);
-							
-							cv::vector<cv::vector<CvPoint2D32f> > keyPointMatches;
-							
-							cv::vector<CvPoint2D32f> imageRightMatches;
-							cv::vector<CvPoint2D32f> imageLeftMatches;
-							
-							keyPointMatches.push_back(imageRightMatches);
-							keyPointMatches.push_back(imageLeftMatches);
-							
-							for (int i = 0; i < imageRightDescriptors->total; i++) {
-								const CvSURFPoint* imageRightKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i);
-								const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
-								
-								int nearestNeighbor =
-								FindNaiveNearestNeighbor(imageRightDescriptor, imageRightKeyPoint, imageLeftDescriptors,imageLeftKeyPoints);
-								
-								if (nearestNeighbor == -1) {
-									continue;
-								}
-								
-								CvPoint2D32f p1 = ((CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i))->pt;
-								CvPoint2D32f p2 = ((CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, nearestNeighbor))->pt;
-								
-								keyPointMatches[0].push_back(p1);
-								keyPointMatches[1].push_back(p2);
-							}
-							
-							CvMat imageRightPoints = cvMat(1, keyPointMatches[0].size(), CV_32FC2, keyPointMatches[0].data());
-							CvMat imageLeftPoints = cvMat(1, keyPointMatches[1].size(), CV_32FC2, keyPointMatches[1].data());
-							
-							int result = 0;
-							
-							try {
-								if (!s_should_abort) {
-									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, CV_RANSAC);
-								}
-							} catch (std::exception& e) {
-								result = 0;
-								NSLog(@"%s", e.what());
-							}
-							
-							if (result == 0) {
-								[self.delegate stitcher:self didUpdate:@"Homography result is zero."];
-								NSLog(@"Homography result is zero.");
-								cvSetIdentity(&H_prime);
-							}
-							else {
-								
-								// Note ipl_left and ipl_right are the margins, not the actual images being matched
-								
-								CvPoint2D32f warpedCoordinates[4];
-								[self warpImageCoordinates:ipl_right into:warpedCoordinates withPerspectiveTransform:&H_prime];
-								
-								[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"width, height = %d, %d", ipl_right->width, ipl_right->height]];
-								NSLog(@"Right image width, height = %d, %d", ipl_right->width, ipl_right->height);
-								
-								bool is_valid = [self validateHomographyCoordinates:warpedCoordinates];
-								
-								if (is_valid == false) {
-									[self.delegate stitcher:self didUpdate:@"*** Setting homography to identity ***"];
-									NSLog(@"*** Setting homography to identity ***");
-									
-									cvSetIdentity(&H_prime);
-								}
-								
-							}
-							
-							// apply the homographyScaling to the homograph
-							cvMatMul(&H_prime, &S_inverse, &S_prime);
-							cvMatMul(&S, &S_prime, &H_prime);
-							
-							// apply the translation to the homograph
-							cvMatMul(&T, &H_prime, H);
 
-							
-						}
-												
-						cvReleaseMemStorage(&memoryBlock);
-					}
-					
-					[Stitcher releaseImage:&ipl_left];
-				}
-				[Stitcher releaseImage:&ipl_right];
-			}
-			[Stitcher releaseImage:&right_margin];
-		}
-		[Stitcher releaseImage:&left_margin];
-	}
-}
-*/
 
 - (IplImage*)blend:(IplImage*)right_image with:(IplImage*)left_image usingMask:(IplImage*)warped_mask
 {
@@ -1340,35 +896,6 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	return mask;
 }
 
-- (IplImage*)makeMaskWithImage:(IplImage*)image andWarpedImageCoordinates:(CvPoint2D32f*)warpedCoordinates
-{	
-	if (!image || s_should_abort) {
-		return nil;
-	}
-	
-	CvPoint2D32f image_coordinates[4];
-	
-	// top left	
-	image_coordinates[0].x = 0;			
-	image_coordinates[0].y = 0;
-	
-	// top right
-	image_coordinates[1].x = image->width;	
-	image_coordinates[1].y = 0;	
-	
-	// bottom right
-	image_coordinates[2].x = image->width;	
-	image_coordinates[2].y = image->height;	
-	
-	// bottom left
-	image_coordinates[3].x = 0;				
-	image_coordinates[3].y = image->height;
-	
-	IplImage* mask = [self makeMaskWithCoordinates:image_coordinates andCoordinates:warpedCoordinates];
-	
-	return mask;
-}
-
 - (IplImage*)warpMask:(IplImage*)mask with:(CvMat*)M
 {
 	if (!mask || s_should_abort) {
@@ -1425,23 +952,59 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
         double h[9];
         CvMat H = cvMat(3, 3, CV_32F, h);
         
-        double p[9];
-        CvMat P = cvMat(3, 3, CV_32F, p);
-        
         [self makeHomographyFor:in_imageRight toImage:in_imageLeft homography:&H];
         
         [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
         
         // warp the shape of the right image
-        CvPoint2D32f warped_right[4];
-        [self warpImageCoordinates:in_imageRight into:warped_right withPerspectiveTransform:&H];
+        CvPoint2D32f warped_right_coordinates[4];
+        [self warpImageCoordinates:in_imageRight into:warped_right_coordinates withPerspectiveTransform:&H];
         
-        blended_width = MIN(in_imageRight->width + in_imageLeft->width, MAX(warped_right[1].x, warped_right[2].x));
-        blended_height = in_imageLeft->height;
+        int y_top = MIN(warped_right_coordinates[0].y, warped_right_coordinates[1].y);
+        int y_bottom = MAX(warped_right_coordinates[3].y, warped_right_coordinates[2].y);
+        
+        blended_height = y_bottom-y_top;
+        blended_width = MAX(warped_right_coordinates[1].x, warped_right_coordinates[2].x);
         blended_size = cvSize(blended_width, blended_height);
         
+        CvPoint2D32f left_coordinates[4];
+        
+        // top left
+        left_coordinates[0].x = 0;
+        left_coordinates[0].y += -y_top;
+        
+        // top right
+        left_coordinates[1].x = in_imageLeft->width;
+        left_coordinates[1].y = -y_top;
+        
+        // bottom right
+        left_coordinates[2].x = in_imageLeft->width;
+        left_coordinates[2].y = blended_height-y_top;
+        
+        // bottom left
+        left_coordinates[3].x = 0;
+        left_coordinates[3].y = blended_height-y_top;
+        
+        CvPoint2D32f right_coordinates[4];
+        
+        // top left
+        right_coordinates[0].x = warped_right_coordinates[0].x;
+        right_coordinates[0].y = warped_right_coordinates[0].y - y_top;
+        
+        // top right
+        right_coordinates[1].x = warped_right_coordinates[1].x;
+        right_coordinates[1].y = warped_right_coordinates[1].y - y_top;
+        
+        // bottom right
+        right_coordinates[2].x = warped_right_coordinates[2].x;
+        right_coordinates[2].y = warped_right_coordinates[2].y - y_top;
+        
+        // bottom left
+        right_coordinates[3].x = warped_right_coordinates[3].x;
+        right_coordinates[3].y = warped_right_coordinates[3].y - y_top;
+        
         // make a mask using the left and warped right coordinates
-        IplImage* mask = [self makeMaskWithImage:in_imageLeft andWarpedImageCoordinates:warped_right];
+        IplImage* mask = [self makeMaskWithCoordinates:left_coordinates andCoordinates:right_coordinates];
         
         if (mask) {
             
@@ -1450,24 +1013,54 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
             [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing blend %f", progress/progressMax]];
             NSLog(@"Preparing blend.");
             
-            [self makeRightSidePerspectiveTransformFor2ImageStitch:&P from:warped_right];
             
-            double p_h[9];
-            CvMat P_H = cvMat(3, 3, CV_32F, p_h);
-            cvMatMul(&P, &H, &P_H);
+            // create T for translation
+            double t[9];
+            CvMat T = cvMat(3, 3, CV_32F, t);
             
-            IplImage* right_image = [self warpImage:in_imageRight with:&P_H];
+            double th[9];
+            CvMat T_H = cvMat(3, 3, CV_32F, th);
+            
+           // makeTranslationTransform(&T, 0, -y_top);
+            [self makeTranslationTransform:&T translation_x:0 translation_y:-y_top];
+            
+            cvMatMul(&T, &H, &T_H);
+            
+            
+            IplImage* right_image = [self warpImage:in_imageRight with:&T_H];
             [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
             [Stitcher releaseImage:&in_imageRight];
             
             if (right_image) {
                 
-                IplImage* left_image = [self warpImage:in_imageLeft with:&P];
+                IplImage* left_image = [self warpImage:in_imageLeft with:&T];
+                
                 [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
                 [Stitcher releaseImage:&in_imageLeft];
                 
                 if (left_image) {
                     
+                    //blended_image = [self addImage:left_image to:right_image];
+                    
+                    blended_image = [self blend:right_image with:left_image usingMask:mask];
+                    
+                    /*
+                    blended_image = [Stitcher createImageWithSize:blended_size depth:mask->depth channels:mask->nChannels];
+                    
+                    if (blended_image) {
+                        // Say what the source region is
+                        
+                        CvRect roi = {0, 0, blended_size.width, blended_size.height};
+                        
+                        cvSetImageROI(mask, roi);
+                        
+                        // Do the copy
+                        cvCopy(mask, blended_image);
+                        cvResetImageROI(mask);
+                    }
+                    */
+
+                    /*
                     if (self.blend) {
                         IplImage* warped_mask = [self warpMask:mask with:&P];
                         [Stitcher releaseImage:&mask];
@@ -1479,6 +1072,7 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
                     }
                     else
                         blended_image = [self addImage:left_image to:right_image];
+                     */
                     
                     [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
                     

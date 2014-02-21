@@ -239,7 +239,7 @@ bool done = false;
         
         NSError* error;
         
-        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_screen.jpg", @"right_screen.jpg", nil];
+        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
         
         IplImage* joined_image = [self.stitcher stitchImages:images error:&error];
         
