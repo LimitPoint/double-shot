@@ -127,6 +127,9 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	self.equalize = true;
 	self.makeHomography = true;
 	self.interpolationMethodWarp = CV_INTER_LINEAR;
+    
+    self.highHessianThreshold = YES;
+    self.extendedDescriptors = YES;
 		
 	self.intermediateResult = nil;
 	
@@ -584,8 +587,19 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 						
 						if (!s_should_abort) {
 							
-							// Only values with a hessian greater than 500 (previously 400) are considered for keypoints
-							CvSURFParams params = cvSURFParams(500, 1);
+                            double hessianThreshold = 300;
+                            int extended = 0;
+                            
+                            if (self.highHessianThreshold) {
+                                hessianThreshold = 500;
+                            }
+                            
+                            if (self.extendedDescriptors) {
+                                extended = 1;
+                            }
+                                
+                            
+							CvSURFParams params = cvSURFParams(hessianThreshold, extended);
                             
 							cvExtractSURF(ipl_right, 0, &imageRightKeyPoints, &imageRightDescriptors, memoryBlock, params);
                             

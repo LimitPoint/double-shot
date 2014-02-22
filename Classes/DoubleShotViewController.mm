@@ -76,10 +76,19 @@ bool done = false;
     BOOL value;
     
     value = self.cropSwitch.on;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:value] forKey:@"Crop"];
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Crop"];
+    
+    value = self.blendSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Blend"];
     
     value = self.betterInterpolationSwitch.on;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:value] forKey:@"Better Interpolation"];
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Better Interpolation"];
+    
+    value = self.highHessianThresholdSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"High Hessian Threshold"];
+    
+    value = self.extendedDescriptorsSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Extended Descriptors"];
 
 }
 
@@ -107,19 +116,36 @@ bool done = false;
         self.homographyScalingSlider.value = [preference floatValue];
     }
     
+    BOOL value;
+    
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Crop"];
     if (preference) {
-        self.cropSwitch.on = [preference boolValue];
+        value =[preference boolValue];
+        self.cropSwitch.on = value;
     }
     
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Blend"];
     if (preference) {
-        self.blendSwitch.on = [preference boolValue];
+        value =[preference boolValue];
+        self.blendSwitch.on = value;
     }
 
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Better Interpolation"];
     if (preference) {
-        self.betterInterpolationSwitch.on = [preference boolValue];
+        value =[preference boolValue];
+        self.betterInterpolationSwitch.on = value;
+    }
+    
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"High Hessian Threshold"];
+    if (preference) {
+        value =[preference boolValue];
+        self.highHessianThresholdSwitch.on = value;
+    }
+    
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Extended Descriptors"];
+    if (preference) {
+        value =[preference boolValue];
+        self.extendedDescriptorsSwitch.on = value;
     }
     
     [self sliderChanged:self];
@@ -192,6 +218,8 @@ bool done = false;
     self.cropSwitch.on = YES;
     self.blendSwitch.on = YES;
     self.betterInterpolationSwitch.on = YES;
+    self.highHessianThresholdSwitch.on = YES;
+    self.extendedDescriptorsSwitch.on = YES;
     
     [self sliderChanged:self];
 }
@@ -222,6 +250,9 @@ bool done = false;
         
         self.stitcher.crop = self.cropSwitch.on;  // default ON
         self.stitcher.blend = self.blendSwitch.on;  // default ON
+        
+        self.stitcher.highHessianThreshold = self.highHessianThresholdSwitch.on;  // default ON
+        self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default ON
         
         if (self.betterInterpolationSwitch.on == YES) {
             self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"

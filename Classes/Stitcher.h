@@ -58,6 +58,8 @@
 @property (nonatomic, assign) bool blend;				// blend images after applying the homography, otherwise just "add" them
 @property (nonatomic, assign) bool makeHomography;		// set the homograhy to the identity
 
+@property (nonatomic, assign) bool highHessianThreshold;         // choose between 300 and 500 for the Hessian threshols in cvFindHomography
+@property (nonatomic, assign) bool extendedDescriptors; // choose between 64 and 128 length descriptors
 
 + (void)shouldAbort;
 
