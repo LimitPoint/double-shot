@@ -111,6 +111,11 @@ bool done = false;
     if (preference) {
         self.cropSwitch.on = [preference boolValue];
     }
+    
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Blend"];
+    if (preference) {
+        self.blendSwitch.on = [preference boolValue];
+    }
 
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Better Interpolation"];
     if (preference) {
@@ -124,7 +129,6 @@ bool done = false;
 {
 	self.inputImageScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.inputImageScalingSlider.value];
 	self.blendWidthScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.blendWidthScalingSlider.value];
-    
     self.matchingMarginSizeLabel.text = [NSString stringWithFormat:@"%.0f", self.matchingMarginSizeSlider.value];
     self.homographyScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.homographyScalingSlider.value];
     
@@ -186,6 +190,7 @@ bool done = false;
     self.homographyScalingSlider.value = 100;
     
     self.cropSwitch.on = YES;
+    self.blendSwitch.on = YES;
     self.betterInterpolationSwitch.on = YES;
     
     [self sliderChanged:self];
@@ -216,6 +221,7 @@ bool done = false;
         self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
         
         self.stitcher.crop = self.cropSwitch.on;  // default ON
+        self.stitcher.blend = self.blendSwitch.on;  // default ON
         
         if (self.betterInterpolationSwitch.on == YES) {
             self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"
@@ -229,10 +235,6 @@ bool done = false;
         }
         else {
             self.stitcher.inputImageScaling = self.inputImageScalingSlider.value/100.0;
-        }
-        
-        if (fastStitch) {
-            self.stitcher.homographyScaling = 0.5;
         }
         
         self.stitcher.blendWidthScaling = self.blendWidthScalingSlider.value/100.0; // default 0.33

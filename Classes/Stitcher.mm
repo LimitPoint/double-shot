@@ -114,9 +114,6 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 
 @implementation Stitcher
 
-// no @synthesize necessary with LLVM Compiler 4.0+
-// See http://useyourloaf.com/blog/2012/08/01/property-synthesis-with-xcode-4-dot-4.html
-
 - (id) init
 {
 	self = [super init];
@@ -125,15 +122,11 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
     self.blendWidthScaling = 0.33;
 	self.marginPercent = 0.33;
 	self.homographyScaling = 0;
-    
     self.crop = true;
-	
 	self.blend = true;
 	self.equalize = true;
 	self.makeHomography = true;
-	
 	self.interpolationMethodWarp = CV_INTER_LINEAR;
-	self.warpStitchPerspective = false;
 		
 	self.intermediateResult = nil;
 	
@@ -224,7 +217,7 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	return cropped;
 }
 
-- (IplImage*)create_cropped_image_top_bottom:(IplImage*)src
+- (IplImage*)create_cropped_image_top_bottom:(IplImage*)src inset:(int)inset
 {
 	if (!src || s_should_abort) {
 		return nil;
@@ -274,8 +267,8 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	if (bottom > top) {
 		
 		// fudge!
-		bottom -= 5;
-		top += 5;
+		bottom -= inset;
+		top += inset;
 		
 		CvRect roi = cvRect(0, top, src->width, bottom-top);
 		cropped_image = [self create_cropped_image:src cropRect:roi];
@@ -417,7 +410,7 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	cvSetIdentity(&T);
 	
 	if ((self.makeHomography == NO) || s_should_abort) {
-        NSLog(@"make homography = false");
+        NSLog(@"Make homography = false, only translating");
 		
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useTranslation"]) {
 			[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
@@ -490,7 +483,7 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 			IplImage* ipl_right;
 			IplImage* ipl_left;
 			
-			if (self.homographyScaling != 0) {
+			if ((self.homographyScaling != 0) && (self.homographyScaling < 1.0)) {
 				
 				NSLog(@"Scaling homography margins by %f", self.homographyScaling);
 				
@@ -957,21 +950,36 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
         [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
         
         // warp the shape of the right image
-        CvPoint2D32f warped_right_coordinates[4];
-        [self warpImageCoordinates:in_imageRight into:warped_right_coordinates withPerspectiveTransform:&H];
-        
-        int y_top = MIN(warped_right_coordinates[0].y, warped_right_coordinates[1].y);
-        int y_bottom = MAX(warped_right_coordinates[3].y, warped_right_coordinates[2].y);
-        
-        blended_height = y_bottom-y_top;
-        blended_width = MAX(warped_right_coordinates[1].x, warped_right_coordinates[2].x);
-        blended_size = cvSize(blended_width, blended_height);
-        
+        CvPoint2D32f right_coordinates[4];
         CvPoint2D32f left_coordinates[4];
+        
+        [self warpImageCoordinates:in_imageRight into:right_coordinates withPerspectiveTransform:&H];
+        
+        int y_top = MIN(right_coordinates[0].y, right_coordinates[1].y);
+        int y_bottom = MAX(right_coordinates[3].y, right_coordinates[2].y);
+        
+        // create T for translation
+        double t[9];
+        CvMat T = cvMat(3, 3, CV_32F, t);
+        cvSetIdentity(&T);
+        
+        if (self.crop) {
+            y_top = 0;
+            blended_width = MIN(right_coordinates[1].x, right_coordinates[2].x);
+            blended_height = in_imageLeft->height;
+            blended_size = cvSize(blended_width, blended_height);
+        }
+        else {
+            blended_width = MAX(right_coordinates[1].x, right_coordinates[2].x);
+            blended_height = y_bottom-y_top;
+            blended_size = cvSize(blended_width, blended_height);
+            
+            [self makeTranslationTransform:&T translation_x:0 translation_y:-y_top];
+        }
         
         // top left
         left_coordinates[0].x = 0;
-        left_coordinates[0].y += -y_top;
+        left_coordinates[0].y = -y_top;
         
         // top right
         left_coordinates[1].x = in_imageLeft->width;
@@ -985,23 +993,18 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
         left_coordinates[3].x = 0;
         left_coordinates[3].y = blended_height-y_top;
         
-        CvPoint2D32f right_coordinates[4];
         
         // top left
-        right_coordinates[0].x = warped_right_coordinates[0].x;
-        right_coordinates[0].y = warped_right_coordinates[0].y - y_top;
+        right_coordinates[0].y -= y_top;
         
         // top right
-        right_coordinates[1].x = warped_right_coordinates[1].x;
-        right_coordinates[1].y = warped_right_coordinates[1].y - y_top;
+        right_coordinates[1].y -= y_top;
         
         // bottom right
-        right_coordinates[2].x = warped_right_coordinates[2].x;
-        right_coordinates[2].y = warped_right_coordinates[2].y - y_top;
+        right_coordinates[2].y -= y_top;
         
         // bottom left
-        right_coordinates[3].x = warped_right_coordinates[3].x;
-        right_coordinates[3].y = warped_right_coordinates[3].y - y_top;
+        right_coordinates[3].y -= y_top;
         
         // make a mask using the left and warped right coordinates
         IplImage* mask = [self makeMaskWithCoordinates:left_coordinates andCoordinates:right_coordinates];
@@ -1013,19 +1016,9 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
             [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing blend %f", progress/progressMax]];
             NSLog(@"Preparing blend.");
             
-            
-            // create T for translation
-            double t[9];
-            CvMat T = cvMat(3, 3, CV_32F, t);
-            
             double th[9];
             CvMat T_H = cvMat(3, 3, CV_32F, th);
-            
-           // makeTranslationTransform(&T, 0, -y_top);
-            [self makeTranslationTransform:&T translation_x:0 translation_y:-y_top];
-            
             cvMatMul(&T, &H, &T_H);
-            
             
             IplImage* right_image = [self warpImage:in_imageRight with:&T_H];
             [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
@@ -1040,39 +1033,10 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
                 
                 if (left_image) {
                     
-                    //blended_image = [self addImage:left_image to:right_image];
-                    
-                    blended_image = [self blend:right_image with:left_image usingMask:mask];
-                    
-                    /*
-                    blended_image = [Stitcher createImageWithSize:blended_size depth:mask->depth channels:mask->nChannels];
-                    
-                    if (blended_image) {
-                        // Say what the source region is
-                        
-                        CvRect roi = {0, 0, blended_size.width, blended_size.height};
-                        
-                        cvSetImageROI(mask, roi);
-                        
-                        // Do the copy
-                        cvCopy(mask, blended_image);
-                        cvResetImageROI(mask);
-                    }
-                    */
-
-                    /*
                     if (self.blend) {
-                        IplImage* warped_mask = [self warpMask:mask with:&P];
-                        [Stitcher releaseImage:&mask];
-                        
-                        if (warped_mask) {
-                            blended_image = [self blend:right_image with:left_image usingMask:warped_mask];
-                            [Stitcher releaseImage:&warped_mask];
-                        }
-                    }
+                        blended_image = [self blend:right_image with:left_image usingMask:mask];                    }
                     else
                         blended_image = [self addImage:left_image to:right_image];
-                     */
                     
                     [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
                     
@@ -1126,8 +1090,8 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
         
         progress = 0;
         
-        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"------------\nStitching %d images", [images count]]];
-        NSLog(@"------------\nStitching %d images", (int)[images count]);
+        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Stitching %d images", [images count]]];
+        NSLog(@"Stitching %d images", (int)[images count]);
 		
         [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:0]];
         
@@ -1157,15 +1121,14 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
         
         try {
             
+            // the number of times progress is reported
             progressMax = 7;
-            
-            self.warpStitchPerspective = false;
             
             blended_image = [self stitchImageRight:[[images objectAtIndex:1] IPLImageByScaling:self.inputImageScaling] toImageLeft:[[images objectAtIndex:0] IPLImageByScaling:self.inputImageScaling]];
             
     
             if (self.crop && blended_image) {
-                IplImage* cropped = [self create_cropped_image_top_bottom:blended_image];
+                IplImage* cropped = [self create_cropped_image_top_bottom:blended_image inset:5];
                 if (cropped) {
                     [Stitcher releaseImage:&blended_image];
                     blended_image = cropped;

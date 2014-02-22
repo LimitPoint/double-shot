@@ -54,11 +54,8 @@
  */
 
 @property (nonatomic, assign) int interpolationMethodWarp; // Value based on "betterInterpolation", used in calls to cvWarpPerspective
-
-@property (nonatomic, assign) bool warpStitchPerspective; // warp the stitched images to fit into the destination image, using cvWarpPerspective
-
 @property (nonatomic, assign) bool equalize;			// compute the homography on equalized copies of the input images
-@property (nonatomic, assign) bool blend;				// blend images after applying the homography
+@property (nonatomic, assign) bool blend;				// blend images after applying the homography, otherwise just "add" them
 @property (nonatomic, assign) bool makeHomography;		// set the homograhy to the identity
 
 

@@ -35,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UISlider *homographyScalingSlider;
 
 @property (nonatomic, retain) IBOutlet UISwitch *cropSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *blendSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *betterInterpolationSwitch;
 
 @property (nonatomic, retain) IBOutlet UILabel *inputImageScalingLabel;
