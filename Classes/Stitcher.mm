@@ -3,7 +3,7 @@
 //  Double Shot
 //
 //  
-//  Copyright 2014 Limit Point LLC. All rights reserved.
+//  Copyright (c) 2014 Limit Point LLC. All rights reserved.
 //
 
 #import "Stitcher.h"
