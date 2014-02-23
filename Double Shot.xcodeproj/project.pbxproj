@@ -10,7 +10,6 @@
 		0013FA2514111D0E004DC957 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2414111D0E004DC957 /* UIKit.framework */; };
 		0013FA2714111D0E004DC957 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2614111D0E004DC957 /* Foundation.framework */; };
 		0013FA2914111D0E004DC957 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0013FA2814111D0E004DC957 /* CoreGraphics.framework */; };
-		0013FA2F14111D0F004DC957 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0013FA2D14111D0F004DC957 /* InfoPlist.strings */; };
 		0013FA3114111D0F004DC957 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA3014111D0F004DC957 /* main.m */; };
 		0013FA3514111D0F004DC957 /* DoubleShotAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */; };
 		0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0013FA3614111D0F004DC957 /* MainWindow.xib */; };
@@ -51,7 +50,6 @@
 		0013FA2614111D0E004DC957 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0013FA2814111D0E004DC957 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0013FA2C14111D0F004DC957 /* Double Shot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Double Shot-Info.plist"; sourceTree = "<group>"; };
-		0013FA2E14111D0F004DC957 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0013FA3014111D0F004DC957 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0013FA3214111D0F004DC957 /* Double Shot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Double Shot-Prefix.pch"; sourceTree = "<group>"; };
 		0013FA3314111D0F004DC957 /* DoubleShotAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleShotAppDelegate.h; sourceTree = "<group>"; };
@@ -171,9 +169,8 @@
 		0013FA2B14111D0F004DC957 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0013FA2C14111D0F004DC957 /* Double Shot-Info.plist */,
-				0013FA2D14111D0F004DC957 /* InfoPlist.strings */,
 				0013FA3014111D0F004DC957 /* main.m */,
+				0013FA2C14111D0F004DC957 /* Double Shot-Info.plist */,
 				0013FA3214111D0F004DC957 /* Double Shot-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -270,7 +267,6 @@
 				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
 				CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */,
 				CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */,
-				0013FA2F14111D0F004DC957 /* InfoPlist.strings in Resources */,
 				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
 				CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */,
 				CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */,
@@ -309,14 +305,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0013FA2D14111D0F004DC957 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0013FA2E14111D0F004DC957 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		0013FA3614111D0F004DC957 /* MainWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
