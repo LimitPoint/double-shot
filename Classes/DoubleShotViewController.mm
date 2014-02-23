@@ -1,7 +1,7 @@
 //  DoubleShotViewController.mm
 //  Double Shot
 //
-//  Created by Joe Pagliaro.
+//  
 //  Copyright 2014 Limit Point LLC. All rights reserved.
 //
 
@@ -15,9 +15,18 @@ bool done = false;
 
 @implementation DoubleShotViewController
 
-// no @synthesize necessary with LLVM Compiler 4.0+
-// See http://useyourloaf.com/blog/2012/08/01/property-synthesis-with-xcode-4-dot-4.html
+- (void)updateTextWithString:(NSString*)string
+{
+    
+    self.textView.text = [self.textView.text stringByAppendingFormat:@"%@ \n", string];
+    
+    [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
+    [self.textView setScrollEnabled:NO];
+    [self.textView setScrollEnabled:YES];
+    
+}
 
+// Stitcher Delegate
 
 - (void)stitcher:(Stitcher*)stitcher didFinishStitch:(UIImage*)image
 {
@@ -38,16 +47,7 @@ bool done = false;
     
 }
      
-- (void)updateTextWithString:(NSString*)string
-{
-    
-    self.textView.text = [self.textView.text stringByAppendingFormat:@"%@ \n", string];
-    
-    [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
-    [self.textView setScrollEnabled:NO];
-    [self.textView setScrollEnabled:YES];
-    
-}
+
 
 - (void)stitcher:(Stitcher*)stitcher didFinishIntermediateStitchWithImage:(UIImage*)image
 {

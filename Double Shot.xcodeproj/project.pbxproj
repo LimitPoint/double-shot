@@ -403,7 +403,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/jpagliaro/Desktop/Double\\ Shot\\ Blog/Double\\ Shot\\ iOS\\ ƒ/Double\\ Shot\\ iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/Double Shot-Prefix.pch";
@@ -411,6 +410,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Classes/Double Shot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
@@ -437,7 +437,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/jpagliaro/Desktop/Double\\ Shot\\ Blog/Double\\ Shot\\ iOS\\ ƒ/Double\\ Shot\\ iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/Double Shot-Prefix.pch";
@@ -445,6 +444,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Classes/Double Shot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
