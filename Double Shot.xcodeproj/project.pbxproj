@@ -418,7 +418,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "D4718E41-DAD9-4957-B49E-2B87ECD92024";
+				PROVISIONING_PROFILE = "34E39605-9A95-47E0-AC50-3612C9CD9353";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
@@ -432,8 +432,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Limit Point Software (GZABHNF58X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Limit Point Software (GZABHNF58X)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -452,7 +452,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "197E6D44-35BE-40E9-A048-86856CA4399B";
+				PROVISIONING_PROFILE = "34E39605-9A95-47E0-AC50-3612C9CD9353";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
