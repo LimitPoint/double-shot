@@ -155,13 +155,13 @@
 				0013FA3914111D0F004DC957 /* DoubleShotViewController.h */,
 				0013FA3A14111D0F004DC957 /* DoubleShotViewController.mm */,
 				CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */,
-				0013FA2B14111D0F004DC957 /* Supporting Files */,
 				0013FA4614111D6A004DC957 /* UIImage+OpenCV.h */,
 				0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */,
 				CD1B85231495EF5000AF3962 /* NSString+OpenCV.h */,
 				CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */,
 				CD4979481468BF9B00E3E813 /* Stitcher.h */,
 				CD4979491468BF9B00E3E813 /* Stitcher.mm */,
+				0013FA2B14111D0F004DC957 /* Supporting Files */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
