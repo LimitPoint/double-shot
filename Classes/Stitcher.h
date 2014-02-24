@@ -45,6 +45,7 @@
 @property (nonatomic, assign) bool makeHomography;          // set the homograhy to the identity
 @property (nonatomic, assign) bool highHessianThreshold;    // choose between 300 and 500 (default - faster) for the Hessian threshold for SURF
 @property (nonatomic, assign) bool extendedDescriptors;     // choose between 64 (default - faster) and 128 length descriptors for SURF
+@property (nonatomic, assign) bool useLastMinSquaredDistancePercent;     // for "naive" descriptor method
 
 
 + (void)shouldAbort;

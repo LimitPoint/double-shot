@@ -40,6 +40,7 @@
 @property (nonatomic, retain) IBOutlet UISwitch *betterInterpolationSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *highHessianThresholdSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *extendedDescriptorsSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *lastMinSquaredDistancePercentSwitch;
 
 @property (nonatomic, retain) IBOutlet UILabel *inputImageScalingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *blendWidthScalingLabel;

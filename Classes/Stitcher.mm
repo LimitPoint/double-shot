@@ -51,6 +51,7 @@ static UInt32 freeMemory(UInt32 divisor)
     self.highHessianThreshold = YES;
     self.extendedDescriptors = NO;
     self.lastMinSquaredDistancePercent = 0.7;
+    self.useLastMinSquaredDistancePercent = NO;
 		
 	self.intermediateResult = nil;
 	
@@ -342,10 +343,11 @@ static UInt32 freeMemory(UInt32 divisor)
 	return squaredDistance;
 }
 
-- (int)findNaiveNearestNeighbor:(const float*)imageRightDescriptor
+- (int)findNearestNeighbor:(const float*)imageRightDescriptor
              imageRightKeyPoint:(const CvSURFPoint*)imageRightKeyPoint
            imageLeftDescriptors:(CvSeq*)imageLeftDescriptors
              imageLeftKeyPoints:(CvSeq*)imageLeftKeyPoints
+                  threshold:(BOOL)threshold
 
 {
     int descriptorsCount = (int)(imageLeftDescriptors->elem_size/sizeof(float));
@@ -370,16 +372,22 @@ static UInt32 freeMemory(UInt32 divisor)
             lastMinSquaredDistance = squaredDistance;
         }
     }
-	
-    double threshold;
     
-    threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
-    
-    if (minSquaredDistance < threshold)
+    if (threshold) {
+        double threshold;
+        
+        threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
+        
+        if (minSquaredDistance < threshold)
+            return neighbor;
+    }
+    else {
         return neighbor;
-	
+    }
+    
     return -1;
 }
+
 
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
@@ -597,14 +605,11 @@ static UInt32 freeMemory(UInt32 divisor)
 								const CvSURFPoint* imageRightKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i);
 								const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
 								
-								int nearestNeighbor =
-								//FindNaiveNearestNeighbor(imageRightDescriptor, imageRightKeyPoint, imageLeftDescriptors,imageLeftKeyPoints);
-                                [self findNaiveNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints];
-								
-								if (nearestNeighbor == -1) {
-									continue;
-								}
-								
+								int nearestNeighbor = [self findNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints threshold:self.useLastMinSquaredDistancePercent];
+
+                                if (nearestNeighbor == -1)
+                                    continue;
+ 								
 								CvPoint2D32f p1 = ((CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i))->pt;
 								CvPoint2D32f p2 = ((CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, nearestNeighbor))->pt;
 								

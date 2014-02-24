@@ -90,6 +90,9 @@ bool done = false;
     
     value = self.extendedDescriptorsSwitch.on;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Extended Descriptors"];
+    
+    value = self.lastMinSquaredDistancePercentSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Use Last Min Squared Distance Percent"];
 
 }
 
@@ -154,6 +157,14 @@ bool done = false;
         self.extendedDescriptorsSwitch.on = value;
     }
     
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Use Last Min Squared Distance Percent"];
+    if (preference) {
+        value =[preference boolValue];
+        self.lastMinSquaredDistancePercentSwitch.on = value;
+    }
+    
+    self.lastMinSquaredDistancePercentSlider.enabled = self.lastMinSquaredDistancePercentSwitch.on;
+    
     [self sliderChanged:self];
 }
 
@@ -164,6 +175,8 @@ bool done = false;
     self.matchingMarginSizeLabel.text = [NSString stringWithFormat:@"%.0f", self.matchingMarginSizeSlider.value];
     self.homographyScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.homographyScalingSlider.value];
     self.lastMinSquaredDistancePercentLabel.text = [NSString stringWithFormat:@"%.0f", self.lastMinSquaredDistancePercentSlider.value];
+    
+    self.lastMinSquaredDistancePercentSlider.enabled = self.lastMinSquaredDistancePercentSwitch.on;
     
     [self saveOptions];
 }
@@ -228,6 +241,7 @@ bool done = false;
     self.betterInterpolationSwitch.on = YES;
     self.highHessianThresholdSwitch.on = YES;
     self.extendedDescriptorsSwitch.on = NO;
+    self.lastMinSquaredDistancePercentSwitch.on = NO;
     
     [self sliderChanged:self];
 }
@@ -257,11 +271,14 @@ bool done = false;
         self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
         self.stitcher.lastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSlider.value/100.0; // default 1.0, i.e. none
         
+        self.stitcher.useLastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSwitch.on;
+        
+        
         self.stitcher.crop = self.cropSwitch.on;  // default ON
         self.stitcher.blend = self.blendSwitch.on;  // default ON
         
         self.stitcher.highHessianThreshold = self.highHessianThresholdSwitch.on;  // default ON
-        self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default ON
+        self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default OFF
         
         if (self.betterInterpolationSwitch.on == YES) {
             self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"
