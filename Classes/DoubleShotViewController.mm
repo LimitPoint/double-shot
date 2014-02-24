@@ -72,6 +72,7 @@ bool done = false;
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.blendWidthScalingSlider.value] forKey:@"Blend Width Scaling"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.matchingMarginSizeSlider.value] forKey:@"Matching Margin Size"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.homographyScalingSlider.value] forKey:@"Homography Scaling"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.lastMinSquaredDistancePercentSlider.value] forKey:@"Last Min Squared Distance Percent"];
     
     BOOL value;
     
@@ -116,6 +117,11 @@ bool done = false;
         self.homographyScalingSlider.value = [preference floatValue];
     }
     
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Last Min Squared Distance Percent"];
+    if (preference) {
+        self.lastMinSquaredDistancePercentSlider.value = [preference floatValue];
+    }
+    
     BOOL value;
     
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Crop"];
@@ -157,6 +163,7 @@ bool done = false;
 	self.blendWidthScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.blendWidthScalingSlider.value];
     self.matchingMarginSizeLabel.text = [NSString stringWithFormat:@"%.0f", self.matchingMarginSizeSlider.value];
     self.homographyScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.homographyScalingSlider.value];
+    self.lastMinSquaredDistancePercentLabel.text = [NSString stringWithFormat:@"%.0f", self.lastMinSquaredDistancePercentSlider.value];
     
     [self saveOptions];
 }
@@ -213,13 +220,14 @@ bool done = false;
     self.inputImageScalingSlider.value = 100;
     self.blendWidthScalingSlider.value = 33;
     self.matchingMarginSizeSlider.value = 33;
-    self.homographyScalingSlider.value = 100;
+    self.homographyScalingSlider.value = 50;
+    self.lastMinSquaredDistancePercentSlider.value = 70;
     
     self.cropSwitch.on = YES;
     self.blendSwitch.on = YES;
     self.betterInterpolationSwitch.on = YES;
     self.highHessianThresholdSwitch.on = YES;
-    self.extendedDescriptorsSwitch.on = YES;
+    self.extendedDescriptorsSwitch.on = NO;
     
     [self sliderChanged:self];
 }
@@ -247,6 +255,7 @@ bool done = false;
         // override default values
         self.stitcher.marginPercent = self.matchingMarginSizeSlider.value/100.0;  // default 0.33
         self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
+        self.stitcher.lastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSlider.value/100.0; // default 1.0, i.e. none
         
         self.stitcher.crop = self.cropSwitch.on;  // default ON
         self.stitcher.blend = self.blendSwitch.on;  // default ON

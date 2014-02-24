@@ -33,85 +33,6 @@ static UInt32 freeMemory(UInt32 divisor)
     return mem_free/divisor;
 }
 
-static void report_memory(void) 
-{
-	struct task_basic_info info;
-	mach_msg_type_number_t size = sizeof(info);
-	kern_return_t kerr = task_info(mach_task_self(),
-								   TASK_BASIC_INFO,
-								   (task_info_t)&info,
-								   &size);
-	if( kerr == KERN_SUCCESS ) {
-		NSLog(@"Memory in use (in bytes): %u", info.resident_size);
-	} else {
-		NSLog(@"Error with task_info(): %s", mach_error_string(kerr));
-	}
-}
-
-static double CompareSURFDescriptors(
-									 const float* image1Descriptor,
-									 const float* image2Descriptor,
-									 int descriptorsCount,
-									 float lastMinSquaredDistance)
-{
-    double squaredDistance = 0;
-	
-    for (int i = 0; i < descriptorsCount; i += 4) {
-		
-		squaredDistance += (pow((image1Descriptor[i+0] - image2Descriptor[i+0]), 2) +
-					  pow((image1Descriptor[i+1] - image2Descriptor[i+1]), 2) +
-					  pow((image1Descriptor[i+2] - image2Descriptor[i+2]), 2) +
-					  pow((image1Descriptor[i+3] - image2Descriptor[i+3]), 2));
-		
-        if (squaredDistance > lastMinSquaredDistance)
-            break;
-    }
-	
-	return squaredDistance;
-}
-
-static int FindNaiveNearestNeighbor(const float* image1Descriptor,
-									const CvSURFPoint* image1KeyPoint, 
-									CvSeq* image2Descriptors, 
-									CvSeq* image2KeyPoints)
-
-{
-    int descriptorsCount = (int)(image2Descriptors->elem_size/sizeof(float));
-    double minSquaredDistance = std::numeric_limits<double>::max();
-    double lastMinSquaredDistance = std::numeric_limits<double>::max();
-	
-    int neighbor = 0;
-    for (int i = 0; i < image2Descriptors->total; i++) {
-        const CvSURFPoint* image2KeyPoint = (const CvSURFPoint*) cvGetSeqElem(image2KeyPoints, i);
-        const float* image2Descriptor = (const float*) cvGetSeqElem(image2Descriptors, i);
-		
-        if (image1KeyPoint->laplacian != image2KeyPoint->laplacian)
-            continue; // Don't worry about key points unless laplacian signs are equal
-		
-        double squaredDistance = 
-		CompareSURFDescriptors(
-							   image1Descriptor, 
-							   image2Descriptor, 
-							   descriptorsCount, 
-							   lastMinSquaredDistance);
-		
-		
-        if (squaredDistance < minSquaredDistance) {
-            neighbor = i;
-            lastMinSquaredDistance = minSquaredDistance;
-            minSquaredDistance = squaredDistance;
-        } else if (squaredDistance < lastMinSquaredDistance) {
-            lastMinSquaredDistance = squaredDistance;
-        }
-    }
-	
-    if (minSquaredDistance < 0.7 * lastMinSquaredDistance)
-        return neighbor;
-	
-    return -1;
-}
-
-
 @implementation Stitcher
 
 - (id) init
@@ -121,15 +42,15 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
     self.inputImageScaling = 0;
     self.blendWidthScaling = 0.33;
 	self.marginPercent = 0.33;
-	self.homographyScaling = 0;
+	self.homographyScaling = 50;
     self.crop = true;
 	self.blend = true;
 	self.equalize = true;
 	self.makeHomography = true;
 	self.interpolationMethodWarp = CV_INTER_LINEAR;
-    
     self.highHessianThreshold = YES;
-    self.extendedDescriptors = YES;
+    self.extendedDescriptors = NO;
+    self.lastMinSquaredDistancePercent = 0.7;
 		
 	self.intermediateResult = nil;
 	
@@ -400,6 +321,65 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 	cvGetPerspectiveTransform(from, to, T);
 }
 
+- (double)compareSURFDescriptors:(const float*)imageRightDescriptor
+             imageLeftDescriptor:(const float*)imageLeftDescriptor
+                descriptorsCount:(int)descriptorsCount
+          lastMinSquaredDistance:(float)lastMinSquaredDistance
+{
+    double squaredDistance = 0;
+	
+    for (int i = 0; i < descriptorsCount; i += 4) {
+		
+		squaredDistance += (pow((imageRightDescriptor[i+0] - imageLeftDescriptor[i+0]), 2) +
+                            pow((imageRightDescriptor[i+1] - imageLeftDescriptor[i+1]), 2) +
+                            pow((imageRightDescriptor[i+2] - imageLeftDescriptor[i+2]), 2) +
+                            pow((imageRightDescriptor[i+3] - imageLeftDescriptor[i+3]), 2));
+		
+        if (squaredDistance > lastMinSquaredDistance)
+            break;
+    }
+	
+	return squaredDistance;
+}
+
+- (int)findNaiveNearestNeighbor:(const float*)imageRightDescriptor
+             imageRightKeyPoint:(const CvSURFPoint*)imageRightKeyPoint
+           imageLeftDescriptors:(CvSeq*)imageLeftDescriptors
+             imageLeftKeyPoints:(CvSeq*)imageLeftKeyPoints
+
+{
+    int descriptorsCount = (int)(imageLeftDescriptors->elem_size/sizeof(float));
+    double minSquaredDistance = std::numeric_limits<double>::max();
+    double lastMinSquaredDistance = std::numeric_limits<double>::max();
+	
+    int neighbor = 0;
+    for (int i = 0; i < imageLeftDescriptors->total; i++) {
+        const CvSURFPoint* imageLeftKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, i);
+        const float* imageLeftDescriptor = (const float*) cvGetSeqElem(imageLeftDescriptors, i);
+		
+        if (imageRightKeyPoint->laplacian != imageLeftKeyPoint->laplacian)
+            continue; // Don't worry about key points unless laplacian signs are equal
+		
+        double squaredDistance = [self compareSURFDescriptors:imageRightDescriptor imageLeftDescriptor:imageLeftDescriptor descriptorsCount:descriptorsCount lastMinSquaredDistance:lastMinSquaredDistance];
+		
+        if (squaredDistance < minSquaredDistance) {
+            neighbor = i;
+            lastMinSquaredDistance = minSquaredDistance;
+            minSquaredDistance = squaredDistance;
+        } else if (squaredDistance < lastMinSquaredDistance) {
+            lastMinSquaredDistance = squaredDistance;
+        }
+    }
+	
+    double threshold;
+    
+    threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
+    
+    if (minSquaredDistance < threshold)
+        return neighbor;
+	
+    return -1;
+}
 
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
@@ -618,7 +598,8 @@ static int FindNaiveNearestNeighbor(const float* image1Descriptor,
 								const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
 								
 								int nearestNeighbor =
-								FindNaiveNearestNeighbor(imageRightDescriptor, imageRightKeyPoint, imageLeftDescriptors,imageLeftKeyPoints);
+								//FindNaiveNearestNeighbor(imageRightDescriptor, imageRightKeyPoint, imageLeftDescriptors,imageLeftKeyPoints);
+                                [self findNaiveNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints];
 								
 								if (nearestNeighbor == -1) {
 									continue;

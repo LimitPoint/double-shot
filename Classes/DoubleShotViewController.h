@@ -33,6 +33,7 @@
 @property (nonatomic, retain) IBOutlet UISlider *blendWidthScalingSlider;
 @property (nonatomic, retain) IBOutlet UISlider *matchingMarginSizeSlider;
 @property (nonatomic, retain) IBOutlet UISlider *homographyScalingSlider;
+@property (nonatomic, retain) IBOutlet UISlider *lastMinSquaredDistancePercentSlider;
 
 @property (nonatomic, retain) IBOutlet UISwitch *cropSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *blendSwitch;
@@ -44,6 +45,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *blendWidthScalingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *matchingMarginSizeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *homographyScalingLabel;
+@property (nonatomic, retain) IBOutlet UILabel *lastMinSquaredDistancePercentLabel;
 
 @property (nonatomic, retain) IBOutlet UIButton *stitchButton;
 @property (nonatomic, retain) IBOutlet UIButton *fastStitchButton;
