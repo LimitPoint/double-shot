@@ -340,7 +340,7 @@ static UInt32 freeMemory(UInt32 divisor)
             break;
     }
 	
-	return squaredDistance;
+	return squaredDistance; 
 }
 
 - (int)findNearestNeighbor:(const float*)imageRightDescriptor
@@ -354,7 +354,7 @@ static UInt32 freeMemory(UInt32 divisor)
     double minSquaredDistance = std::numeric_limits<double>::max();
     double lastMinSquaredDistance = std::numeric_limits<double>::max();
 	
-    int neighbor = 0;
+    int neighbor = -1;
     for (int i = 0; i < imageLeftDescriptors->total; i++) {
         const CvSURFPoint* imageLeftKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, i);
         const float* imageLeftDescriptor = (const float*) cvGetSeqElem(imageLeftDescriptors, i);
