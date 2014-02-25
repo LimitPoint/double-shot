@@ -253,6 +253,43 @@ bool done = false;
     UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
 }
 
+- (void)initStitchProperties
+{
+    if (fastStitch) {
+        self.stitcher.makeHomography = NO;
+    }
+    
+    // override default values
+    self.stitcher.marginPercent = self.matchingMarginSizeSlider.value/100.0;  // default 0.33
+    self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
+    self.stitcher.lastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSlider.value/100.0; // default 1.0, i.e. none
+    
+    self.stitcher.useLastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSwitch.on;
+    
+    
+    self.stitcher.crop = self.cropSwitch.on;  // default ON
+    self.stitcher.blend = self.blendSwitch.on;  // default ON
+    
+    self.stitcher.highHessianThreshold = self.highHessianThresholdSwitch.on;  // default ON
+    self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default OFF
+    
+    if (self.betterInterpolationSwitch.on == YES) {
+        self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"
+    }
+    else {
+        self.stitcher.interpolationMethodWarp = CV_INTER_LINEAR;
+    }
+    
+    if (self.inputImageScalingSlider.value == 100) {
+        self.stitcher.inputImageScaling = 0;  // default, none
+    }
+    else {
+        self.stitcher.inputImageScaling = self.inputImageScalingSlider.value/100.0;
+    }
+    
+    self.stitcher.blendWidthScaling = self.blendWidthScalingSlider.value/100.0; // default 0.33
+}
+
 - (void)stitch
 {
 	NSLog(@"Started!");
@@ -262,39 +299,7 @@ bool done = false;
         self.stitcher = [[Stitcher alloc] init];
         self.stitcher.delegate = self;
         
-        if (fastStitch) {
-            self.stitcher.makeHomography = NO;
-        }
-        
-        // override default values
-        self.stitcher.marginPercent = self.matchingMarginSizeSlider.value/100.0;  // default 0.33
-        self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
-        self.stitcher.lastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSlider.value/100.0; // default 1.0, i.e. none
-        
-        self.stitcher.useLastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSwitch.on;
-        
-        
-        self.stitcher.crop = self.cropSwitch.on;  // default ON
-        self.stitcher.blend = self.blendSwitch.on;  // default ON
-        
-        self.stitcher.highHessianThreshold = self.highHessianThresholdSwitch.on;  // default ON
-        self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default OFF
-        
-        if (self.betterInterpolationSwitch.on == YES) {
-            self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"
-        }
-        else {
-            self.stitcher.interpolationMethodWarp = CV_INTER_LINEAR;
-        }
-        
-        if (self.inputImageScalingSlider.value == 100) {
-            self.stitcher.inputImageScaling = 0;  // default, none
-        }
-        else {
-            self.stitcher.inputImageScaling = self.inputImageScalingSlider.value/100.0;
-        }
-        
-        self.stitcher.blendWidthScaling = self.blendWidthScalingSlider.value/100.0; // default 0.33
+        [self initStitchProperties];
         
         NSError* error;
         
