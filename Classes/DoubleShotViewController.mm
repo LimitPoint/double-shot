@@ -15,39 +15,34 @@ bool done = false;
 
 @implementation DoubleShotViewController
 
-- (void)updateTextWithString:(NSString*)string
+- (void)updateTexViewtWithString:(NSString*)string
 {
-    
     self.textView.text = [self.textView.text stringByAppendingFormat:@"%@ \n", string];
     
     [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
     [self.textView setScrollEnabled:NO];
     [self.textView setScrollEnabled:YES];
-    
 }
 
 // Stitcher Delegate
 
 - (void)stitcher:(Stitcher*)stitcher didFinishStitch:(UIImage*)image
 {
-	[self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(stitchFinished:) withObject:image waitUntilDone:NO];
     
-    [secondsTimer invalidate];
 }
 
 - (void)stitcher:(Stitcher*)stitcher didUpdateWithProgress:(NSNumber*)progressPercent
 {
-	[self performSelectorOnMainThread:@selector(updateTextWithString:) withObject:[NSString stringWithFormat:@"Progress = %f", [progressPercent floatValue]] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(updateTexViewtWithString:) withObject:[NSString stringWithFormat:@"Progress = %f", [progressPercent floatValue]] waitUntilDone:NO];
 }
 
 - (void)stitcher:(Stitcher*)stitcher didUpdate:(NSString *)update
 {
     
-    [self performSelectorOnMainThread:@selector(updateTextWithString:) withObject:update waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(updateTexViewtWithString:) withObject:update waitUntilDone:NO];
     
 }
-     
-
 
 - (void)stitcher:(Stitcher*)stitcher didFinishIntermediateStitchWithImage:(UIImage*)image
 {
@@ -56,14 +51,87 @@ bool done = false;
     
 }
 
+-(void)stitchFinished:(UIImage*)image
+{
+    self.joined_uiimage = image;
+    
+    if (self.joined_uiimage) {
+        
+        self.saveButton.enabled = YES;
+        
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:self.joined_uiimage] applicationActivities:nil];
+        
+        /*
+         
+         Built-in Activity Types:
+         
+         https://developer.apple.com/library/ios/documentation/uikit/reference/UIActivity_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40011974-CH1-SW13
+         
+         */
+        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            
+            NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UIAlertView *alert;
+                
+                if ([activityType isEqualToString:UIActivityTypeMessage]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Message completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypeMail]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Mail completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypePrint]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Print completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Copy completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypeAssignToContact]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Assign to contact completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypeSaveToCameraRoll]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Save completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Airdrop completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                else {
+                    alert = [[UIAlertView alloc] initWithTitle:@"Cancelled?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                }
+                
+                [alert show];
+                
+            });
+        }];
+        
+        // display the share dialog
+        
+        // See https://www.mikeash.com/pyblog/friday-qa-2009-08-28-intro-to-grand-central-dispatch-part-i-basics-and-dispatch-queues.html
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{[self presentViewController:activityViewController animated:YES completion:nil]; });
+        
+    }
+    else {
+        self.saveButton.enabled = NO;
+    }
+    
+    
+    self.stitchButton.enabled = true;
+    self.fastStitchButton.enabled = true;
+    
+    [self.activityView stopAnimating];
+    
+    NSLog(@"Finished!");
+    
+    [secondsTimer invalidate];
+}
+
 -(void)displayImage:(UIImage*)image
 {    
 	self.imageView.image = image;
-}
-
--(void)displayActivityViewController:(UIActivityViewController*)activityViewController
-{
-    [self presentViewController:activityViewController animated:YES completion:^{}];
 }
 
 - (void)saveOptions
@@ -305,105 +373,9 @@ bool done = false;
         
         NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
         
-        IplImage* joined_image = [self.stitcher stitchImages:images error:&error];
+        [self.stitcher beginStitchingImages:images error:&error];
         
-        if (joined_image) {
-            
-            [self displayImage:[UIImage imageWithIPLImage:joined_image]];
-            
-            self.joined_uiimage = [UIImage imageWithIPLImage:joined_image];
-            
-            [self stitcher:self.stitcher didUpdate:@"Releasing result."];
-            [Stitcher releaseImage:&joined_image];
-            
-            if (self.joined_uiimage) {
-                
-                self.saveButton.enabled = YES;
-                
-                UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:self.joined_uiimage] applicationActivities:nil];
-                
-                /*
-                 
-                 Built-in Activity Types:
-                 
-                 https://developer.apple.com/library/ios/documentation/uikit/reference/UIActivity_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40011974-CH1-SW13
-                 
-                 */
-                [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-                    
-                    NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        UIAlertView *alert;
-                        
-                        /*
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToFacebook     NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToTwitter      NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToWeibo        NS_AVAILABLE_IOS(6_0);    // SinaWeibo
-                         UIKIT_EXTERN NSString *const UIActivityTypeMessage            NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeMail               NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePrint              NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeCopyToPasteboard   NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeAssignToContact    NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeSaveToCameraRoll   NS_AVAILABLE_IOS(6_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeAddToReadingList   NS_AVAILABLE_IOS(7_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToFlickr       NS_AVAILABLE_IOS(7_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToVimeo        NS_AVAILABLE_IOS(7_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypePostToTencentWeibo NS_AVAILABLE_IOS(7_0);
-                         UIKIT_EXTERN NSString *const UIActivityTypeAirDrop            NS_AVAILABLE_IOS(7_0);
-                         */
-                        
-                        if ([activityType isEqualToString:UIActivityTypeMessage]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Message completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypeMail]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Mail completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypePrint]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Print completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Copy completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypeAssignToContact]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Assign to contact completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypeSaveToCameraRoll]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Save completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Airdrop completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        else {
-                            alert = [[UIAlertView alloc] initWithTitle:@"Cancelled?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        }
-                        
-                        [alert show];
-                
-                    });
-                }];
-                
-                // display the share dialog
-                
-                // See https://www.mikeash.com/pyblog/friday-qa-2009-08-28-intro-to-grand-central-dispatch-part-i-basics-and-dispatch-queues.html
-                
-                
-                dispatch_async(dispatch_get_main_queue(), ^{[self presentViewController:activityViewController animated:YES completion:nil]; });
-                
-            }
-            else {
-                self.saveButton.enabled = NO;
-            }
-        }
-        
-        self.stitchButton.enabled = true;
-        self.fastStitchButton.enabled = true;
-        
-        [self.activityView stopAnimating];
     }
-			
-	NSLog(@"Finished!");
 }
 
 - (void)viewDidLoad
