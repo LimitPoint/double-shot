@@ -16,9 +16,15 @@
 {
 	IplImage* iplImage = nil;
 	
-	UIImage *uiImage = [[UIImage imageNamed:self] fixOrientation];
+    
+	UIImage *uiImage = [UIImage imageWithContentsOfFile:self];
+    
+    if (!uiImage) {
+        uiImage = [UIImage imageNamed:self];
+    }
     
 	if (uiImage) {
+        uiImage = [uiImage fixOrientation];
 		iplImage = [uiImage IPLImage];
 	}
 	
