@@ -98,7 +98,7 @@ bool done = false;
                     alert = [[UIAlertView alloc] initWithTitle:@"Airdrop completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 }
                 else {
-                    alert = [[UIAlertView alloc] initWithTitle:@"Cancelled?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    alert = [[UIAlertView alloc] initWithTitle:@"Cancelled share?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 }
                 
                 [alert show];
@@ -119,8 +119,9 @@ bool done = false;
     }
     
     
-    self.stitchButton.enabled = true;
-    self.fastStitchButton.enabled = true;
+    self.stitchButton.enabled = YES;
+    self.fastStitchButton.enabled = YES;
+    self.cancelButton.enabled = NO;
     
     [self.activityView stopAnimating];
     
@@ -262,8 +263,9 @@ bool done = false;
     
     [self saveOptions];
     
-    self.stitchButton.enabled = false;
-    self.fastStitchButton.enabled = false;
+    self.stitchButton.enabled = NO;
+    self.fastStitchButton.enabled = NO;
+    self.cancelButton.enabled = YES;
     
     self.secondsLabel.text = @"0";
     
@@ -283,8 +285,9 @@ bool done = false;
     
     [self saveOptions];
     
-    self.stitchButton.enabled = false;
-    self.fastStitchButton.enabled = false;
+    self.stitchButton.enabled = NO;
+    self.fastStitchButton.enabled = NO;
+    self.cancelButton.enabled = YES;
     
     self.secondsLabel.text = @"0";
     
@@ -298,6 +301,12 @@ bool done = false;
 
 - (IBAction)resetOptionsButtonPressed:(id)sender
 {
+    UIAlertView *alert;
+    
+    alert = [[UIAlertView alloc] initWithTitle:@"Options reset to their default values." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alert show];
+        
     self.inputImageScalingSlider.value = 100;
     self.blendWidthScalingSlider.value = 33;
     self.matchingMarginSizeSlider.value = 33;
@@ -319,6 +328,11 @@ bool done = false;
     [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
     
     UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
+}
+
+- (IBAction)cancelStitch:(id)sender
+{
+    [Stitcher shouldAbort];
 }
 
 - (void)initStitchProperties

@@ -371,6 +371,9 @@ static UInt32 freeMemory(UInt32 divisor)
         } else if (squaredDistance < lastMinSquaredDistance) {
             lastMinSquaredDistance = squaredDistance;
         }
+        
+        if (s_should_abort)
+            continue;
     }
     
     if (threshold) {
@@ -615,6 +618,10 @@ static UInt32 freeMemory(UInt32 divisor)
 								
 								keyPointMatches[0].push_back(p1);
 								keyPointMatches[1].push_back(p2);
+                                
+                                // break out of this loop if aborting
+                                if (s_should_abort)
+                                    break;
 							}
 							
 							CvMat imageRightPoints = cvMat(1, keyPointMatches[0].size(), CV_32FC2, keyPointMatches[0].data());

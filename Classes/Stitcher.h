@@ -47,15 +47,14 @@
 @property (nonatomic, assign) bool extendedDescriptors;     // choose between 64 (default - faster) and 128 length descriptors for SURF
 @property (nonatomic, assign) bool useLastMinSquaredDistancePercent;     // for "naive" descriptor method
 
-
 + (void)shouldAbort;
 
 + (IplImage*)createImageWithSize:(CvSize)size depth:(int)in_depth channels:(int)in_channels;
 + (void)releaseImage:(IplImage**)image;
 
 - (IplImage*)stitchImages:(NSMutableArray*)images error:(NSError**)error;
-
 - (void)beginStitchingImages:(NSMutableArray*)images error:(NSError**)error;
++ (void)shouldAbort;
 
 @end
 

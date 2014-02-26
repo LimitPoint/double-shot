@@ -50,6 +50,7 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *stitchButton;
 @property (nonatomic, retain) IBOutlet UIButton *fastStitchButton;
+@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
 @property (nonatomic, retain) IBOutlet UIButton *saveButton;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityView;
 
