@@ -57,6 +57,8 @@ bool done = false;
     
     if (self.joined_uiimage) {
         
+        [self displayImage:image];
+        
         self.saveButton.enabled = YES;
         
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:self.joined_uiimage] applicationActivities:nil];
@@ -385,7 +387,9 @@ bool done = false;
         
         NSError* error;
         
-        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
+        
+        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_rice.jpg", @"right_rice.jpg", nil];
         
         [self.stitcher beginStitchingImages:images error:&error];
         
