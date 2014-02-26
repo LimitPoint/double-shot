@@ -39,6 +39,8 @@
 		CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7B520518AC682200E3BB44 /* opencv2.framework */; };
 		CDA2F9A518BDB1DA00FA4797 /* left_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */; };
 		CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */; };
+		CDA2F9A818BDC72200FA4797 /* left_machine_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */; };
+		CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */; };
 		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
 		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
 		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
@@ -87,6 +89,8 @@
 		CD7B520518AC682200E3BB44 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_rice.jpg; sourceTree = "<group>"; };
 		CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_rice.jpg; sourceTree = "<group>"; };
+		CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_machine_room.jpg; sourceTree = "<group>"; };
+		CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_machine_room.jpg; sourceTree = "<group>"; };
 		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
 		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 		CD36876318B2AF5D00386142 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */,
+				CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */,
 				CD36876418B2AF5D00386142 /* left_amsterdam.jpg */,
 				CD36876618B2AF5D00386142 /* right_amsterdam.jpg */,
 				CD36876518B2AF5D00386142 /* left_pizza.jpg */,
@@ -280,9 +286,11 @@
 				CD36876E18B40E3500386142 /* left_screen.jpg in Resources */,
 				CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */,
 				CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */,
+				CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */,
 				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
 				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
+				CDA2F9A818BDC72200FA4797 /* left_machine_room.jpg in Resources */,
 				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
 				CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */,
 				CDD24B5918B6A70C00001470 /* Icon-152.png in Resources */,

@@ -389,7 +389,11 @@ bool done = false;
         
         //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
         
-        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_rice.jpg", @"right_rice.jpg", nil];
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_rice.jpg", @"right_rice.jpg", nil];
+        
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_machine_room.jpg", @"right_machine_room.jpg", nil];
+        
+        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_pizza.jpg", @"right_pizza.jpg", nil];
         
         [self.stitcher beginStitchingImages:images error:&error];
         
