@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *textView;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) Stitcher *stitcher;
 @property (nonatomic, retain) UIImage* joined_uiimage;
@@ -52,6 +53,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *fastStitchButton;
 @property (nonatomic, retain) IBOutlet UIButton *cancelButton;
 @property (nonatomic, retain) IBOutlet UIButton *saveButton;
+@property (nonatomic, retain) IBOutlet UIButton *expandButton;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityView;
 
 - (IBAction)sliderChanged:(id)sender;

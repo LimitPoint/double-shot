@@ -301,6 +301,57 @@ bool done = false;
     [self performSelectorInBackground:@selector(stitch) withObject:nil];
 }
 
+- (IBAction)expandButtonPressed:(id)sender
+{
+    
+    if ([_expandButton.titleLabel.text compare:@"+"] == NSOrderedSame) {
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseInOut
+                         animations:^{
+                            CGRect frame = _imageView.frame;
+                             frame.size.height += (_scrollView.frame.size.height + _textView.frame.size.height);
+                             _scrollView.frame = frame;
+                         }
+                         completion:^(BOOL finished){
+                             if(finished) {
+                                 
+                                 _expandButton.titleLabel.text = @"-";
+                                 
+                             }
+                         }];
+    }
+    else {
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             CGRect frame = _scrollView.frame;
+                             
+                             CGPoint point = _scrollView.frame.origin;
+                             point.y += _imageView.frame.size.height;
+                             frame.origin = point;
+                             
+                             CGSize size = _scrollView.frame.size;
+                             size.height -= (_imageView.frame.size.height + _textView.frame.size.height);
+                             frame.size = size;
+
+                             _scrollView.frame = frame;
+                             
+                         }
+                         completion:^(BOOL finished){
+                             if(finished) {
+                                
+                                 _expandButton.titleLabel.text = @"+";
+                                 
+                             }
+                         }];
+    }
+    
+    
+    
+}
+
 - (IBAction)resetOptionsButtonPressed:(id)sender
 {
     UIAlertView *alert;
