@@ -22,6 +22,8 @@ bool done = false;
     [self.textView scrollRangeToVisible:NSMakeRange([self.textView.text length], 0)];
     [self.textView setScrollEnabled:NO];
     [self.textView setScrollEnabled:YES];
+    
+     _progressView.progress = [self.stitcher progressPercent];
 }
 
 // Stitcher Delegate
@@ -356,24 +358,12 @@ bool done = false;
 {
     UIAlertView *alert;
     
-    alert = [[UIAlertView alloc] initWithTitle:@"Options reset to their default values." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    alert = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to reset options?" message:nil delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    
+    alert.tag = 1;
     
     [alert show];
         
-    self.inputImageScalingSlider.value = 100;
-    self.blendWidthScalingSlider.value = 33;
-    self.matchingMarginSizeSlider.value = 33;
-    self.homographyScalingSlider.value = 50;
-    self.lastMinSquaredDistancePercentSlider.value = 70;
-    
-    self.cropSwitch.on = YES;
-    self.blendSwitch.on = YES;
-    self.betterInterpolationSwitch.on = YES;
-    self.highHessianThresholdSwitch.on = YES;
-    self.extendedDescriptorsSwitch.on = NO;
-    self.lastMinSquaredDistancePercentSwitch.on = NO;
-    
-    [self sliderChanged:self];
 }
 
 - (IBAction)saveImage:(id)sender
@@ -444,7 +434,13 @@ bool done = false;
         
         //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_machine_room.jpg", @"right_machine_room.jpg", nil];
         
-        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_pizza.jpg", @"right_pizza.jpg", nil];
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_pizza.jpg", @"right_pizza.jpg", nil];
+        
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_umbrella_and_bench.jpg", @"right_umbrella_and_bench.jpg", nil];
+        
+        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_mural.jpg", @"right_mural.jpg", nil];
+        
+        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_sophies_room.jpg", @"right_sophies_room.jpg", nil];
         
         [self.stitcher beginStitchingImages:images error:&error];
         
@@ -491,6 +487,35 @@ bool done = false;
             
             [alert show];
 		}
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ((alertView.tag == 1) && (buttonIndex == 0)) {
+        
+        self.inputImageScalingSlider.value = 100;
+        self.blendWidthScalingSlider.value = 33;
+        self.matchingMarginSizeSlider.value = 33;
+        self.homographyScalingSlider.value = 50;
+        self.lastMinSquaredDistancePercentSlider.value = 70;
+        
+        self.cropSwitch.on = YES;
+        self.blendSwitch.on = YES;
+        self.betterInterpolationSwitch.on = YES;
+        self.highHessianThresholdSwitch.on = YES;
+        self.extendedDescriptorsSwitch.on = NO;
+        self.lastMinSquaredDistancePercentSwitch.on = YES;
+        
+        [self sliderChanged:self];
+
+        UIAlertView *alert;
+        
+        alert = [[UIAlertView alloc] initWithTitle:@"Options reset." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        alert.tag = 0;
+        
+        [alert show];
     }
 }
 

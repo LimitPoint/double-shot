@@ -9,7 +9,7 @@
 
 #import "Stitcher.h"
 
-@interface DoubleShotViewController : UIViewController<StitcherDelegate>
+@interface DoubleShotViewController : UIViewController<StitcherDelegate, UIAlertViewDelegate>
 {
     int seconds;
     NSTimer *secondsTimer;
@@ -23,6 +23,7 @@
 @property (nonatomic, retain) IBOutlet UITextView *textView;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
+@property (nonatomic, retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic, retain) Stitcher *stitcher;
 @property (nonatomic, retain) UIImage* joined_uiimage;
 

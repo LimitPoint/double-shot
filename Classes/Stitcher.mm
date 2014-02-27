@@ -51,12 +51,12 @@ static UInt32 freeMemory(UInt32 divisor)
     self.highHessianThreshold = YES;
     self.extendedDescriptors = NO;
     self.lastMinSquaredDistancePercent = 0.7;
-    self.useLastMinSquaredDistancePercent = NO;
+    self.useLastMinSquaredDistancePercent = YES;
 		
 	self.intermediateResult = nil;
 	
 	progress = 0;
-	progressMax = 0;
+	progressMax = 11;
 	
 	s_nbrImagesCreated = 0;
  	s_cummulativeImageSize = 0;
@@ -119,6 +119,11 @@ static UInt32 freeMemory(UInt32 divisor)
 		cvReleaseImage(image);
 		*image = nil;
 	}
+}
+
+- (float)progressPercent
+{
+    return (float)progress/progressMax;
 }
 
 - (IplImage*)create_cropped_image:(IplImage*)src cropRect:(CvRect)roi
@@ -347,8 +352,6 @@ static UInt32 freeMemory(UInt32 divisor)
              imageRightKeyPoint:(const CvSURFPoint*)imageRightKeyPoint
            imageLeftDescriptors:(CvSeq*)imageLeftDescriptors
              imageLeftKeyPoints:(CvSeq*)imageLeftKeyPoints
-                  threshold:(BOOL)threshold
-
 {
     int descriptorsCount = (int)(imageLeftDescriptors->elem_size/sizeof(float));
     double minSquaredDistance = std::numeric_limits<double>::max();
@@ -376,7 +379,7 @@ static UInt32 freeMemory(UInt32 divisor)
             continue;
     }
     
-    if (threshold) {
+    if (self.useLastMinSquaredDistancePercent) {
         double threshold;
         
         threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
@@ -406,12 +409,7 @@ static UInt32 freeMemory(UInt32 divisor)
 	if ((self.makeHomography == NO) || s_should_abort) {
         NSLog(@"Make homography = false, only translating");
 		
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useTranslation"]) {
-			[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-		}
-		else {
-			[self makeTranslationTransform:&T translation_x:in_left->width translation_y:0];
-		}
+		[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
 		
 		// apply the translation to the homograph
 		cvMatMul(&T, &H_prime, H);
@@ -422,8 +420,9 @@ static UInt32 freeMemory(UInt32 divisor)
 	// and not the "margin" extracted from the left and right.
 	[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
 	
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Computing homography %f", progress/progressMax]];
-	NSLog(@"Computing homography %f", progress/progressMax);
+    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing images %f", progress/progressMax]];
+	NSLog(@"Preparing images %f", progress/progressMax);
 	
 	IplImage* right_margin;
 	IplImage* left_margin;
@@ -491,7 +490,7 @@ static UInt32 freeMemory(UInt32 divisor)
 						
 						cvResize(right_margin, scaled_right);
 						cvResize(left_margin, scaled_left);
-						
+                        
 						ipl_right = [self prepareImage:scaled_right];
 						
 						if (ipl_right) {
@@ -566,6 +565,10 @@ static UInt32 freeMemory(UInt32 divisor)
 			
 			if (ipl_right) {
 				if (ipl_left) {
+                    
+                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding and matching keypoints %f", progress /progressMax]];
+                    NSLog(@"Finding and matching keypoints %f", progress/progressMax);
 					
 					CvMemStorage* memoryBlock = cvCreateMemStorage();
 					
@@ -608,7 +611,7 @@ static UInt32 freeMemory(UInt32 divisor)
 								const CvSURFPoint* imageRightKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i);
 								const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
 								
-								int nearestNeighbor = [self findNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints threshold:self.useLastMinSquaredDistancePercent];
+								int nearestNeighbor = [self findNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints];
 
                                 if (nearestNeighbor == -1)
                                     continue;
@@ -631,6 +634,11 @@ static UInt32 freeMemory(UInt32 divisor)
 							
 							try {
 								if (!s_should_abort) {
+                                    
+                                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+                                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography %f", progress/progressMax]];
+                                    NSLog(@"Finding homography %f", progress/progressMax);
+                                    
 									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, CV_RANSAC);
 								}
 							} catch (std::exception& e) {
@@ -643,12 +651,7 @@ static UInt32 freeMemory(UInt32 divisor)
 								[self.delegate stitcher:self didUpdate:@"Homography result is zero."];
 								NSLog(@"Homography result is zero.");
 								// reset the translation to the desired amount for an invalid homography
-								if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useTranslation"]) {
-									[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-								}
-								else {
-									[self makeTranslationTransform:&T translation_x:in_left->width translation_y:0];
-								}
+								[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
 								
 								cvSetIdentity(&H_prime);
 							}
@@ -689,6 +692,7 @@ static UInt32 freeMemory(UInt32 divisor)
 		return nil;
 	}
 	
+    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
 	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Blending %f", progress/progressMax]];
 	NSLog(@"Blending %f", progress/progressMax);
 	
@@ -1127,9 +1131,6 @@ static UInt32 freeMemory(UInt32 divisor)
         NSLog(@"Margin size: %d", marginSize);
         
         try {
-            
-            // the number of times progress is reported
-            progressMax = 7;
             
             blended_image = [self stitchImageRight:[[images objectAtIndex:1] IPLImageByScaling:self.inputImageScaling] toImageLeft:[[images objectAtIndex:0] IPLImageByScaling:self.inputImageScaling]];
             

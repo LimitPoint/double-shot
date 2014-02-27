@@ -35,6 +35,12 @@
 		CD36876E18B40E3500386142 /* left_screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876C18B40E3500386142 /* left_screen.jpg */; };
 		CD36876F18B40E3500386142 /* right_screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD36876D18B40E3500386142 /* right_screen.jpg */; };
 		CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD4979491468BF9B00E3E813 /* Stitcher.mm */; };
+		CD576BEA18BF05C1006F7315 /* left_umbrella_and_bench.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BE818BF05C1006F7315 /* left_umbrella_and_bench.jpg */; };
+		CD576BEB18BF05C1006F7315 /* right_umbrella_and_bench.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BE918BF05C1006F7315 /* right_umbrella_and_bench.jpg */; };
+		CD576BEE18BF0D92006F7315 /* left_mural.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BEC18BF0D92006F7315 /* left_mural.jpg */; };
+		CD576BEF18BF0D92006F7315 /* right_mural.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BED18BF0D92006F7315 /* right_mural.jpg */; };
+		CD576BF218BF0EFE006F7315 /* left_sophies_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BF018BF0EFE006F7315 /* left_sophies_room.jpg */; };
+		CD576BF318BF0EFE006F7315 /* right_sophies_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD576BF118BF0EFE006F7315 /* right_sophies_room.jpg */; };
 		CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD6960EF18AFD93F00FC7150 /* DoubleShotViewController.xib */; };
 		CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7B520518AC682200E3BB44 /* opencv2.framework */; };
 		CDA2F9A518BDB1DA00FA4797 /* left_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */; };
@@ -85,6 +91,12 @@
 		CD36876D18B40E3500386142 /* right_screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_screen.jpg; sourceTree = "<group>"; };
 		CD4979481468BF9B00E3E813 /* Stitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stitcher.h; sourceTree = "<group>"; };
 		CD4979491468BF9B00E3E813 /* Stitcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Stitcher.mm; sourceTree = "<group>"; };
+		CD576BE818BF05C1006F7315 /* left_umbrella_and_bench.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_umbrella_and_bench.jpg; sourceTree = "<group>"; };
+		CD576BE918BF05C1006F7315 /* right_umbrella_and_bench.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_umbrella_and_bench.jpg; sourceTree = "<group>"; };
+		CD576BEC18BF0D92006F7315 /* left_mural.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_mural.jpg; sourceTree = "<group>"; };
+		CD576BED18BF0D92006F7315 /* right_mural.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_mural.jpg; sourceTree = "<group>"; };
+		CD576BF018BF0EFE006F7315 /* left_sophies_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_sophies_room.jpg; sourceTree = "<group>"; };
+		CD576BF118BF0EFE006F7315 /* right_sophies_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_sophies_room.jpg; sourceTree = "<group>"; };
 		CD6960F018AFD93F00FC7150 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoubleShotViewController.xib; sourceTree = "<group>"; };
 		CD7B520518AC682200E3BB44 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_rice.jpg; sourceTree = "<group>"; };
@@ -215,6 +227,12 @@
 				CD36876D18B40E3500386142 /* right_screen.jpg */,
 				CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */,
 				CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */,
+				CD576BE818BF05C1006F7315 /* left_umbrella_and_bench.jpg */,
+				CD576BE918BF05C1006F7315 /* right_umbrella_and_bench.jpg */,
+				CD576BEC18BF0D92006F7315 /* left_mural.jpg */,
+				CD576BED18BF0D92006F7315 /* right_mural.jpg */,
+				CD576BF018BF0EFE006F7315 /* left_sophies_room.jpg */,
+				CD576BF118BF0EFE006F7315 /* right_sophies_room.jpg */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -276,19 +294,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD36876018B2AF3C00386142 /* Icon.png in Resources */,
+				CD576BF318BF0EFE006F7315 /* right_sophies_room.jpg in Resources */,
 				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
 				CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */,
 				CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */,
 				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
+				CD576BEB18BF05C1006F7315 /* right_umbrella_and_bench.jpg in Resources */,
 				CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */,
 				CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */,
 				CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */,
 				CD36876E18B40E3500386142 /* left_screen.jpg in Resources */,
+				CD576BEE18BF0D92006F7315 /* left_mural.jpg in Resources */,
 				CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */,
 				CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */,
 				CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */,
 				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
 				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
+				CD576BEF18BF0D92006F7315 /* right_mural.jpg in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
 				CDA2F9A818BDC72200FA4797 /* left_machine_room.jpg in Resources */,
 				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
@@ -297,7 +319,9 @@
 				0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */,
 				CDD24B5818B6A70C00001470 /* Icon-76.png in Resources */,
 				CD36875C18B2AF3C00386142 /* Default.png in Resources */,
+				CD576BEA18BF05C1006F7315 /* left_umbrella_and_bench.jpg in Resources */,
 				CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */,
+				CD576BF218BF0EFE006F7315 /* left_sophies_room.jpg in Resources */,
 				CDA2F9A518BDB1DA00FA4797 /* left_rice.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

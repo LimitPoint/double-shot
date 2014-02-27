@@ -28,6 +28,9 @@
 	float progressMax;
 }
 
+@property (nonatomic, assign) float progress;
+@property (nonatomic, assign) float progressMax;
+
 @property (nonatomic, retain) UIImage* intermediateResult;
 @property (nonatomic, assign) id<StitcherDelegate> delegate;
 
@@ -56,6 +59,7 @@
 - (void)beginStitchingImages:(NSMutableArray*)images error:(NSError**)error;
 + (void)shouldAbort;
 
+- (float)progressPercent;
 @end
 
 // DoubleShotViewController implements these
