@@ -23,9 +23,6 @@
 	int blended_width;          // these paramaters depend on the crop property choice
 	int blended_height;
 	CvSize blended_size;
-		
-	float progress;             // progress percent is determined by index of current progress update, up to total updates
-	float progressMax;
 }
 
 @property (nonatomic, assign) float progress;

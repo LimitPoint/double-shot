@@ -35,7 +35,7 @@ static UInt32 freeMemory(UInt32 divisor)
 
 @implementation Stitcher
 
-- (id) init
+- (id)init
 {
 	self = [super init];
 	
@@ -55,8 +55,8 @@ static UInt32 freeMemory(UInt32 divisor)
 		
 	self.intermediateResult = nil;
 	
-	progress = 0;
-	progressMax = 11;
+	self.progress = 0;
+	self.progressMax = 11;
 	
 	s_nbrImagesCreated = 0;
  	s_cummulativeImageSize = 0;
@@ -123,7 +123,7 @@ static UInt32 freeMemory(UInt32 divisor)
 
 - (float)progressPercent
 {
-    return (float)progress/progressMax;
+    return self.progress/self.progressMax;
 }
 
 - (IplImage*)create_cropped_image:(IplImage*)src cropRect:(CvRect)roi
@@ -420,9 +420,10 @@ static UInt32 freeMemory(UInt32 divisor)
 	// and not the "margin" extracted from the left and right.
 	[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
 	
-    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
-    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing images %f", progress/progressMax]];
-	NSLog(@"Preparing images %f", progress/progressMax);
+    self.progress += 1;
+    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
+    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing images %f", self.progressPercent]];
+	NSLog(@"Preparing images %f", self.progressPercent);
 	
 	IplImage* right_margin;
 	IplImage* left_margin;
@@ -566,9 +567,10 @@ static UInt32 freeMemory(UInt32 divisor)
 			if (ipl_right) {
 				if (ipl_left) {
                     
-                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
-                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding and matching keypoints %f", progress /progressMax]];
-                    NSLog(@"Finding and matching keypoints %f", progress/progressMax);
+                    self.progress += 1;
+                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
+                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding and matching keypoints %f", self.progressPercent]];
+                    NSLog(@"Finding and matching keypoints %f", self.progressPercent);
 					
 					CvMemStorage* memoryBlock = cvCreateMemStorage();
 					
@@ -635,9 +637,10 @@ static UInt32 freeMemory(UInt32 divisor)
 							try {
 								if (!s_should_abort) {
                                     
-                                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
-                                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography %f", progress/progressMax]];
-                                    NSLog(@"Finding homography %f", progress/progressMax);
+                                    self.progress += 1;
+                                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
+                                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography %f", self.progressPercent]];
+                                    NSLog(@"Finding homography %f", self.progressPercent);
                                     
 									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, CV_RANSAC);
 								}
@@ -692,9 +695,10 @@ static UInt32 freeMemory(UInt32 divisor)
 		return nil;
 	}
 	
-    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Blending %f", progress/progressMax]];
-	NSLog(@"Blending %f", progress/progressMax);
+    self.progress += 1;
+    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Blending %f", self.progressPercent]];
+	NSLog(@"Blending %f", self.progressPercent);
 	
 	// the blended image!
 	IplImage* blended_image_4 = [Stitcher createImageWithSize:blended_size depth:depth channels:4];
@@ -803,8 +807,8 @@ static UInt32 freeMemory(UInt32 divisor)
 		}
 	}
 	
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Blended %f", progress/progressMax]];
-	NSLog(@"Blended %f", progress/progressMax);
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Blended %f", self.progressPercent]];
+	NSLog(@"Blended %f", self.progressPercent);
 	
 	return blended_image_4;
 }
@@ -831,8 +835,8 @@ static UInt32 freeMemory(UInt32 divisor)
 	
 	if (s_should_abort) return nil;
 	
-	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Computing blender mask %f", progress/progressMax]];
-	NSLog(@"Computing blender mask %f", progress/progressMax);
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Computing blender mask %f", self.progressPercent]];
+	NSLog(@"Computing blender mask %f", self.progressPercent);
 	
 	IplImage* mask = [Stitcher createImageWithSize:blended_size depth:depth channels:1];
 	
@@ -948,7 +952,8 @@ static UInt32 freeMemory(UInt32 divisor)
             return nil;
         }
         
-        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+        self.progress += 1;
+        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
         
         depth = in_imageLeft->depth;
         channels = in_imageLeft->nChannels;
@@ -958,7 +963,8 @@ static UInt32 freeMemory(UInt32 divisor)
         
         [self makeHomographyFor:in_imageRight toImage:in_imageLeft homography:&H];
         
-        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+        self.progress += 1;
+        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
         
         // warp the shape of the right image
         CvPoint2D32f right_coordinates[4];
@@ -1022,9 +1028,10 @@ static UInt32 freeMemory(UInt32 divisor)
         
         if (mask) {
             
-            [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+            self.progress += 1;
+            [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
             
-            [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing blend %f", progress/progressMax]];
+            [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing blend %f", self.progressPercent]];
             NSLog(@"Preparing blend.");
             
             double th[9];
@@ -1032,14 +1039,17 @@ static UInt32 freeMemory(UInt32 divisor)
             cvMatMul(&T, &H, &T_H);
             
             IplImage* right_image = [self warpImage:in_imageRight with:&T_H];
-            [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+            
+            self.progress += 1;
+            [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
             [Stitcher releaseImage:&in_imageRight];
             
             if (right_image) {
                 
                 IplImage* left_image = [self warpImage:in_imageLeft with:&T];
                 
-                [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+                self.progress += 1;
+                [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
                 [Stitcher releaseImage:&in_imageLeft];
                 
                 if (left_image) {
@@ -1049,7 +1059,8 @@ static UInt32 freeMemory(UInt32 divisor)
                     else
                         blended_image = [self addImage:left_image to:right_image];
                     
-                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+                    self.progress += 1;
+                    [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
                     
                     [Stitcher releaseImage:&left_image];
                 }
@@ -1080,7 +1091,8 @@ static UInt32 freeMemory(UInt32 divisor)
             [self sendDelegateIntermediateStitchImage:blended_image];
         }
         
-        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:((progress += 1)/progressMax)]];
+        self.progress += 1;
+        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
     }
 		
 	[self freeMemory:@""];
@@ -1099,7 +1111,7 @@ static UInt32 freeMemory(UInt32 divisor)
             return nil;
         }
         
-        progress = 0;
+        self.progress = 0;
         
         [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Stitching %d images", [images count]]];
         NSLog(@"Stitching %d images", (int)[images count]);
@@ -1174,11 +1186,11 @@ static UInt32 freeMemory(UInt32 divisor)
         [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Images released: %d", (int)s_nbrImagesReleased]];
         NSLog(@"Images released: %d", (int)s_nbrImagesReleased);
         
-        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Progress maximum: %d", (int)progress]];
-        NSLog(@"Progress maximum: %d", (int)progress);
+        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Progress maximum: %d", (int)self.progress]];
+        NSLog(@"Progress maximum: %d", (int)self.progress);
         
-        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Progress: %f", progress/progressMax]];
-        NSLog(@"Progress: %f", progress/progressMax);
+        [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Progress: %f", self.progressPercent]];
+        NSLog(@"Progress: %f", self.progressPercent);
     }
 	
 	[self freeMemory:@" (finish) "];

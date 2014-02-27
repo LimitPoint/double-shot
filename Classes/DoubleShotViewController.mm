@@ -23,7 +23,7 @@ bool done = false;
     [self.textView setScrollEnabled:NO];
     [self.textView setScrollEnabled:YES];
     
-     _progressView.progress = [self.stitcher progressPercent];
+     self.progressView.progress = self.stitcher.progressPercent;
 }
 
 // Stitcher Delegate
