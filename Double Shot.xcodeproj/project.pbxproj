@@ -47,6 +47,8 @@
 		CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */; };
 		CDA2F9A818BDC72200FA4797 /* left_machine_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */; };
 		CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */; };
+		CDC3C8CE18C12792007026CE /* NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC3C8CD18C12792007026CE /* NSStringExtensions.m */; };
+		CDC3C8D018C139B2007026CE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */; };
 		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
 		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
 		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
@@ -103,6 +105,9 @@
 		CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_rice.jpg; sourceTree = "<group>"; };
 		CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_machine_room.jpg; sourceTree = "<group>"; };
 		CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_machine_room.jpg; sourceTree = "<group>"; };
+		CDC3C8CC18C12792007026CE /* NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExtensions.h; sourceTree = "<group>"; };
+		CDC3C8CD18C12792007026CE /* NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExtensions.m; sourceTree = "<group>"; };
+		CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
 		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 				005C845A141697EF00B1ADDB /* CoreVideo.framework in Frameworks */,
 				CD36874318AFED8E00386142 /* AVFoundation.framework in Frameworks */,
 				CD36874118AFED6B00386142 /* CoreMedia.framework in Frameworks */,
+				CDC3C8D018C139B2007026CE /* MobileCoreServices.framework in Frameworks */,
 				0013FA2514111D0E004DC957 /* UIKit.framework in Frameworks */,
 				0013FA2714111D0E004DC957 /* Foundation.framework in Frameworks */,
 				0013FA2914111D0E004DC957 /* CoreGraphics.framework in Frameworks */,
@@ -161,6 +167,7 @@
 				0013FA2414111D0E004DC957 /* UIKit.framework */,
 				0013FA2614111D0E004DC957 /* Foundation.framework */,
 				0013FA2814111D0E004DC957 /* CoreGraphics.framework */,
+				CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,6 +175,8 @@
 		0013FA2A14111D0F004DC957 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD4979481468BF9B00E3E813 /* Stitcher.h */,
+				CD4979491468BF9B00E3E813 /* Stitcher.mm */,
 				0013FA3314111D0F004DC957 /* DoubleShotAppDelegate.h */,
 				0013FA3414111D0F004DC957 /* DoubleShotAppDelegate.mm */,
 				0013FA3614111D0F004DC957 /* MainWindow.xib */,
@@ -179,8 +188,8 @@
 				0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */,
 				CD1B85231495EF5000AF3962 /* NSString+OpenCV.h */,
 				CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */,
-				CD4979481468BF9B00E3E813 /* Stitcher.h */,
-				CD4979491468BF9B00E3E813 /* Stitcher.mm */,
+				CDC3C8CC18C12792007026CE /* NSStringExtensions.h */,
+				CDC3C8CD18C12792007026CE /* NSStringExtensions.m */,
 				0013FA2B14111D0F004DC957 /* Supporting Files */,
 			);
 			path = Classes;
@@ -335,6 +344,7 @@
 			files = (
 				0013FA3114111D0F004DC957 /* main.m in Sources */,
 				0013FA3514111D0F004DC957 /* DoubleShotAppDelegate.mm in Sources */,
+				CDC3C8CE18C12792007026CE /* NSStringExtensions.m in Sources */,
 				0013FA3B14111D0F004DC957 /* DoubleShotViewController.mm in Sources */,
 				0013FA4814111D6A004DC957 /* UIImage+OpenCV.mm in Sources */,
 				CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */,

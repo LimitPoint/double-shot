@@ -13,6 +13,7 @@
                 <outlet property="blendWidthScalingSlider" destination="OLs-Pw-pMo" id="lbz-Og-eQp"/>
                 <outlet property="cancelButton" destination="EFh-P3-Mcf" id="R7g-c4-W8U"/>
                 <outlet property="cropSwitch" destination="VwT-9a-UBV" id="i3H-1Z-fWg"/>
+                <outlet property="customButton" destination="H2E-Zf-HMc" id="VST-6V-ejJ"/>
                 <outlet property="equalizeSwitch" destination="pkZ-QR-K3k" id="wNd-hF-5xl"/>
                 <outlet property="expandButton" destination="lsx-qj-1VH" id="7ye-M8-bKp"/>
                 <outlet property="extendedDescriptorsSwitch" destination="ZfC-Ko-68A" id="uyW-IP-XkC"/>
@@ -34,6 +35,8 @@
                 <outlet property="saveButton" destination="gCZ-Gx-OuX" id="W1k-HW-jNp"/>
                 <outlet property="scrollView" destination="sBj-jI-Eew" id="F5O-Hx-lSq"/>
                 <outlet property="secondsLabel" destination="Slf-BM-wmx" id="3KF-BD-19N"/>
+                <outlet property="selectImagePicker" destination="eL0-zu-44s" id="NDM-nn-6Ug"/>
+                <outlet property="selectImageView" destination="X6I-RH-DVx" id="ZIc-K0-9wf"/>
                 <outlet property="stitchButton" destination="uXv-hY-ZMY" id="DvM-pQ-RJz"/>
                 <outlet property="textView" destination="30" id="31"/>
                 <outlet property="useRANSACSwitch" destination="rP3-Xh-L9A" id="ZOq-Vq-Dfh"/>
@@ -56,6 +59,19 @@
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="H2E-Zf-HMc">
+                    <rect key="frame" x="0.0" y="20" width="320" height="214"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Tap me!">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="customButtonPressed:" destination="-1" eventType="touchUpInside" id="5GF-XH-oNd"/>
+                    </connections>
+                </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="sBj-jI-Eew">
                     <rect key="frame" x="0.0" y="234" width="320" height="131"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -396,6 +412,21 @@
             </subviews>
             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="X6I-RH-DVx">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" showsSelectionIndicator="NO" id="eL0-zu-44s">
+                    <rect key="frame" x="0.0" y="-23" width="320" height="162"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="AvE-zV-azv"/>
+                        <outlet property="delegate" destination="-1" id="6fc-HH-j5l"/>
+                    </connections>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
 </document>

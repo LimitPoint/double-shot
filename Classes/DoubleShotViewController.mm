@@ -4,11 +4,10 @@
 //  
 //  Copyright (c) 2014 Limit Point LLC. All rights reserved.
 //
-
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImage+OpenCV.h"
 #import "DoubleShotViewController.h"
-
-bool done = false;
+#import "NSStringExtensions.h"
 
 @interface DoubleShotViewController ()
 @end
@@ -328,6 +327,95 @@ bool done = false;
     [self performSelectorInBackground:@selector(stitch) withObject:nil];
 }
 
+// Image picking
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
+{
+    return imageNames.count;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *pickerLabel = (UILabel *)view;
+    
+    if (pickerLabel == nil) {
+        //label size
+        CGRect frame = CGRectMake(0.0, 0.0, self.selectImagePicker.frame.size.width, 30);
+        
+        pickerLabel = [[UILabel alloc] initWithFrame:frame];
+        
+        [pickerLabel setTextAlignment:NSTextAlignmentCenter];
+        
+        [pickerLabel setBackgroundColor:[UIColor clearColor]];
+        //here you can play with fonts
+        [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]];
+        
+    }
+    //picker view array is the datasource
+    [pickerLabel setText:[imageNames objectAtIndex:row]];
+    
+    return pickerLabel;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
+{
+    return imageNames[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row   inComponent:(NSInteger)component
+{
+    self.imageView.image = [UIImage imageNamed:imageNames[row]];
+}
+
+- (IBAction)customButtonPressed:(id)sender
+{
+    if (self.selectImageView.isHidden) {
+        
+        [self.selectImageView setHidden:NO];
+        
+        [UIView animateWithDuration:0.3
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self.textView setAlpha:0.0f];
+                             [self.selectImageView setAlpha:1.0f];
+                             
+                         }
+                         completion:^(BOOL finished){
+                             if(finished) {
+                                 
+                                 [self.textView setHidden:YES];
+                                 
+                             }
+                         }];;
+        
+    }
+    else {
+        [self.textView setHidden:NO];
+        
+        [UIView animateWithDuration:0.3
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self.textView setAlpha:1.0f];
+                             [self.selectImageView setAlpha:0.0f];
+                             
+                         }
+                         completion:^(BOOL finished){
+                             if(finished) {
+                                 
+                                 [self.selectImageView setHidden:YES];
+                                 
+                             }
+                         }];;
+    }
+    
+}
+
 - (IBAction)expandButtonPressed:(id)sender
 {
     
@@ -478,6 +566,33 @@ bool done = false;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.selectImageView];
+	[self.selectImageView setFrame:[self.textView frame]];
+	[self.selectImageView setAlpha:0];
+	[self.selectImageView setHidden:YES];
+    
+    // populate the image picker (UIPickerView)
+    imageNames = [NSMutableArray array];
+    
+    NSError *error;
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    
+    NSArray * directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:resourcePath error:&error];
+    
+    for (NSString *file in directoryContents) {
+        CFStringRef fileExtension = (__bridge CFStringRef) [file pathExtension];
+        
+        // Need to add MobileCoreServices to project
+        CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
+        
+        if (UTTypeConformsTo(fileUTI, kUTTypeImage)) {
+            NSString* filename = [file lastPathComponent];
+            if ([filename hasPrefix:@"left_"]) {
+                [imageNames addObject:filename];
+            }
+        }
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated

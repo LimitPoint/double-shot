@@ -9,7 +9,7 @@
 
 #import "Stitcher.h"
 
-@interface DoubleShotViewController : UIViewController<StitcherDelegate, UIAlertViewDelegate>
+@interface DoubleShotViewController : UIViewController<StitcherDelegate, UIAlertViewDelegate, UIPickerViewDataSource,UIPickerViewDelegate>
 {
     int seconds;
     NSTimer *secondsTimer;
@@ -17,7 +17,7 @@
     BOOL fastStitch;
     NSInteger memoryWarningCount;
     
-    
+    NSMutableArray *imageNames;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *textView;
@@ -60,6 +60,11 @@
 @property (nonatomic, retain) IBOutlet UIButton *saveButton;
 @property (nonatomic, retain) IBOutlet UIButton *expandButton;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityView;
+
+@property (nonatomic, retain) IBOutlet UIButton *customButton;
+@property (nonatomic, retain) IBOutlet UIView * selectImageView;
+@property (nonatomic, retain) IBOutlet UIPickerView * selectImagePicker;
+
 
 - (IBAction)sliderChanged:(id)sender;
 - (IBAction)stitchButtonPressed:(id)sender;
