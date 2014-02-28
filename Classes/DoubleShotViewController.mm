@@ -146,6 +146,7 @@ bool done = false;
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.matchingMarginSizeSlider.value] forKey:@"Matching Margin Size"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.homographyScalingSlider.value] forKey:@"Homography Scaling"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.lastMinSquaredDistancePercentSlider.value] forKey:@"Last Min Squared Distance Percent"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:self.keyMatchesPercentSlider.value] forKey:@"Key Matches Percent"];
     
     BOOL value;
     
@@ -154,6 +155,9 @@ bool done = false;
     
     value = self.blendSwitch.on;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Blend"];
+    
+    value = self.equalizeSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Equalize"];
     
     value = self.betterInterpolationSwitch.on;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Better Interpolation"];
@@ -166,6 +170,9 @@ bool done = false;
     
     value = self.lastMinSquaredDistancePercentSwitch.on;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Use Last Min Squared Distance Percent"];
+    
+    value = self.useRANSACSwitch.on;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"Use RANSAC"];
 
 }
 
@@ -198,6 +205,11 @@ bool done = false;
         self.lastMinSquaredDistancePercentSlider.value = [preference floatValue];
     }
     
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Key Matches Percent"];
+    if (preference) {
+        self.keyMatchesPercentSlider.value = [preference floatValue];
+    }
+    
     BOOL value;
     
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Crop"];
@@ -210,6 +222,12 @@ bool done = false;
     if (preference) {
         value =[preference boolValue];
         self.blendSwitch.on = value;
+    }
+    
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Equalize"];
+    if (preference) {
+        value =[preference boolValue];
+        self.equalizeSwitch.on = value;
     }
 
     preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Better Interpolation"];
@@ -238,6 +256,12 @@ bool done = false;
     
     self.lastMinSquaredDistancePercentSlider.enabled = self.lastMinSquaredDistancePercentSwitch.on;
     
+    preference = [[NSUserDefaults standardUserDefaults] objectForKey:@"Use RANSAC"];
+    if (preference) {
+        value =[preference boolValue];
+        self.useRANSACSwitch.on = value;
+    }
+    
     [self sliderChanged:self];
 }
 
@@ -248,6 +272,7 @@ bool done = false;
     self.matchingMarginSizeLabel.text = [NSString stringWithFormat:@"%.0f", self.matchingMarginSizeSlider.value];
     self.homographyScalingLabel.text = [NSString stringWithFormat:@"%.0f", self.homographyScalingSlider.value];
     self.lastMinSquaredDistancePercentLabel.text = [NSString stringWithFormat:@"%.0f", self.lastMinSquaredDistancePercentSlider.value];
+    self.keyMatchesPercentLabel.text = [NSString stringWithFormat:@"%.0f", self.keyMatchesPercentSlider.value];
     
     self.lastMinSquaredDistancePercentSlider.enabled = self.lastMinSquaredDistancePercentSwitch.on;
     
@@ -388,15 +413,18 @@ bool done = false;
     self.stitcher.marginPercent = self.matchingMarginSizeSlider.value/100.0;  // default 0.33
     self.stitcher.homographyScaling = self.homographyScalingSlider.value/100.0; // default 1.0, i.e. none
     self.stitcher.lastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSlider.value/100.0; // default 1.0, i.e. none
+    self.stitcher.keypointPercent = self.keyMatchesPercentSlider.value/100.0; // default 1.0, i.e. none
     
     self.stitcher.useLastMinSquaredDistancePercent = self.lastMinSquaredDistancePercentSwitch.on;
     
     
     self.stitcher.crop = self.cropSwitch.on;  // default ON
     self.stitcher.blend = self.blendSwitch.on;  // default ON
+    self.stitcher.equalize = self.equalizeSwitch.on;  // default ON
     
     self.stitcher.highHessianThreshold = self.highHessianThresholdSwitch.on;  // default ON
     self.stitcher.extendedDescriptors = self.extendedDescriptorsSwitch.on;  // default OFF
+    self.stitcher.useRANSAC = self.useRANSACSwitch.on;  // default ON
     
     if (self.betterInterpolationSwitch.on == YES) {
         self.stitcher.interpolationMethodWarp = CV_INTER_CUBIC;  // default "better"
@@ -499,13 +527,16 @@ bool done = false;
         self.matchingMarginSizeSlider.value = 33;
         self.homographyScalingSlider.value = 50;
         self.lastMinSquaredDistancePercentSlider.value = 70;
+        self.keyMatchesPercentSlider.value = 100;
         
         self.cropSwitch.on = YES;
         self.blendSwitch.on = YES;
+        self.equalizeSwitch.on = YES;
         self.betterInterpolationSwitch.on = YES;
         self.highHessianThresholdSwitch.on = YES;
         self.extendedDescriptorsSwitch.on = NO;
         self.lastMinSquaredDistancePercentSwitch.on = YES;
+        self.useRANSACSwitch.on = YES;
         
         [self sliderChanged:self];
 

@@ -36,19 +36,23 @@
 @property (nonatomic, retain) IBOutlet UISlider *matchingMarginSizeSlider;
 @property (nonatomic, retain) IBOutlet UISlider *homographyScalingSlider;
 @property (nonatomic, retain) IBOutlet UISlider *lastMinSquaredDistancePercentSlider;
+@property (nonatomic, retain) IBOutlet UISlider *keyMatchesPercentSlider;
 
 @property (nonatomic, retain) IBOutlet UISwitch *cropSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *blendSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *equalizeSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *betterInterpolationSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *highHessianThresholdSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *extendedDescriptorsSwitch;
 @property (nonatomic, retain) IBOutlet UISwitch *lastMinSquaredDistancePercentSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *useRANSACSwitch;
 
 @property (nonatomic, retain) IBOutlet UILabel *inputImageScalingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *blendWidthScalingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *matchingMarginSizeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *homographyScalingLabel;
 @property (nonatomic, retain) IBOutlet UILabel *lastMinSquaredDistancePercentLabel;
+@property (nonatomic, retain) IBOutlet UILabel *keyMatchesPercentLabel;
 
 @property (nonatomic, retain) IBOutlet UIButton *stitchButton;
 @property (nonatomic, retain) IBOutlet UIButton *fastStitchButton;

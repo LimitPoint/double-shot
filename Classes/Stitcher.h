@@ -37,6 +37,7 @@
 @property (nonatomic, assign) float marginPercent;          // percent fraction specifying width of matching region (determines width of guides)
 @property (nonatomic, assign) float homographyScaling;      // percent fraction to scale the matching region determined by mrginPercent
 @property (nonatomic, assign) float lastMinSquaredDistancePercent;      // used when computing nearest neighbor of a SURF descriptor
+@property (nonatomic, assign) float keypointPercent;      // percent of sorted keypoint matches to use to compute homography
 
 @property (nonatomic, assign) bool crop;                    // flag determines if the full homogrph will be displayed
 @property (nonatomic, assign) int interpolationMethodWarp;  // Interpolation methiod used in cvWarpPerspective: CV_INTER_CUBIC (default) vs CV_INTER_LINEAR
@@ -46,6 +47,7 @@
 @property (nonatomic, assign) bool highHessianThreshold;    // choose between 300 and 500 (default - faster) for the Hessian threshold for SURF
 @property (nonatomic, assign) bool extendedDescriptors;     // choose between 64 (default - faster) and 128 length descriptors for SURF
 @property (nonatomic, assign) bool useLastMinSquaredDistancePercent;     // for "naive" descriptor method
+@property (nonatomic, assign) bool useRANSAC;
 
 + (void)shouldAbort;
 

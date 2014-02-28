@@ -17,7 +17,21 @@ static int s_cummulativeImageSize = 0;
 static int s_nbrImagesReleased = 0;
 static bool s_should_abort = false;
 
-static UInt32 freeMemory(UInt32 divisor) 
+class pair {
+public:
+    int i;
+    int j;
+    float distance;
+    
+    friend bool operator<(const pair& x, const pair& y);
+};
+
+bool operator<(const pair& x, const pair& y)
+{
+    return x.distance < y.distance;
+}
+
+static UInt32 freeMemory(UInt32 divisor)
 {
     mach_port_t           host_port = mach_host_self();
     mach_msg_type_number_t   host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
@@ -42,7 +56,7 @@ static UInt32 freeMemory(UInt32 divisor)
     self.inputImageScaling = 0;
     self.blendWidthScaling = 0.33;
 	self.marginPercent = 0.33;
-	self.homographyScaling = 50;
+	self.homographyScaling = 0.5;
     self.crop = true;
 	self.blend = true;
 	self.equalize = true;
@@ -52,6 +66,8 @@ static UInt32 freeMemory(UInt32 divisor)
     self.extendedDescriptors = NO;
     self.lastMinSquaredDistancePercent = 0.7;
     self.useLastMinSquaredDistancePercent = YES;
+    self.keypointPercent = 1.0;
+    self.useRANSAC = true;
 		
 	self.intermediateResult = nil;
 	
@@ -352,9 +368,10 @@ static UInt32 freeMemory(UInt32 divisor)
              imageRightKeyPoint:(const CvSURFPoint*)imageRightKeyPoint
            imageLeftDescriptors:(CvSeq*)imageLeftDescriptors
              imageLeftKeyPoints:(CvSeq*)imageLeftKeyPoints
+           nearestDistance:(double*)minSquaredDistance
 {
     int descriptorsCount = (int)(imageLeftDescriptors->elem_size/sizeof(float));
-    double minSquaredDistance = std::numeric_limits<double>::max();
+    *minSquaredDistance = std::numeric_limits<double>::max();
     double lastMinSquaredDistance = std::numeric_limits<double>::max();
 	
     int neighbor = -1;
@@ -367,10 +384,10 @@ static UInt32 freeMemory(UInt32 divisor)
 		
         double squaredDistance = [self compareSURFDescriptors:imageRightDescriptor imageLeftDescriptor:imageLeftDescriptor descriptorsCount:descriptorsCount lastMinSquaredDistance:lastMinSquaredDistance];
 		
-        if (squaredDistance < minSquaredDistance) {
+        if (squaredDistance < *minSquaredDistance) {
             neighbor = i;
-            lastMinSquaredDistance = minSquaredDistance;
-            minSquaredDistance = squaredDistance;
+            lastMinSquaredDistance = *minSquaredDistance;
+            *minSquaredDistance = squaredDistance;
         } else if (squaredDistance < lastMinSquaredDistance) {
             lastMinSquaredDistance = squaredDistance;
         }
@@ -384,7 +401,7 @@ static UInt32 freeMemory(UInt32 divisor)
         
         threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
         
-        if (minSquaredDistance < threshold)
+        if (*minSquaredDistance < threshold)
             return neighbor;
     }
     else {
@@ -394,6 +411,87 @@ static UInt32 freeMemory(UInt32 divisor)
     return -1;
 }
 
+//[self computeKeypointMatchesForImage:ipl_right andImage:ipl_left keyPointMatches:&keyPointMatches];
+- (void)computeKeypointMatchesForImage:(IplImage*)ipl_right andImage:(IplImage*)ipl_left withMemoryBlock:(CvMemStorage*)memoryBlock keyPointMatches:(cv::vector<cv::vector<CvPoint2D32f> >&)keyPointMatches
+{
+    CvSeq* imageRightKeyPoints;
+    CvSeq* imageRightDescriptors;
+    CvSeq* imageLeftKeyPoints;
+    CvSeq* imageLeftDescriptors;
+    
+    double hessianThreshold = 300;
+    int extended = 0;
+    
+    if (self.highHessianThreshold) {
+        hessianThreshold = 500;
+    }
+    
+    if (self.extendedDescriptors) {
+        extended = 1;
+    }
+    
+    CvSURFParams params = cvSURFParams(hessianThreshold, extended);
+    
+    cvExtractSURF(ipl_right, 0, &imageRightKeyPoints, &imageRightDescriptors, memoryBlock, params);
+    cvExtractSURF(ipl_left, 0, &imageLeftKeyPoints, &imageLeftDescriptors, memoryBlock, params);
+    
+    cv::vector<CvPoint2D32f> imageRightMatches;
+    cv::vector<CvPoint2D32f> imageLeftMatches;
+    
+    keyPointMatches.push_back(imageRightMatches);
+    keyPointMatches.push_back(imageLeftMatches);
+    
+    std::vector<pair> pairs;
+    
+    for (int i = 0; i < imageRightDescriptors->total; i++) {
+        
+        const CvSURFPoint* imageRightKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i);
+        const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
+        
+        double nearestDistance;
+        
+        int nearestNeighbor = [self findNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints nearestDistance:&nearestDistance];
+        
+        if (nearestNeighbor == -1)
+            continue;
+        
+        pair p;
+        
+        p.i = i;
+        p.j = nearestNeighbor;
+        p.distance = nearestDistance;
+        
+        pairs.push_back(p);
+        
+        // break out of this loop if aborting
+        if (s_should_abort)
+            break;
+    }
+    
+    // sort them acsending by distance
+    std::sort(pairs.begin(), pairs.end());
+    
+    int nbrPairsToUse = pairs.size();
+    
+    nbrPairsToUse *= self.keypointPercent;
+    
+    for (int i = 0; i < nbrPairsToUse; i++) {
+        
+        pair p = pairs[i];
+        
+        //NSLog(@"distance = %f", p.distance);
+        
+        CvPoint2D32f p1 = ((CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, p.i))->pt;
+        CvPoint2D32f p2 = ((CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, p.j))->pt;
+        
+        keyPointMatches[0].push_back(p1);
+        keyPointMatches[1].push_back(p2);
+        
+        // break out of this loop if aborting
+        if (s_should_abort)
+            break;
+    }
+}
 
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
@@ -576,58 +674,11 @@ static UInt32 freeMemory(UInt32 divisor)
 					
 					if (memoryBlock) {
 						
-						CvSeq* imageRightKeyPoints;
-						CvSeq* imageRightDescriptors;
-						CvSeq* imageLeftKeyPoints;
-						CvSeq* imageLeftDescriptors;
-						
 						if (!s_should_abort) {
-							
-                            double hessianThreshold = 300;
-                            int extended = 0;
                             
-                            if (self.highHessianThreshold) {
-                                hessianThreshold = 500;
-                            }
+                            cv::vector<cv::vector<CvPoint2D32f> > keyPointMatches;
                             
-                            if (self.extendedDescriptors) {
-                                extended = 1;
-                            }
-                                
-                            
-							CvSURFParams params = cvSURFParams(hessianThreshold, extended);
-                            
-							cvExtractSURF(ipl_right, 0, &imageRightKeyPoints, &imageRightDescriptors, memoryBlock, params);
-                            
-							cvExtractSURF(ipl_left, 0, &imageLeftKeyPoints, &imageLeftDescriptors, memoryBlock, params);
-							
-							cv::vector<cv::vector<CvPoint2D32f> > keyPointMatches;
-							
-							cv::vector<CvPoint2D32f> imageRightMatches;
-							cv::vector<CvPoint2D32f> imageLeftMatches;
-							
-							keyPointMatches.push_back(imageRightMatches);
-							keyPointMatches.push_back(imageLeftMatches);
-							
-							for (int i = 0; i < imageRightDescriptors->total; i++) {
-								const CvSURFPoint* imageRightKeyPoint = (const CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i);
-								const float* imageRightDescriptor =  (const float*) cvGetSeqElem(imageRightDescriptors, i);
-								
-								int nearestNeighbor = [self findNearestNeighbor:imageRightDescriptor imageRightKeyPoint:imageRightKeyPoint imageLeftDescriptors:imageLeftDescriptors imageLeftKeyPoints:imageLeftKeyPoints];
-
-                                if (nearestNeighbor == -1)
-                                    continue;
- 								
-								CvPoint2D32f p1 = ((CvSURFPoint*) cvGetSeqElem(imageRightKeyPoints, i))->pt;
-								CvPoint2D32f p2 = ((CvSURFPoint*) cvGetSeqElem(imageLeftKeyPoints, nearestNeighbor))->pt;
-								
-								keyPointMatches[0].push_back(p1);
-								keyPointMatches[1].push_back(p2);
-                                
-                                // break out of this loop if aborting
-                                if (s_should_abort)
-                                    break;
-							}
+                            [self computeKeypointMatchesForImage:ipl_right andImage:ipl_left withMemoryBlock:memoryBlock keyPointMatches:keyPointMatches];
 							
 							CvMat imageRightPoints = cvMat(1, keyPointMatches[0].size(), CV_32FC2, keyPointMatches[0].data());
 							CvMat imageLeftPoints = cvMat(1, keyPointMatches[1].size(), CV_32FC2, keyPointMatches[1].data());
@@ -640,10 +691,13 @@ static UInt32 freeMemory(UInt32 divisor)
                                     self.progress += 1;
                                     [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
                                     [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography %f", self.progressPercent]];
+                                    
                                     NSLog(@"Finding homography %f", self.progressPercent);
                                     
-									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, CV_RANSAC);
-								}
+                                    int method = (self.useRANSAC ? CV_RANSAC : CV_LMEDS); // CV_RANSAC = 8, CV_LMEDS = 4
+                                    
+									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, method);
+                                }
 							} catch (std::exception& e) {
 								result = 0;
 								NSLog(@"%s", e.what());
