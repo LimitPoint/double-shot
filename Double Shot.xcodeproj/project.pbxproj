@@ -446,7 +446,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "34E39605-9A95-47E0-AC50-3612C9CD9353";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
@@ -480,7 +480,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Double Shot";
-				PROVISIONING_PROFILE = "34E39605-9A95-47E0-AC50-3612C9CD9353";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;

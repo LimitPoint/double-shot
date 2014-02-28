@@ -493,6 +493,89 @@ static UInt32 freeMemory(UInt32 divisor)
     }
 }
 
+- (void)prepareRightMargin:(IplImage*)right_margin andLeftMargin:(IplImage*)left_margin preparedRightMargin:(IplImage*&)ipl_right preparedLeftImage:(IplImage*&)ipl_left scaling:(CvMat&)S
+{
+    if ((self.homographyScaling != 0) && (self.homographyScaling < 1.0)) {
+        
+        NSLog(@"Scaling homography margins by %f", self.homographyScaling);
+        
+        IplImage *scaled_right = [Stitcher createImageWithSize:cvSize(right_margin->width*self.homographyScaling, right_margin->height*self.homographyScaling) depth:depth channels:channels];
+        
+        if (scaled_right) {
+            
+            IplImage *scaled_left = [Stitcher createImageWithSize:cvSize(left_margin->width*self.homographyScaling, left_margin->height*self.homographyScaling) depth:depth channels:channels];
+            
+            if (scaled_left) {
+                
+                cvResize(right_margin, scaled_right);
+                cvResize(left_margin, scaled_left);
+                
+                ipl_right = [self prepareImage:scaled_right];
+                
+                if (ipl_right) {
+                    
+                    ipl_left = [self prepareImage:scaled_left];
+                    
+                    if (ipl_left) {
+                        
+                        CvPoint2D32f from[4];
+                        CvPoint2D32f to[4];
+                        
+                        // from
+                        // top-left
+                        from[0].x = 0;
+                        from[0].y = 0;
+                        
+                        // top-right
+                        from[1].x = scaled_right->width;
+                        from[1].y = 0;
+                        
+                        // bottom-right
+                        from[2].x = scaled_right->width;
+                        from[2].y = scaled_right->height;
+                        
+                        // bottom-left
+                        from[3].x = 0;
+                        from[3].y = scaled_right->height;
+                        
+                        // to
+                        // top-left
+                        to[0].x = 0;
+                        to[0].y = 0;
+                        
+                        // top-right
+                        to[1].x = right_margin->width;
+                        to[1].y = 0;
+                        
+                        // bottom-right
+                        to[2].x = right_margin->width;
+                        to[2].y = right_margin->height;
+                        
+                        // bottom-left
+                        to[3].x = 0;
+                        to[3].y = right_margin->height;
+                        
+                        cvGetPerspectiveTransform(from, to, &S);
+                        
+                    }
+                }
+                
+                [Stitcher releaseImage:&scaled_left];
+            }
+            [Stitcher releaseImage:&scaled_right];
+        }
+    }
+    else {
+        ipl_right = [self prepareImage:right_margin];
+        
+        if (ipl_right) {
+            ipl_left = [self prepareImage:left_margin];
+        }
+        
+    }
+
+}
+
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
 	// homography
@@ -575,87 +658,9 @@ static UInt32 freeMemory(UInt32 divisor)
 			IplImage* ipl_right;
 			IplImage* ipl_left;
 			
-			if ((self.homographyScaling != 0) && (self.homographyScaling < 1.0)) {
-				
-				NSLog(@"Scaling homography margins by %f", self.homographyScaling);
-				
-				IplImage *scaled_right = [Stitcher createImageWithSize:cvSize(right_margin->width*self.homographyScaling, right_margin->height*self.homographyScaling) depth:depth channels:channels];
-				
-				if (scaled_right) {
-					
-					IplImage *scaled_left = [Stitcher createImageWithSize:cvSize(left_margin->width*self.homographyScaling, left_margin->height*self.homographyScaling) depth:depth channels:channels];
-					
-					if (scaled_left) {
-						
-						cvResize(right_margin, scaled_right);
-						cvResize(left_margin, scaled_left);
-                        
-						ipl_right = [self prepareImage:scaled_right];
-						
-						if (ipl_right) {
-							
-							ipl_left = [self prepareImage:scaled_left];
-							
-							if (ipl_left) {
-                                
-								CvPoint2D32f from[4];
-								CvPoint2D32f to[4];
-								
-								// from
-								// top-left
-								from[0].x = 0;
-								from[0].y = 0;
-								
-								// top-right
-								from[1].x = scaled_right->width;
-								from[1].y = 0;
-								
-								// bottom-right
-								from[2].x = scaled_right->width;
-								from[2].y = scaled_right->height;
-								
-								// bottom-left
-								from[3].x = 0;
-								from[3].y = scaled_right->height;
-								
-								// to
-								// top-left
-								to[0].x = 0;
-								to[0].y = 0;
-								
-								// top-right
-								to[1].x = right_margin->width;
-								to[1].y = 0;
-								
-								// bottom-right
-								to[2].x = right_margin->width;
-								to[2].y = right_margin->height;
-								
-								// bottom-left
-								to[3].x = 0;
-								to[3].y = right_margin->height;
-								
-								cvGetPerspectiveTransform(from, to, &S);
-								
-								cvInvert(&S, &S_inverse);
-								
-							}
-						}
-						
-						[Stitcher releaseImage:&scaled_left];
-					}
-					[Stitcher releaseImage:&scaled_right];
-				}
-			}
-			else {
-				ipl_right = [self prepareImage:right_margin];
-				
-				if (ipl_right) {
-					ipl_left = [self prepareImage:left_margin];
-				}
-				
-			}
+            [self prepareRightMargin:right_margin andLeftMargin:left_margin preparedRightMargin:ipl_right preparedLeftImage:ipl_left scaling:S];
             
+            cvInvert(&S, &S_inverse);
 			
 			[Stitcher releaseImage:&right_margin];
 			[Stitcher releaseImage:&left_margin];
