@@ -557,19 +557,20 @@
         
         NSError* error;
         
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_amsterdam.jpg", @"right_amsterdam.jpg", nil];
+        NSString* leftImageName;
+        NSString* rightImageName;
         
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_rice.jpg", @"right_rice.jpg", nil];
+        if (pickedImageIndex != -1) {
+            leftImageName = imageNames[pickedImageIndex];
+        }
+        else {
+            leftImageName = imageNames[0];
+        }
         
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_machine_room.jpg", @"right_machine_room.jpg", nil];
+        rightImageName = [leftImageName stringByReplacingOccurrencesOfString:@"left_" withString:@"right_"];
         
-        NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_pizza.jpg", @"right_pizza.jpg", nil];
-        
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_umbrella_and_bench.jpg", @"right_umbrella_and_bench.jpg", nil];
-        
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_mural.jpg", @"right_mural.jpg", nil];
-        
-        //NSMutableArray* images = [NSMutableArray arrayWithObjects:@"left_sophies_room.jpg", @"right_sophies_room.jpg", nil];
+        NSMutableArray* images = [NSMutableArray arrayWithObjects:leftImageName, rightImageName, nil];
+
         
         [self.stitcher beginStitchingImages:images error:&error];
         

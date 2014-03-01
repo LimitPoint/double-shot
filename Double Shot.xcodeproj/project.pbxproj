@@ -49,6 +49,8 @@
 		CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */; };
 		CDC3C8CE18C12792007026CE /* NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC3C8CD18C12792007026CE /* NSStringExtensions.m */; };
 		CDC3C8D018C139B2007026CE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */; };
+		CDC3C8D318C16F87007026CE /* right_machine_room.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D118C16F87007026CE /* right_machine_room.png */; };
+		CDC3C8D418C16F87007026CE /* left_machine_room.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D218C16F87007026CE /* left_machine_room.png */; };
 		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
 		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
 		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
@@ -108,6 +110,8 @@
 		CDC3C8CC18C12792007026CE /* NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExtensions.h; sourceTree = "<group>"; };
 		CDC3C8CD18C12792007026CE /* NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExtensions.m; sourceTree = "<group>"; };
 		CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CDC3C8D118C16F87007026CE /* right_machine_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_machine_room.png; sourceTree = "<group>"; };
+		CDC3C8D218C16F87007026CE /* left_machine_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_machine_room.png; sourceTree = "<group>"; };
 		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
 		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 		CD36876318B2AF5D00386142 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				CDC3C8D118C16F87007026CE /* right_machine_room.png */,
+				CDC3C8D218C16F87007026CE /* left_machine_room.png */,
 				CDA2F9A718BDC72200FA4797 /* left_machine_room.jpg */,
 				CDA2F9A918BDC72600FA4797 /* right_machine_room.jpg */,
 				CD36876418B2AF5D00386142 /* left_amsterdam.jpg */,
@@ -305,6 +311,7 @@
 				CD36876018B2AF3C00386142 /* Icon.png in Resources */,
 				CD576BF318BF0EFE006F7315 /* right_sophies_room.jpg in Resources */,
 				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
+				CDC3C8D418C16F87007026CE /* left_machine_room.png in Resources */,
 				CD36875D18B2AF3C00386142 /* Default@2x.png in Resources */,
 				CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */,
 				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
@@ -319,6 +326,7 @@
 				CDA2F9AA18BDC72600FA4797 /* right_machine_room.jpg in Resources */,
 				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
 				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
+				CDC3C8D318C16F87007026CE /* right_machine_room.png in Resources */,
 				CD576BEF18BF0D92006F7315 /* right_mural.jpg in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
 				CDA2F9A818BDC72200FA4797 /* left_machine_room.jpg in Resources */,
