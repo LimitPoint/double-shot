@@ -285,6 +285,10 @@
 
 - (IBAction)stitchButtonPressed:(id)sender
 {
+    if (self.selectImageView.isHidden == false) {
+        [self selectImagePressed:self.selectImageButton];
+    }
+
     memoryWarningCount = 0;
     
     fastStitch = FALSE;
@@ -307,6 +311,10 @@
 
 - (IBAction)fastStitchButtonPressed:(id)sender
 {
+    if (self.selectImageView.isHidden == false) {
+        [self selectImagePressed:self.selectImageButton];
+    }
+
     memoryWarningCount = 0;
     
     fastStitch = TRUE;
@@ -422,6 +430,7 @@
 
 - (IBAction)expandButtonPressed:(id)sender
 {
+    [self.view bringSubviewToFront:_scrollView];
     
     if ([_expandButton.titleLabel.text compare:@"+"] == NSOrderedSame) {
         [UIView animateWithDuration:0.5
@@ -616,6 +625,11 @@
     if (pickedImageIndex != -1) {
         [self.selectImagePicker selectRow:pickedImageIndex inComponent:0 animated:true];
         self.imageView.image = [UIImage imageNamed:imageNames[pickedImageIndex]];
+    }
+    else {
+        if (imageNames.count > 0) {
+            self.imageView.image = [UIImage imageNamed:imageNames[0]];
+        }
     }
 }
 
