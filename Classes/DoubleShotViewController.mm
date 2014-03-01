@@ -8,7 +8,7 @@
 #import "UIImage+OpenCV.h"
 #import "DoubleShotViewController.h"
 #import "NSStringExtensions.h"
-
+#import "NSString+OpenCV.h"
 @interface DoubleShotViewController ()
 @end
 
@@ -387,6 +387,27 @@
     pickedImageIndex = row;
 }
 
+- (NSString*)leftImageName
+{
+    NSString* leftImageName;
+    
+    if (pickedImageIndex != -1) {
+        leftImageName = imageNames[pickedImageIndex];
+    }
+    else {
+        leftImageName = imageNames[0];
+    }
+    
+    return leftImageName;
+}
+
+- (NSString*)rightImageName
+{
+    NSString* rightImageName = [[self leftImageName] stringByReplacingOccurrencesOfString:@"left_" withString:@"right_"];
+    
+    return rightImageName;
+}
+
 - (IBAction)selectImagePressed:(id)sender
 {
     if (self.selectImageView.isHidden) {
@@ -500,6 +521,19 @@
 {
     [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
     
+    NSString* leftImageName = [self leftImageName];
+    NSString* rightImageName = [self rightImageName];
+    
+    IplImage * r_ipl = [leftImageName IPLImage];
+    IplImage * l_ipl = [rightImageName IPLImage];
+    
+    UIImage* right_uiimage = [UIImage imageWithIPLImage:r_ipl];
+    UIImage* left_uiimage = [UIImage imageWithIPLImage:l_ipl];
+    
+    UIImageWriteToSavedPhotosAlbum(left_uiimage, nil, nil, nil);
+    
+    UIImageWriteToSavedPhotosAlbum(right_uiimage, nil, nil, nil);
+    
     UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
 }
 
@@ -561,20 +595,10 @@
         
         NSError* error;
         
-        NSString* leftImageName;
-        NSString* rightImageName;
-        
-        if (pickedImageIndex != -1) {
-            leftImageName = imageNames[pickedImageIndex];
-        }
-        else {
-            leftImageName = imageNames[0];
-        }
-        
-        rightImageName = [leftImageName stringByReplacingOccurrencesOfString:@"left_" withString:@"right_"];
+        NSString* leftImageName = [self leftImageName];
+        NSString* rightImageName = [self rightImageName];
         
         NSMutableArray* images = [NSMutableArray arrayWithObjects:leftImageName, rightImageName, nil];
-
         
         [self.stitcher beginStitchingImages:images error:&error];
         

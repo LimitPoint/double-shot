@@ -28,7 +28,6 @@
 @property (nonatomic, retain) Stitcher *stitcher;
 @property (nonatomic, retain) UIImage* joined_uiimage;
 
-
 @property (nonatomic, retain) IBOutlet UILabel *secondsLabel;
 
 // Options, set in "stitch" method of the Stitcher
