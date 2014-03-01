@@ -576,6 +576,53 @@ static UInt32 freeMemory(UInt32 divisor)
 
 }
 
+- (bool)validateHomographyCoordinates:(CvPoint2D32f*)warpedCoordinates
+{
+	bool is_valid = false;
+	
+	int x1,x2,x3,x4;
+	int y1,y2,y3,y4;
+	
+	x1 = warpedCoordinates[0].x;
+	x2 = warpedCoordinates[1].x;
+	x3 = warpedCoordinates[2].x;
+	x4 = warpedCoordinates[3].x;
+	
+	y1 = warpedCoordinates[0].y;
+	y2 = warpedCoordinates[1].y;
+	y3 = warpedCoordinates[2].y;
+	y4 = warpedCoordinates[3].y;
+	
+	NSLog(@"Homograph coordinates =");
+	NSLog(@"x, y = %d, %d", x1, y1);
+	NSLog(@"x, y = %d, %d", x2, y2);
+	NSLog(@"x, y = %d, %d", x3, y3);
+	NSLog(@"x, y = %d, %d", x4, y4);
+	
+	[self.delegate stitcher:self didUpdate:@"Homography Coordinates"];
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x1, y1]];
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x2, y2]];
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x3, y3]];
+	[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"x, y = %d, %d", x4, y4]];
+	
+	if (x1 < marginSize) {
+		if (x4 < marginSize) {
+			
+			//if (x2 > x1) {
+			//if (x3 > x4) {
+			if ((x2 > x1) && ((fabs(x2-x1) < (2*marginSize))) && ((fabs(x2-x1) > (marginSize/3.0)))) {
+				if ((x3 > x4) && ((fabs(x3-x4) < (2*marginSize))) && ((fabs(x3-x4) > (marginSize/3.0)))) {
+					
+					is_valid = true;
+				}
+			}
+		}
+	}
+	
+	return is_valid;
+}
+
+
 - (void)makeHomographyFor:(IplImage*)in_right toImage:(IplImage*)in_left homography:(CvMat*)H
 {
 	// homography
@@ -722,6 +769,21 @@ static UInt32 freeMemory(UInt32 divisor)
 								[self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"width, height = %d, %d", ipl_right->width, ipl_right->height]];
 								NSLog(@"Right image width, height = %d, %d", ipl_right->width, ipl_right->height);
 								
+                                CvPoint2D32f warpedCoordinates[4];
+								[self warpImageCoordinates:ipl_right into:warpedCoordinates withPerspectiveTransform:&H_prime];
+                                
+                                bool is_valid = [self validateHomographyCoordinates:warpedCoordinates];
+								
+								if (is_valid == false) {
+									[self.delegate stitcher:self didUpdate:@"*** Setting homography to identity ***"];
+									NSLog(@"*** Setting homography to identity ***");
+									
+									// reset the translation to the desired amount for an invalid homography
+									[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
+									
+									cvSetIdentity(&H_prime);
+									is_valid = true;
+								}
                             }
 							
 							// apply the homographyScaling to the homograph

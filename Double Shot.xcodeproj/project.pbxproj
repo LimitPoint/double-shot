@@ -51,6 +51,12 @@
 		CDC3C8D418C16F87007026CE /* left_machine_room.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D218C16F87007026CE /* left_machine_room.png */; };
 		CDC3C8D718C1911E007026CE /* left_machine_room_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D518C1911E007026CE /* left_machine_room_2.jpg */; };
 		CDC3C8D818C1911E007026CE /* right_machine_room_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D618C1911E007026CE /* right_machine_room_2.jpg */; };
+		CDC3C8DB18C19568007026CE /* right_building.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D918C19568007026CE /* right_building.jpg */; };
+		CDC3C8DC18C19568007026CE /* left_building.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8DA18C19568007026CE /* left_building.jpg */; };
+		CDC3C8DF18C19AAF007026CE /* left_university.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8DD18C19AAF007026CE /* left_university.jpg */; };
+		CDC3C8E018C19AAF007026CE /* right_university.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8DE18C19AAF007026CE /* right_university.jpg */; };
+		CDC3C8E318C1A378007026CE /* left_blend_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E118C1A378007026CE /* left_blend_1.jpg */; };
+		CDC3C8E418C1A378007026CE /* right_blend_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E218C1A378007026CE /* right_blend_1.jpg */; };
 		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
 		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
 		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
@@ -112,6 +118,12 @@
 		CDC3C8D218C16F87007026CE /* left_machine_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_machine_room.png; sourceTree = "<group>"; };
 		CDC3C8D518C1911E007026CE /* left_machine_room_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_machine_room_2.jpg; sourceTree = "<group>"; };
 		CDC3C8D618C1911E007026CE /* right_machine_room_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_machine_room_2.jpg; sourceTree = "<group>"; };
+		CDC3C8D918C19568007026CE /* right_building.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_building.jpg; sourceTree = "<group>"; };
+		CDC3C8DA18C19568007026CE /* left_building.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_building.jpg; sourceTree = "<group>"; };
+		CDC3C8DD18C19AAF007026CE /* left_university.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_university.jpg; sourceTree = "<group>"; };
+		CDC3C8DE18C19AAF007026CE /* right_university.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_university.jpg; sourceTree = "<group>"; };
+		CDC3C8E118C1A378007026CE /* left_blend_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_blend_1.jpg; sourceTree = "<group>"; };
+		CDC3C8E218C1A378007026CE /* right_blend_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_blend_1.jpg; sourceTree = "<group>"; };
 		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
 		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
@@ -230,6 +242,8 @@
 		CD36876318B2AF5D00386142 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				CDC3C8D918C19568007026CE /* right_building.jpg */,
+				CDC3C8DA18C19568007026CE /* left_building.jpg */,
 				CDC3C8D518C1911E007026CE /* left_machine_room_2.jpg */,
 				CDC3C8D618C1911E007026CE /* right_machine_room_2.jpg */,
 				CDC3C8D118C16F87007026CE /* right_machine_room.png */,
@@ -248,6 +262,10 @@
 				CD576BED18BF0D92006F7315 /* right_mural.jpg */,
 				CD576BF018BF0EFE006F7315 /* left_sophies_room.jpg */,
 				CD576BF118BF0EFE006F7315 /* right_sophies_room.jpg */,
+				CDC3C8DD18C19AAF007026CE /* left_university.jpg */,
+				CDC3C8DE18C19AAF007026CE /* right_university.jpg */,
+				CDC3C8E118C1A378007026CE /* left_blend_1.jpg */,
+				CDC3C8E218C1A378007026CE /* right_blend_1.jpg */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -322,6 +340,7 @@
 				CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */,
 				CD36876E18B40E3500386142 /* left_screen.jpg in Resources */,
 				CDC3C8D718C1911E007026CE /* left_machine_room_2.jpg in Resources */,
+				CDC3C8E418C1A378007026CE /* right_blend_1.jpg in Resources */,
 				CD576BEE18BF0D92006F7315 /* left_mural.jpg in Resources */,
 				CD6960F118AFD93F00FC7150 /* DoubleShotViewController.xib in Resources */,
 				CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */,
@@ -331,10 +350,15 @@
 				CD576BEF18BF0D92006F7315 /* right_mural.jpg in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
 				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
+				CDC3C8DB18C19568007026CE /* right_building.jpg in Resources */,
+				CDC3C8E318C1A378007026CE /* left_blend_1.jpg in Resources */,
 				CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */,
 				CDD24B5918B6A70C00001470 /* Icon-152.png in Resources */,
+				CDC3C8DC18C19568007026CE /* left_building.jpg in Resources */,
 				0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */,
+				CDC3C8DF18C19AAF007026CE /* left_university.jpg in Resources */,
 				CDD24B5818B6A70C00001470 /* Icon-76.png in Resources */,
+				CDC3C8E018C19AAF007026CE /* right_university.jpg in Resources */,
 				CD36875C18B2AF3C00386142 /* Default.png in Resources */,
 				CD576BEA18BF05C1006F7315 /* left_umbrella_and_bench.jpg in Resources */,
 				CD36876118B2AF3C00386142 /* Icon@2x.png in Resources */,
