@@ -380,7 +380,7 @@ static UInt32 freeMemory(UInt32 divisor)
         const float* imageLeftDescriptor = (const float*) cvGetSeqElem(imageLeftDescriptors, i);
 		
         if (imageRightKeyPoint->laplacian != imageLeftKeyPoint->laplacian)
-            continue; // Don't worry about key points unless laplacian signs are equal
+            continue;
 		
         double squaredDistance = [self compareSURFDescriptors:imageRightDescriptor imageLeftDescriptor:imageLeftDescriptor descriptorsCount:descriptorsCount lastMinSquaredDistance:lastMinSquaredDistance];
 		
@@ -397,11 +397,7 @@ static UInt32 freeMemory(UInt32 divisor)
     }
     
     if (self.useLastMinSquaredDistancePercent) {
-        double threshold;
-        
-        threshold = self.lastMinSquaredDistancePercent * lastMinSquaredDistance;
-        
-        if (*minSquaredDistance < threshold)
+        if (*minSquaredDistance < self.lastMinSquaredDistancePercent * lastMinSquaredDistance)
             return neighbor;
     }
     else {
@@ -411,7 +407,6 @@ static UInt32 freeMemory(UInt32 divisor)
     return -1;
 }
 
-//[self computeKeypointMatchesForImage:ipl_right andImage:ipl_left keyPointMatches:&keyPointMatches];
 - (void)computeKeypointMatchesForImage:(IplImage*)ipl_right andImage:(IplImage*)ipl_left withMemoryBlock:(CvMemStorage*)memoryBlock keyPointMatches:(cv::vector<cv::vector<CvPoint2D32f> >&)keyPointMatches
 {
     CvSeq* imageRightKeyPoints;
@@ -633,21 +628,17 @@ static UInt32 freeMemory(UInt32 divisor)
 	double t[9];
 	CvMat T = cvMat(3, 3, CV_32F, t);
 	cvSetIdentity(&T);
-	
+    
+    [self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
+
 	if ((self.makeHomography == NO) || s_should_abort) {
-        NSLog(@"Make homography = false, only translating");
-		
-		[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-		
+        [self.delegate stitcher:self didUpdate:@"Make homography is false, or aborting only translating"];
+        NSLog(@"Make homography is false, or aborting only translating");
 		// apply the translation to the homograph
 		cvMatMul(&T, &H_prime, H);
 		return;
 	}
-	
-	// the translation MUST match the margin, since the true homography will be applied to the whole image,
-	// and not the "margin" extracted from the left and right.
-	[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-	
+		
     self.progress += 1;
     [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
     [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Preparing images %f", self.progressPercent]];
@@ -764,8 +755,6 @@ static UInt32 freeMemory(UInt32 divisor)
 							if (result == 0) {
 								[self.delegate stitcher:self didUpdate:@"Homography result is zero."];
 								NSLog(@"Homography result is zero.");
-								// reset the translation to the desired amount for an invalid homography
-								[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
 								
 								cvSetIdentity(&H_prime);
 							}
@@ -782,10 +771,7 @@ static UInt32 freeMemory(UInt32 divisor)
 								if (is_valid == false) {
 									[self.delegate stitcher:self didUpdate:@"*** Setting homography to identity ***"];
 									NSLog(@"*** Setting homography to identity ***");
-									
-									// reset the translation to the desired amount for an invalid homography
-									[self makeTranslationTransform:&T translation_x:in_left->width - marginSize translation_y:0];
-									
+																		
 									cvSetIdentity(&H_prime);
 									is_valid = true;
 								}
