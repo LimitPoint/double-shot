@@ -369,9 +369,13 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row   inComponent:(NSInteger)component
 {
     self.imageView.image = [UIImage imageNamed:imageNames[row]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:imageNames[row] forKey:@"Picked Image Name"];
+    
+    pickedImageIndex = row;
 }
 
-- (IBAction)customButtonPressed:(id)sender
+- (IBAction)selectImagePressed:(id)sender
 {
     if (self.selectImageView.isHidden) {
         
@@ -575,6 +579,9 @@
     // populate the image picker (UIPickerView)
     imageNames = [NSMutableArray array];
     
+    NSString * lastPickedImageName = [[NSUserDefaults standardUserDefaults] objectForKey:@"Picked Image Name"];
+    pickedImageIndex = -1;
+    
     NSError *error;
     NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
     
@@ -590,6 +597,10 @@
             NSString* filename = [file lastPathComponent];
             if ([filename hasPrefix:@"left_"]) {
                 [imageNames addObject:filename];
+                
+                if ([filename isEqualToString:lastPickedImageName]) {
+                    pickedImageIndex = imageNames.count - 1;
+                }
             }
         }
     }
@@ -598,6 +609,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self restoreOptions];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (pickedImageIndex != -1) {
+        [self.selectImagePicker selectRow:pickedImageIndex inComponent:0 animated:true];
+        self.imageView.image = [UIImage imageNamed:imageNames[pickedImageIndex]];
+    }
 }
 
 - (void)viewDidUnload

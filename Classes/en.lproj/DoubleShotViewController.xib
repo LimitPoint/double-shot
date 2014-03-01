@@ -13,7 +13,6 @@
                 <outlet property="blendWidthScalingSlider" destination="OLs-Pw-pMo" id="lbz-Og-eQp"/>
                 <outlet property="cancelButton" destination="EFh-P3-Mcf" id="R7g-c4-W8U"/>
                 <outlet property="cropSwitch" destination="VwT-9a-UBV" id="i3H-1Z-fWg"/>
-                <outlet property="customButton" destination="H2E-Zf-HMc" id="VST-6V-ejJ"/>
                 <outlet property="equalizeSwitch" destination="pkZ-QR-K3k" id="wNd-hF-5xl"/>
                 <outlet property="expandButton" destination="lsx-qj-1VH" id="7ye-M8-bKp"/>
                 <outlet property="extendedDescriptorsSwitch" destination="ZfC-Ko-68A" id="uyW-IP-XkC"/>
@@ -35,6 +34,7 @@
                 <outlet property="saveButton" destination="gCZ-Gx-OuX" id="W1k-HW-jNp"/>
                 <outlet property="scrollView" destination="sBj-jI-Eew" id="F5O-Hx-lSq"/>
                 <outlet property="secondsLabel" destination="Slf-BM-wmx" id="3KF-BD-19N"/>
+                <outlet property="selectImageButton" destination="H2E-Zf-HMc" id="9LC-fd-oak"/>
                 <outlet property="selectImagePicker" destination="eL0-zu-44s" id="NDM-nn-6Ug"/>
                 <outlet property="selectImageView" destination="X6I-RH-DVx" id="ZIc-K0-9wf"/>
                 <outlet property="stitchButton" destination="uXv-hY-ZMY" id="DvM-pQ-RJz"/>
@@ -69,7 +69,7 @@
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="customButtonPressed:" destination="-1" eventType="touchUpInside" id="5GF-XH-oNd"/>
+                        <action selector="selectImagePressed:" destination="-1" eventType="touchUpInside" id="EKB-uq-ff8"/>
                     </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="sBj-jI-Eew">

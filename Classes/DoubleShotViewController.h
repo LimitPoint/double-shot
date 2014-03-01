@@ -18,6 +18,7 @@
     NSInteger memoryWarningCount;
     
     NSMutableArray *imageNames;
+    int pickedImageIndex;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *textView;
@@ -61,7 +62,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *expandButton;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityView;
 
-@property (nonatomic, retain) IBOutlet UIButton *customButton;
+@property (nonatomic, retain) IBOutlet UIButton *selectImageButton;
 @property (nonatomic, retain) IBOutlet UIView * selectImageView;
 @property (nonatomic, retain) IBOutlet UIPickerView * selectImagePicker;
 
