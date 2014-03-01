@@ -1236,8 +1236,13 @@ static UInt32 freeMemory(UInt32 divisor)
         
         [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Stitching %d images", [images count]]];
         NSLog(@"Stitching %d images", (int)[images count]);
+        
+        for (int i = 0; i < [images count]; i++) {
+            [self.delegate stitcher:self didUpdate:[images objectAtIndex:i]];
+            NSLog(@"%@", [images objectAtIndex:i]);
+        }
 		
-        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:0]];
+        [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:self.progress]];
         
         IplImage* firstImage = [[images objectAtIndex:0] IPLImageByScaling:self.inputImageScaling];
         
