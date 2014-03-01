@@ -734,6 +734,10 @@ static UInt32 freeMemory(UInt32 divisor)
 							
 							CvMat imageRightPoints = cvMat(1, keyPointMatches[0].size(), CV_32FC2, keyPointMatches[0].data());
 							CvMat imageLeftPoints = cvMat(1, keyPointMatches[1].size(), CV_32FC2, keyPointMatches[1].data());
+                            
+                            [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"%lu key point matches", keyPointMatches[0].size()]];
+                            
+                            NSLog(@"%lu key point matches", keyPointMatches[0].size());
 							
 							int result = 0;
 							
@@ -742,11 +746,12 @@ static UInt32 freeMemory(UInt32 divisor)
                                     
                                     self.progress += 1;
                                     [self.delegate stitcher:self didUpdateWithProgress:[NSNumber numberWithFloat:(self.progressPercent)]];
-                                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography %f", self.progressPercent]];
-                                    
-                                    NSLog(@"Finding homography %f", self.progressPercent);
                                     
                                     int method = (self.useRANSAC ? CV_RANSAC : CV_LMEDS); // CV_RANSAC = 8, CV_LMEDS = 4
+                                    
+                                    [self.delegate stitcher:self didUpdate:[NSString stringWithFormat:@"Finding homography, using %@ method", (self.useRANSAC ? @"RANSAC" : @"LMEDS")]];
+                                    
+                                    NSLog(@"Finding homography, using %@ method", (self.useRANSAC ? @"RANSAC" : @"LMEDS"));
                                     
 									result = cvFindHomography(&imageRightPoints, &imageLeftPoints, &H_prime, method);
                                 }
