@@ -385,6 +385,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:imageNames[row] forKey:@"Picked Image Name"];
     
     pickedImageIndex = row;
+    
+    self.saveButton.enabled = NO;
 }
 
 - (NSString*)leftImageName
@@ -517,27 +519,39 @@
         
 }
 
-- (IBAction)saveImage:(id)sender
+- (void)image:(UIImage *)image didFinishSavingRightWithError:(NSError*)error contextInfo:(void *)contextInfo
 {
     [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
     
+    UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
+}
+
+- (void)image:(UIImage *)image didFinishSavingLeftWithError:(NSError*)error contextInfo:(void *)contextInfo
+{
+    [self stitcher:self.stitcher didUpdate:@"Saving right source to camera roll."];
+    
+    NSString* rightImageName = [self rightImageName];
+    UIImage* right_uiimage;
+    
     @autoreleasepool {
-        NSString* leftImageName = [self leftImageName];
-        NSString* rightImageName = [self rightImageName];
-        
-        IplImage * r_ipl = [leftImageName IPLImage];
-        IplImage * l_ipl = [rightImageName IPLImage];
-        
-        UIImage* right_uiimage = [UIImage imageWithIPLImage:r_ipl];
-        UIImage* left_uiimage = [UIImage imageWithIPLImage:l_ipl];
-        
-        UIImageWriteToSavedPhotosAlbum(left_uiimage, nil, nil, nil);
-        
-        UIImageWriteToSavedPhotosAlbum(right_uiimage, nil, nil, nil);
+        right_uiimage = [rightImageName UIImage];
+        UIImageWriteToSavedPhotosAlbum(right_uiimage, self, @selector(image:didFinishSavingRightWithError:contextInfo:), nil);
+    }
+}
+
+- (IBAction)saveImage:(id)sender
+{
+    [self stitcher:self.stitcher didUpdate:@"Saving left source to camera roll."];
+    
+    NSString* leftImageName = [self leftImageName];
+    UIImage* left_uiimage;
+    
+    @autoreleasepool {
+        left_uiimage = [leftImageName UIImage];
+        UIImageWriteToSavedPhotosAlbum(left_uiimage, self, @selector(image:didFinishSavingLeftWithError:contextInfo:), nil);
     }
     
-    
-    UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
+    self.saveButton.enabled = NO;
 }
 
 - (IBAction)cancelStitch:(id)sender

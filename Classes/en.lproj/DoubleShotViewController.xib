@@ -228,7 +228,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uXv-hY-ZMY">
-                                    <rect key="frame" x="20" y="0.0" width="35" height="28"/>
+                                    <rect key="frame" x="17" y="-1" width="38" height="29"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <state key="normal" title="Stitch">
@@ -239,7 +239,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="96g-uE-Izu">
-                                    <rect key="frame" x="70" y="0.0" width="35" height="28"/>
+                                    <rect key="frame" x="60" y="0.0" width="35" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <state key="normal" title="Blend">
@@ -261,7 +261,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EFh-P3-Mcf">
-                                    <rect key="frame" x="119" y="0.0" width="42" height="28"/>
+                                    <rect key="frame" x="103" y="0.0" width="42" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <state key="normal" title="Cancel">
@@ -272,10 +272,10 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gCZ-Gx-OuX">
-                                    <rect key="frame" x="273" y="0.0" width="30" height="28"/>
+                                    <rect key="frame" x="247" y="0.0" width="49" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <state key="normal" title="Save">
+                                    <state key="normal" title="Save All">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -283,7 +283,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0oP-GO-Jy8">
-                                    <rect key="frame" x="174" y="0.0" width="86" height="28"/>
+                                    <rect key="frame" x="153" y="0.0" width="86" height="28"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <state key="normal" title="Reset Options">

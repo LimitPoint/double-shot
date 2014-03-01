@@ -12,16 +12,22 @@
 
 @implementation NSString (NSString_OpenCV)
 
--(IplImage*)IPLImage
+-(UIImage*)UIImage
 {
-	IplImage* iplImage = nil;
-	
-    
-	UIImage *uiImage = [UIImage imageWithContentsOfFile:self];
+    UIImage *uiImage = [UIImage imageWithContentsOfFile:self];
     
     if (!uiImage) {
         uiImage = [UIImage imageNamed:self];
     }
+
+    return uiImage;
+}
+
+-(IplImage*)IPLImage
+{
+	IplImage* iplImage = nil;
+	
+	UIImage *uiImage = [self UIImage];
     
 	if (uiImage) {
         uiImage = [uiImage fixOrientation];

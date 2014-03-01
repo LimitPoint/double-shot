@@ -8,4 +8,5 @@
 @interface NSString (NSString_OpenCV)
 -(IplImage*)IPLImage;
 -(IplImage*)IPLImageByScaling:(float)scaleFactor;
+-(UIImage*)UIImage;
 @end
