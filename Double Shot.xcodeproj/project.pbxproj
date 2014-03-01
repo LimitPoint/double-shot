@@ -57,6 +57,16 @@
 		CDC3C8E018C19AAF007026CE /* right_university.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8DE18C19AAF007026CE /* right_university.jpg */; };
 		CDC3C8E318C1A378007026CE /* left_blend_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E118C1A378007026CE /* left_blend_1.jpg */; };
 		CDC3C8E418C1A378007026CE /* right_blend_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E218C1A378007026CE /* right_blend_1.jpg */; };
+		CDC3C8E718C1A821007026CE /* left_machine_room_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E518C1A821007026CE /* left_machine_room_3.jpg */; };
+		CDC3C8E818C1A821007026CE /* right_machine_room_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E618C1A821007026CE /* right_machine_room_3.jpg */; };
+		CDC3C8EB18C1AB42007026CE /* left_machine_room_4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8E918C1AB42007026CE /* left_machine_room_4.JPG */; };
+		CDC3C8EC18C1AB42007026CE /* right_machine_room_4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8EA18C1AB42007026CE /* right_machine_room_4.JPG */; };
+		CDC3C8EF18C1ACFF007026CE /* left_truck.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8ED18C1ACFF007026CE /* left_truck.JPG */; };
+		CDC3C8F018C1ACFF007026CE /* right_truck.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8EE18C1ACFF007026CE /* right_truck.JPG */; };
+		CDC3C8F318C1AFB7007026CE /* left_museum.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8F118C1AFB7007026CE /* left_museum.jpg */; };
+		CDC3C8F418C1AFB7007026CE /* right_museum.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8F218C1AFB7007026CE /* right_museum.jpg */; };
+		CDC3C8F718C1B8A4007026CE /* right_botanical.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8F518C1B8A4007026CE /* right_botanical.JPG */; };
+		CDC3C8F818C1B8A4007026CE /* left_botanical.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8F618C1B8A4007026CE /* left_botanical.JPG */; };
 		CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B4F18B69B5500001470 /* MainWindow-iPad.xib */; };
 		CDD24B5318B6A25600001470 /* Default-Portrait~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */; };
 		CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */; };
@@ -124,6 +134,16 @@
 		CDC3C8DE18C19AAF007026CE /* right_university.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_university.jpg; sourceTree = "<group>"; };
 		CDC3C8E118C1A378007026CE /* left_blend_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_blend_1.jpg; sourceTree = "<group>"; };
 		CDC3C8E218C1A378007026CE /* right_blend_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_blend_1.jpg; sourceTree = "<group>"; };
+		CDC3C8E518C1A821007026CE /* left_machine_room_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_machine_room_3.jpg; sourceTree = "<group>"; };
+		CDC3C8E618C1A821007026CE /* right_machine_room_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_machine_room_3.jpg; sourceTree = "<group>"; };
+		CDC3C8E918C1AB42007026CE /* left_machine_room_4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_machine_room_4.JPG; sourceTree = "<group>"; };
+		CDC3C8EA18C1AB42007026CE /* right_machine_room_4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_machine_room_4.JPG; sourceTree = "<group>"; };
+		CDC3C8ED18C1ACFF007026CE /* left_truck.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_truck.JPG; sourceTree = "<group>"; };
+		CDC3C8EE18C1ACFF007026CE /* right_truck.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_truck.JPG; sourceTree = "<group>"; };
+		CDC3C8F118C1AFB7007026CE /* left_museum.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_museum.jpg; sourceTree = "<group>"; };
+		CDC3C8F218C1AFB7007026CE /* right_museum.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_museum.jpg; sourceTree = "<group>"; };
+		CDC3C8F518C1B8A4007026CE /* right_botanical.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_botanical.JPG; sourceTree = "<group>"; };
+		CDC3C8F618C1B8A4007026CE /* left_botanical.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_botanical.JPG; sourceTree = "<group>"; };
 		CDD24B5018B69B5500001470 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		CDD24B5218B6A25600001470 /* Default-Portrait~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad.png"; sourceTree = "<group>"; };
 		CDD24B5418B6A38700001470 /* Default-Portrait~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~iPad@2x.png"; sourceTree = "<group>"; };
@@ -266,6 +286,16 @@
 				CDC3C8DE18C19AAF007026CE /* right_university.jpg */,
 				CDC3C8E118C1A378007026CE /* left_blend_1.jpg */,
 				CDC3C8E218C1A378007026CE /* right_blend_1.jpg */,
+				CDC3C8E518C1A821007026CE /* left_machine_room_3.jpg */,
+				CDC3C8E618C1A821007026CE /* right_machine_room_3.jpg */,
+				CDC3C8E918C1AB42007026CE /* left_machine_room_4.JPG */,
+				CDC3C8EA18C1AB42007026CE /* right_machine_room_4.JPG */,
+				CDC3C8ED18C1ACFF007026CE /* left_truck.JPG */,
+				CDC3C8EE18C1ACFF007026CE /* right_truck.JPG */,
+				CDC3C8F118C1AFB7007026CE /* left_museum.jpg */,
+				CDC3C8F218C1AFB7007026CE /* right_museum.jpg */,
+				CDC3C8F518C1B8A4007026CE /* right_botanical.JPG */,
+				CDC3C8F618C1B8A4007026CE /* left_botanical.JPG */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -326,7 +356,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDC3C8EC18C1AB42007026CE /* right_machine_room_4.JPG in Resources */,
 				CD36876018B2AF3C00386142 /* Icon.png in Resources */,
+				CDC3C8EB18C1AB42007026CE /* left_machine_room_4.JPG in Resources */,
 				CD576BF318BF0EFE006F7315 /* right_sophies_room.jpg in Resources */,
 				CD36875E18B2AF3C00386142 /* Icon-120.png in Resources */,
 				CDC3C8D418C16F87007026CE /* left_machine_room.png in Resources */,
@@ -335,6 +367,7 @@
 				CDC3C8D818C1911E007026CE /* right_machine_room_2.jpg in Resources */,
 				CD36876818B2AF5D00386142 /* left_amsterdam.jpg in Resources */,
 				CD576BEB18BF05C1006F7315 /* right_umbrella_and_bench.jpg in Resources */,
+				CDC3C8EF18C1ACFF007026CE /* left_truck.JPG in Resources */,
 				CD36875B18B2AF3C00386142 /* Default-568h@2x.png in Resources */,
 				CDD24B5518B6A38700001470 /* Default-Portrait~iPad@2x.png in Resources */,
 				CD36876A18B2AF5D00386142 /* right_amsterdam.jpg in Resources */,
@@ -346,17 +379,24 @@
 				CDD24B5118B69B5500001470 /* MainWindow-iPad.xib in Resources */,
 				CD36876B18B2AF5D00386142 /* right_pizza.jpg in Resources */,
 				CD36875F18B2AF3C00386142 /* Icon-120@2x.png in Resources */,
+				CDC3C8E718C1A821007026CE /* left_machine_room_3.jpg in Resources */,
+				CDC3C8F418C1AFB7007026CE /* right_museum.jpg in Resources */,
+				CDC3C8F718C1B8A4007026CE /* right_botanical.JPG in Resources */,
 				CDC3C8D318C16F87007026CE /* right_machine_room.png in Resources */,
 				CD576BEF18BF0D92006F7315 /* right_mural.jpg in Resources */,
+				CDC3C8E818C1A821007026CE /* right_machine_room_3.jpg in Resources */,
 				CD36876918B2AF5D00386142 /* left_pizza.jpg in Resources */,
+				CDC3C8F018C1ACFF007026CE /* right_truck.JPG in Resources */,
 				CD36876F18B40E3500386142 /* right_screen.jpg in Resources */,
 				CDC3C8DB18C19568007026CE /* right_building.jpg in Resources */,
 				CDC3C8E318C1A378007026CE /* left_blend_1.jpg in Resources */,
 				CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */,
 				CDD24B5918B6A70C00001470 /* Icon-152.png in Resources */,
+				CDC3C8F318C1AFB7007026CE /* left_museum.jpg in Resources */,
 				CDC3C8DC18C19568007026CE /* left_building.jpg in Resources */,
 				0013FA3814111D0F004DC957 /* MainWindow.xib in Resources */,
 				CDC3C8DF18C19AAF007026CE /* left_university.jpg in Resources */,
+				CDC3C8F818C1B8A4007026CE /* left_botanical.JPG in Resources */,
 				CDD24B5818B6A70C00001470 /* Icon-76.png in Resources */,
 				CDC3C8E018C19AAF007026CE /* right_university.jpg in Resources */,
 				CD36875C18B2AF3C00386142 /* Default.png in Resources */,
