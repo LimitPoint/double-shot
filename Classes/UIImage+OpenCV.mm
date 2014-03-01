@@ -35,7 +35,7 @@
 		if (iplimage) {
 			CGImageRef imageRef = self.CGImage;
 			
-			CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+			CGColorSpaceRef colorSpace = CGImageGetColorSpace(self.CGImage);
 			
 			CGContextRef contextRef = CGBitmapContextCreate(iplimage->imageData, iplimage->width, iplimage->height,
 															iplimage->depth, iplimage->widthStep,

@@ -521,18 +521,21 @@
 {
     [self stitcher:self.stitcher didUpdate:@"Saving result to camera roll."];
     
-    NSString* leftImageName = [self leftImageName];
-    NSString* rightImageName = [self rightImageName];
+    @autoreleasepool {
+        NSString* leftImageName = [self leftImageName];
+        NSString* rightImageName = [self rightImageName];
+        
+        IplImage * r_ipl = [leftImageName IPLImage];
+        IplImage * l_ipl = [rightImageName IPLImage];
+        
+        UIImage* right_uiimage = [UIImage imageWithIPLImage:r_ipl];
+        UIImage* left_uiimage = [UIImage imageWithIPLImage:l_ipl];
+        
+        UIImageWriteToSavedPhotosAlbum(left_uiimage, nil, nil, nil);
+        
+        UIImageWriteToSavedPhotosAlbum(right_uiimage, nil, nil, nil);
+    }
     
-    IplImage * r_ipl = [leftImageName IPLImage];
-    IplImage * l_ipl = [rightImageName IPLImage];
-    
-    UIImage* right_uiimage = [UIImage imageWithIPLImage:r_ipl];
-    UIImage* left_uiimage = [UIImage imageWithIPLImage:l_ipl];
-    
-    UIImageWriteToSavedPhotosAlbum(left_uiimage, nil, nil, nil);
-    
-    UIImageWriteToSavedPhotosAlbum(right_uiimage, nil, nil, nil);
     
     UIImageWriteToSavedPhotosAlbum(self.joined_uiimage, nil, nil, nil);
 }
