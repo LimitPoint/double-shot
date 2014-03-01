@@ -101,7 +101,7 @@
                     alert = [[UIAlertView alloc] initWithTitle:@"Airdrop completed?" message:(completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 }
                 else {
-                    alert = [[UIAlertView alloc] initWithTitle:@"Cancelled share?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                   // alert = [[UIAlertView alloc] initWithTitle:@"Cancelled share?" message:(!completed ? @"YES" : @"NO") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 }
                 
                 [alert show];
@@ -288,6 +288,10 @@
     if (self.selectImageView.isHidden == false) {
         [self selectImagePressed:self.selectImageButton];
     }
+    
+    if ([self.expandButton.titleLabel.text compare:@"-"] == NSOrderedSame) {
+        [self expandButtonPressed:self.expandButton];
+    }
 
     memoryWarningCount = 0;
     
@@ -430,21 +434,21 @@
 
 - (IBAction)expandButtonPressed:(id)sender
 {
-    [self.view bringSubviewToFront:_scrollView];
+    [self.view bringSubviewToFront:self.scrollView];
     
-    if ([_expandButton.titleLabel.text compare:@"+"] == NSOrderedSame) {
+    if ([self.expandButton.titleLabel.text compare:@"+"] == NSOrderedSame) {
         [UIView animateWithDuration:0.5
                               delay:0.0
                             options: UIViewAnimationCurveEaseInOut
                          animations:^{
-                            CGRect frame = _imageView.frame;
-                             frame.size.height += (_scrollView.frame.size.height + _textView.frame.size.height);
-                             _scrollView.frame = frame;
+                            CGRect frame = self.imageView.frame;
+                             frame.size.height += (self.scrollView.frame.size.height + self.textView.frame.size.height);
+                             self.scrollView.frame = frame;
                          }
                          completion:^(BOOL finished){
                              if(finished) {
                                  
-                                 _expandButton.titleLabel.text = @"-";
+                                 self.expandButton.titleLabel.text = @"-";
                                  
                              }
                          }];
@@ -454,23 +458,23 @@
                               delay:0.0
                             options: UIViewAnimationCurveEaseInOut
                          animations:^{
-                             CGRect frame = _scrollView.frame;
+                             CGRect frame = self.scrollView.frame;
                              
-                             CGPoint point = _scrollView.frame.origin;
-                             point.y += _imageView.frame.size.height;
+                             CGPoint point = self.scrollView.frame.origin;
+                             point.y += self.imageView.frame.size.height;
                              frame.origin = point;
                              
-                             CGSize size = _scrollView.frame.size;
-                             size.height -= (_imageView.frame.size.height + _textView.frame.size.height);
+                             CGSize size = self.scrollView.frame.size;
+                             size.height -= (self.imageView.frame.size.height + self.textView.frame.size.height);
                              frame.size = size;
 
-                             _scrollView.frame = frame;
+                             self.scrollView.frame = frame;
                              
                          }
                          completion:^(BOOL finished){
                              if(finished) {
                                 
-                                 _expandButton.titleLabel.text = @"+";
+                                 self.expandButton.titleLabel.text = @"+";
                                  
                              }
                          }];

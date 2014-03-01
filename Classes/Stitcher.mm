@@ -1163,7 +1163,7 @@ static UInt32 freeMemory(UInt32 divisor)
 {
     IplImage* blended_image = nil;
     
-	[self freeMemory:@" (start) "];
+	[self freeMemory:@" -------------> (start) "];
 	   
     @autoreleasepool {
         if ([images count] < 2) {
@@ -1252,7 +1252,7 @@ static UInt32 freeMemory(UInt32 divisor)
         NSLog(@"Progress: %f", self.progressPercent);
     }
 	
-	[self freeMemory:@" (finish) "];
+	[self freeMemory:@" -------------> (finish) "];
 	
 	return blended_image;
 }
