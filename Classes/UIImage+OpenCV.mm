@@ -8,22 +8,8 @@
 #import "UIImage+OpenCV.h"
 #import "Stitcher.h"
 
-/*
- 
- Uses OpenCV functions:
- 
- UIImage* MatToUIImage(const cv::Mat& image);
- 
- void UIImageToMat(const UIImage* image,
- cv::Mat& m, bool alphaExist = false);
- 
- cv::Mat is the new type introduce in OpenCV 2.x while the IplImage* is the "legacy" image structure.
- 
- */
-
 @implementation UIImage (UIImage_OpenCV)
 
-// See http://stackoverflow.com/questions/4263365/iphone-converting-iplimage-to-uiimage-and-back-causes-rotation
 -(IplImage*)IPLImage
 {
 	IplImage *iplimage = nil;
@@ -86,7 +72,7 @@
 	UIImage * uiImage = nil;
 	
 	if (iplImage) {
-        // See http://stackoverflow.com/questions/4664187/converting-cvmat-to-iplimage, noting
+        // Note that
         // cv::Mat has a conversion operator to IplImage.
 		uiImage = [UIImage imageWithCVMat:iplImage];
 	}
