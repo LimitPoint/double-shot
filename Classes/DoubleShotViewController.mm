@@ -7,7 +7,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImage+OpenCV.h"
 #import "DoubleShotViewController.h"
-#import "NSStringExtensions.h"
 #import "NSString+OpenCV.h"
 @interface DoubleShotViewController ()
 @end

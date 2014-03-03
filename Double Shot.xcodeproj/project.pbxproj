@@ -45,7 +45,6 @@
 		CD7B520618AC682200E3BB44 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7B520518AC682200E3BB44 /* opencv2.framework */; };
 		CDA2F9A518BDB1DA00FA4797 /* left_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */; };
 		CDA2F9A618BDB1DA00FA4797 /* right_rice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */; };
-		CDC3C8CE18C12792007026CE /* NSStringExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC3C8CD18C12792007026CE /* NSStringExtensions.m */; };
 		CDC3C8D018C139B2007026CE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */; };
 		CDC3C8D318C16F87007026CE /* right_machine_room.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D118C16F87007026CE /* right_machine_room.png */; };
 		CDC3C8D418C16F87007026CE /* left_machine_room.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC3C8D218C16F87007026CE /* left_machine_room.png */; };
@@ -121,8 +120,6 @@
 		CD7B520518AC682200E3BB44 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		CDA2F9A318BDB1DA00FA4797 /* left_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = left_rice.jpg; sourceTree = "<group>"; };
 		CDA2F9A418BDB1DA00FA4797 /* right_rice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = right_rice.jpg; sourceTree = "<group>"; };
-		CDC3C8CC18C12792007026CE /* NSStringExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringExtensions.h; sourceTree = "<group>"; };
-		CDC3C8CD18C12792007026CE /* NSStringExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringExtensions.m; sourceTree = "<group>"; };
 		CDC3C8CF18C139B2007026CE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CDC3C8D118C16F87007026CE /* right_machine_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_machine_room.png; sourceTree = "<group>"; };
 		CDC3C8D218C16F87007026CE /* left_machine_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_machine_room.png; sourceTree = "<group>"; };
@@ -224,8 +221,6 @@
 				0013FA4714111D6A004DC957 /* UIImage+OpenCV.mm */,
 				CD1B85231495EF5000AF3962 /* NSString+OpenCV.h */,
 				CD1B85241495EF5000AF3962 /* NSString+OpenCV.mm */,
-				CDC3C8CC18C12792007026CE /* NSStringExtensions.h */,
-				CDC3C8CD18C12792007026CE /* NSStringExtensions.m */,
 				0013FA2B14111D0F004DC957 /* Supporting Files */,
 			);
 			path = Classes;
@@ -416,7 +411,6 @@
 			files = (
 				0013FA3114111D0F004DC957 /* main.m in Sources */,
 				0013FA3514111D0F004DC957 /* DoubleShotAppDelegate.mm in Sources */,
-				CDC3C8CE18C12792007026CE /* NSStringExtensions.m in Sources */,
 				0013FA3B14111D0F004DC957 /* DoubleShotViewController.mm in Sources */,
 				0013FA4814111D6A004DC957 /* UIImage+OpenCV.mm in Sources */,
 				CD49794A1468BF9B00E3E813 /* Stitcher.mm in Sources */,
@@ -542,8 +536,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
