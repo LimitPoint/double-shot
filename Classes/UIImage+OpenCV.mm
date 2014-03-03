@@ -76,15 +76,6 @@
 	return iplImageScaled;
 }
 
--(cv::Mat)CVMat
-{
-    cv::Mat cvMat(self.size.height, self.size.width, CV_8UC4);
-    
-    UIImageToMat(self, cvMat);
-   
-    return cvMat;
-}
-
 + (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat
 {
     return MatToUIImage(cvMat);
